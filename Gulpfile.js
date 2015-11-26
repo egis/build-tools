@@ -9,10 +9,12 @@ var bower = require('./gulp/bower');
 var pack = require('./gulp/package');
 var partials = require('./gulp/partials');
 var templates = require('./gulp/templates');
-var watchify = require('./gulp/watchify');
+var rollup = require('./gulp/rollup');
 var webserver = require('./gulp/webserver');
 
-console.log(require('optimist').argv.watch)
+require('./gulp/generate-es6-index');
+
+console.log(require('optimist').argv.watch);
 
 require('./gulp/styles');
 
@@ -30,20 +32,20 @@ if (argv.concat)
 }
 else
 {
-	gulp.task('compile', watchify);
-	gulp.task('bundle', ['compile', 'templates'], require('./gulp/bundle'));
-	gulp.task('webserver', webserver(8100));    
+    gulp.task('compile', ['generate-es6-index'], rollup);
+    gulp.task('bundle', ['compile', 'templates'], require('./gulp/bundle'));
+    gulp.task('webserver', webserver(8100));
 }
 
-require('./gulp/plugin.js')
+require('./gulp/plugin.js');
 
-gulp.task('watch',function() {
-	if (argv.concat) {
- 		gulp.watch('src/**/*.js', ['compile']);
- 	} else {
-        gulp.watch('src/**/*.js', ['bundle']);
+gulp.task('watch', ['package'], function() {
+    if (argv.concat) {
+        gulp.watch('src/**/*.js', ['compile']);
+    } else {
+        gulp.watch(['src/**/*.js', "!src/lib-exports*.js"], ['bundle']);
     }
-  	gulp.watch('src/**/*.hbs', ['templates']);
+    gulp.watch('src/**/*.hbs', ['templates']);
     gulp.watch('style/**/*.*', ['styles']);
     gulp.run('webserver')
 });
