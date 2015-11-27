@@ -13,6 +13,7 @@ var rollup = require('./gulp/rollup');
 var webserver = require('./gulp/webserver');
 
 require('./gulp/generate-es6-index');
+require('./gulp/copy-app-configs');
 
 console.log(require('optimist').argv.watch);
 
@@ -32,7 +33,7 @@ if (argv.concat)
 }
 else
 {
-    gulp.task('compile', ['generate-es6-index'], rollup);
+    gulp.task('compile', ['copy-app-configs', 'generate-es6-index'], rollup);
     gulp.task('bundle', ['compile', 'templates'], require('./gulp/bundle'));
     gulp.task('webserver', webserver(8100));
 }
@@ -43,7 +44,7 @@ gulp.task('watch', ['package'], function() {
     if (argv.concat) {
         gulp.watch('src/**/*.js', ['compile']);
     } else {
-        gulp.watch(['src/**/*.js', "!src/lib-exports*.js"], ['bundle']);
+        gulp.watch(['src/**/*.js', "!src/.rollup-lib-exports.js"], ['bundle']);
     }
     gulp.watch('src/**/*.hbs', ['templates']);
     gulp.watch('style/**/*.*', ['styles']);

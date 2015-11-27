@@ -18,7 +18,7 @@ gulp.task('gen-stage1-file-list', function ()
 gulp.task('gen-stage2-wildcard-exports', ['gen-stage1-file-list'], function () {
     return gulp.src('dist/' + filename)
         .pipe(jsonTransform(function(data) {
-            var blacklist = ['rollup-lib-exports.js', 'rollup-manual-exports.js', 'rollup-index.js', 'index.js'];
+            var blacklist = ['.rollup-lib-exports.js', '.rollup-manual-exports.js', '.rollup-index.js', 'index.js'];
             var lines = [];
             var fillLines;
             fillLines = function(values) {
@@ -40,8 +40,8 @@ gulp.task('gen-stage2-wildcard-exports', ['gen-stage1-file-list'], function () {
 
 gulp.task('gen-stage3-join-exports', ['gen-stage2-wildcard-exports'], function ()
 {
-    return gulp.src(['dist/out/' + filename , 'src/rollup-manual-exports.js'])
-        .pipe(concat('rollup-lib-exports.js'))
+    return gulp.src(['dist/out/' + filename , 'src/.rollup-manual-exports.js'])
+        .pipe(concat('.rollup-lib-exports.js'))
         .pipe(gulp.dest('src/'))
 });
 

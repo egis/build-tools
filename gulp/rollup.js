@@ -9,12 +9,12 @@ var babel = require('rollup-plugin-babel');
 
 module.exports = function()
 {
-    return gulp.src('src/rollup-index.js', {read: false})
+    return gulp.src('src/.rollup-index.js', {read: false})
         .pipe(rollup({
             // any option supported by rollup can be set here, including sourceMap
             format: 'iife',
             sourceMap: true,
-            plugins: [ babel({highlightCode: true, presets: ['es2015-rollup']}) ]
+            plugins: [ babel() ]
         }))
         .pipe(concat(pkg.name + '.js'))
         .pipe(sourcemaps.write('.', {includeContent: !prod}))
