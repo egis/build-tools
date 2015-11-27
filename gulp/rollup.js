@@ -14,6 +14,7 @@ module.exports = function()
             // any option supported by rollup can be set here, including sourceMap
             format: 'iife',
             sourceMap: true,
+            moduleName: pkg.name,
             plugins: [ babel() ]
         }))
         .pipe(concat(pkg.name + '.js'))
