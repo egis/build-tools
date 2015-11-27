@@ -15,6 +15,9 @@ module.exports = function()
             format: 'iife',
             sourceMap: true,
             moduleName: pkg.name,
+            globals: {
+                egisui: 'EgisUI'
+            },
             plugins: [ babel({'presets': ['es2015-rollup'], 'highlightCode': true}) ]
         }))
         .pipe(concat(pkg.name + '.js'))
