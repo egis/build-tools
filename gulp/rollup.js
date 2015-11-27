@@ -15,7 +15,7 @@ module.exports = function()
             format: 'iife',
             sourceMap: true,
             moduleName: pkg.name,
-            plugins: [ babel() ]
+            plugins: [ babel({'presets': ['es2015-rollup'], 'highlightCode': true}) ]
         }))
         .pipe(concat(pkg.name + '.js'))
         .pipe(sourcemaps.write('.', {includeContent: !prod}))
