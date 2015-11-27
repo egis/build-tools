@@ -2,13 +2,13 @@
     "name": "CHANGEME",
     "mainFile": "CHANGEME",
     "scripts": {
-        "dev": "gulp --gulpfile node_modules/build-tools/Gulpfile.js --cwd ./ watch --watch --concat --host localhost",
+        "dev": "gulp --gulpfile node_modules/build-tools/Gulpfile.js --cwd ./ watch --watch --host localhost",
         "setup": "npm install && npm run update && bower install --allow-root && rm -rf build && npm run sprites && npm run dependencies",
         "dependencies": "gulp --gulpfile node_modules/build-tools/Gulpfile.js --cwd ./ dependencies --env production",
         "update": "sh node_modules/build-tools/npm-install.sh",
         "full": "npm run setup && npm run build && npm run test",
         "sprites": "gulp --gulpfile node_modules/build-tools/Gulpfile.js --cwd ./ sprites",
-        "build": "gulp --gulpfile node_modules/build-tools/Gulpfile.js --cwd ./ package --concat --env production",
+        "build": "gulp --gulpfile node_modules/build-tools/Gulpfile.js --cwd ./ package --env production",
         "local": "karma start --browsers=Chrome --host=localhost",
         "localPhantom": "karma start --browsers=PhantomJS --host=localhost",
         "test": "karma start --single-run --reporters=junit,coverage,html,verbose"
