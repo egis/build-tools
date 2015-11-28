@@ -19,7 +19,7 @@ module.exports = function()
 
         var watchifyBundle = watchify(
             browserify(opts)
-                .transform('babelify')
+                .transform('babelify', {highlightCode: true, presets: ['es2015']})
                 .transform('bulkify')
         );
 

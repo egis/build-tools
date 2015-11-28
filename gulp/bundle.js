@@ -17,7 +17,7 @@ module.exports = function()
 {
     return gulp.src(['dist/**/*.js', 'dist/templates/*.js'])
         .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(gulpif(prod, uglify({mangle: false})))
+        .pipe(gulpif(prod, uglify({mangle: false}))) //.on('error', require('gulp-util').log)
         .pipe(concat((pkg.mainFile || pkg.main) + '.js'))
         .pipe(sourcemaps.write('.', {includeContent: !prod}))
         .pipe(gulp.dest('build'))

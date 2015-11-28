@@ -48,6 +48,7 @@ gulp.task("compile",function () {
 
 var port = common.pkg.port || 8101;
 var main = common.pkg.mainFile;
+var host = common.host || 'localhost';
 
 gulp.task("webserver", function () {
     gulp.src(['dist', 'build'])
@@ -61,21 +62,16 @@ gulp.task("webserver", function () {
 })
 
 gulp.task('bundle', ['compile', 'templates'], function () {
-    var dist = [];
-    _.each("src/**/*.js", function (it) {
-        dist.push(it.replace('src/', 'dist/'))
-    })
-
     return gulp.src(["dist/**/*.js", "dist/templates/*.js"])
         .pipe(resolve())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(gulpif(common.prod, uglify({mangle: false})))
         .pipe(gulpif(common.watch, pseudoconcat(main + ".js", {
             webRoot: 'src',
-            host: 'http://localhost:' + port + '/'
+            host: 'http://' + host + ':' + port + '/'
         }), concat( main + ".js")))
         .pipe(gulpif(common.watch, replace('/dist/', '/')))
-        .pipe(gulpif(common.watch, replace('http://localhost:' +  port  + '/../', 'http://localhost:' +  port  + '/')))
+        .pipe(gulpif(common.watch, replace('http://' + host + ':' +  port  + '/../', 'http://' + host + ':' +  port  + '/')))
         .pipe(sourcemaps.write('.', {includeContent: !common.prod}))
         .pipe(debug())
         .pipe(replace('//# sourceMappingURL=../build/', '//# sourceMappingURL='))

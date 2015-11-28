@@ -72,6 +72,7 @@ module.exports = {
     pkg: pkg,
     bowerJson: bowerJson,
     watch: options.watch,
+    host: options.host,
     prod: options.env === 'production',
     main: main,
     replaceAll: replaceAll
