@@ -28,6 +28,8 @@ gulp.task('plugin', ['plugin_concat'], function() {
     del.sync('tmp');
     utils.sh("mkdir -p tmp/System/plugins/" + common.pkg.plugin + "/")
     utils.sh("mkdir -p tmp/PT-SCRIPTS");
+    utils.sh("rm build/*.js.gz")
+    utils.sh("rm build/*.js.map.gz")
     utils.sh("cp install.groovy tmp/PT-SCRIPTS/");
     utils.sh("cp -R resources/* tmp/")
     utils.sh("cp -R build/* tmp/System/plugins/" + common.pkg.plugin + "/")
