@@ -9,10 +9,17 @@ var zip = require('gulp-zip');
 var exit = require('gulp-exit');
 var del = require('del');
 var rename = require('gulp-rename');
+var pseudoconcat = require('gulp-pseudoconcat-js');
 
-var pkg = require('./common').pkg;
-var deploy = require('./common').deploy;
-var prod = require('./common').prod;
+
+var common = require('./common');
+var pkg = common.pkg;
+var deploy = common.deploy;
+var prod = common.prod;
+var port = common.pkg.port || 8101;
+var main = common.pkg.mainFile;
+var host = common.host || 'localhost';
+console.log('')
 
 module.exports = function()
 {
@@ -21,7 +28,6 @@ module.exports = function()
     console.log('Deploying to ' + deploy + "/" + file);
     return gulp.src(["build/**/*", '!**/' + file, '!build/' + pkg.name + '/**/*'])
         .pipe(addsrc("dist/*.png"))
-        .pipe(gulpif(pkg.plugin != null, rename({dirname: "System/plugins/" + pkg.plugin})))
         .pipe(zip(file))
         .pipe(gulp.dest(deploy))
         .pipe(gulp.dest('.'))

@@ -9,19 +9,41 @@ var connect = require('gulp-connect');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var gzip = require('gulp-gzip');
-
-var pkg = require('./common').pkg;
-var prod = require('./common').prod;
+var pseudoconcat = require('gulp-pseudoconcat-js');
+var common = require('./common');
+var pkg = common.pkg;
+var deploy = common.deploy;
+var prod = common.prod;
+var port = common.pkg.port || 8101;
+var main = common.pkg.mainFile;
+var host = common.host || 'localhost';
+var replace = require('gulp-replace');
 
 module.exports = function()
 {
-    return gulp.src(['dist/**/*.js', 'dist/templates/*.js'])
+
+	if (common.watch ) {
+		return gulp.src(['dist/**/*.js', 'dist/templates/*.js'])
+		    .pipe(sourcemaps.init({loadMaps: true}))
+		    .pipe(gulpif(prod, uglify({mangle: false}))) 
+		    .pipe(gulpif(common.watch, pseudoconcat(main + ".js", {
+            webRoot: 'src',
+            host: 'http://' + host + ':' + port + '/'
+        }), concat( main + ".js")))
+		    .pipe(sourcemaps.write('.', {includeContent: !prod}))
+		    .pipe(gulp.dest('build'))
+		    .pipe(gzip())
+		    .pipe(gulp.dest('build/'))
+		    .pipe(connect.reload());
+	} else {
+		 return gulp.src(['dist/**/*.js', 'dist/templates/*.js'])
+ 		.pipe(common.replaceAll())
         .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(gulpif(prod, uglify({mangle: false}))) //.on('error', require('gulp-util').log)
-        .pipe(concat((pkg.mainFile || pkg.main) + '.js'))
+        .pipe(gulpif(prod, uglify({mangle: false}))) 
+        .pipe(concat(pkg.mainFile + ".js"))
         .pipe(sourcemaps.write('.', {includeContent: !prod}))
         .pipe(gulp.dest('build'))
         .pipe(gzip())
-        .pipe(gulp.dest('build/'))
-        .pipe(connect.reload());
+        .pipe(gulp.dest('build/'));
+	}
 };

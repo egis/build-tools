@@ -6,6 +6,7 @@ var gulp = require('gulp');
 var argv = require('optimist').argv;
 var resources = require('./gulp/resources');
 var bower = require('./gulp/bower');
+var common = require('./gulp/common');
 var pack = require('./gulp/package');
 var partials = require('./gulp/partials');
 var templates = require('./gulp/templates');
@@ -15,7 +16,10 @@ var webserver = require('./gulp/webserver');
 require('./gulp/generate-es6-index');
 require('./gulp/copy-app-configs');
 
+
 console.log(require('optimist').argv.watch);
+
+var port = common.pkg.port || 8101;
 
 require('./gulp/styles');
 
@@ -27,25 +31,15 @@ gulp.task('templates', ['partials'], templates);
 gulp.task('partials', partials);
 gulp.task('default', ['package', 'webserver', 'watch']);
 
-if (argv.concat)
-{
-    require('./gulp/concat')
-}
-else
-{
-    gulp.task('compile', ['copy-app-configs', 'generate-es6-index'], rollup);
-    gulp.task('bundle', ['compile', 'templates'], require('./gulp/bundle'));
-    gulp.task('webserver', webserver(8100));
-}
+
+gulp.task('compile', ['copy-app-configs', 'generate-es6-index'], rollup);
+gulp.task('bundle', ['compile', 'templates'], require('./gulp/bundle'));
+gulp.task('webserver', webserver(port));
 
 require('./gulp/plugin.js');
 
 gulp.task('watch', ['package'], function() {
-    if (argv.concat) {
-        gulp.watch('src/**/*.js', ['compile']);
-    } else {
-        gulp.watch(['src/**/*.js', "!src/.rollup-lib-exports.js"], ['bundle']);
-    }
+    gulp.watch(['src/**/*.js', "!src/.rollup-lib-exports.js"], ['bundle']);
     gulp.watch('src/**/*.hbs', ['templates']);
     gulp.watch('style/**/*.*', ['styles']);
     gulp.run('webserver')
