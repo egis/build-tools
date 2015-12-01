@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var sourcemaps = require('gulp-sourcemaps');
 var connect = require('gulp-connect');
 var concat = require('gulp-concat');
-var gzip = require('gulp-gzip');
 var pseudoconcat = require('gulp-pseudoconcat-js');
 var common = require('./common');
 var port = common.pkg.port || 8101;
