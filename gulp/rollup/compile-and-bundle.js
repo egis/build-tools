@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var sourcemaps = require('gulp-sourcemaps');
 var concat = require('gulp-concat');
 
-var prod = require('./common').prod;
+var prod = require('../common').prod;
 var rollup = require('gulp-rollup');
 var babel = require('rollup-plugin-babel');
 
