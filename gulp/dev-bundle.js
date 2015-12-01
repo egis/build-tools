@@ -12,7 +12,7 @@ var replace = require('gulp-replace');
 
 module.exports = function()
 {
-    return gulp.src(['dist/**/*.js', 'dist/templates/*.js'])
+    return gulp.src(['dist/**/*.js', '!dist/work/**/*', 'dist/templates/*.js'])
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(pseudoconcat(main + ".js", {
             webRoot: 'src',

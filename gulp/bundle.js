@@ -14,7 +14,7 @@ var prod = common.prod;
 var replace = require('gulp-replace');
 
 module.exports = function() {
-    return gulp.src(['dist/**/*.js', 'dist/templates/*.js'])
+    return gulp.src(['dist/**/*.js', '!dist/work/**/*', 'dist/templates/*.js'])
         .pipe(common.replaceAll())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(gulpif(prod, uglify({mangle: false})))

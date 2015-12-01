@@ -4,13 +4,15 @@ var directoryMap = require("gulp-directory-map");
 var concat = require('gulp-concat');
 var forIn = require('lodash.forin');
 var is = require('is');
+var replace = require('gulp-replace');
 
 var filename = 'lib-exports.js.gen';
 
 var destDir = 'dist/work';
+
 gulp.task('copy-rollup-index', function () {
     return gulp.src(__dirname + '/propagate/rollup-index.js')
-        .pipe(gulp.dest(destDir));
+        .pipe(gulp.dest(destDir + '/'));
 
 });
 
@@ -20,11 +22,11 @@ gulp.task('gen-stage1-file-list', function ()
         .pipe(directoryMap({
             filename: 'modules.json'
         }))
-        .pipe(gulp.dest(destDir))
+        .pipe(gulp.dest(destDir + '/'))
 });
 
 gulp.task('gen-stage2-wildcard-exports', ['gen-stage1-file-list'], function () {
-    return gulp.src(destDir + '/' + modules.json)
+    return gulp.src(destDir + '/modules.json')
         .pipe(jsonTransform(function(data) {
             var blacklist = ['.rollup-lib-exports.js', '.rollup-manual-exports.js', '.rollup-index.js', 'index.js'];
             var lines = [];
@@ -44,14 +46,15 @@ gulp.task('gen-stage2-wildcard-exports', ['gen-stage1-file-list'], function () {
             return lines.join('\n');
         }))
         .pipe(concat('rollup-wildcard-exports.js'))
-        .pipe(gulp.dest(destDir))
+        .pipe(gulp.dest(destDir + '/'))
 });
 
-gulp.task('gen-stage3-join-exports', ['gen-stage2-wildcard-exports'], function ()
+gulp.task('gen-stage3-finalize-exports', ['gen-stage2-wildcard-exports'], function ()
 {
-    return gulp.src([destDir + 'rollup-wildcard-exports.js' , 'src/.rollup-manual-exports.js'])
+    return gulp.src([destDir + '/rollup-wildcard-exports.js' , 'src/.rollup-manual-exports.js'])
+        .pipe(replace('./', '../../src/'))
         .pipe(concat('rollup-all-exports.js'))
-        .pipe(gulp.dest(destDir))
+        .pipe(gulp.dest(destDir + '/'))
 });
 
-gulp.task('generate-es6-index', ['copy-rollup-index', 'gen-stage3-join-exports']);
+gulp.task('generate-es6-index', ['copy-rollup-index', 'gen-stage3-finalize-exports']);
