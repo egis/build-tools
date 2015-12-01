@@ -6,10 +6,9 @@ var forIn = require('lodash.forin');
 var is = require('is');
 var replace = require('gulp-replace');
 
-//'', 'src', 'dist'
 module.exports = function(tasksSuffix, srcDir, destDir)
 {
-    var destDir = 'dist/work';
+    var destDir = destDir + '/work';
 
     gulp.task('copy-rollup-index' + tasksSuffix, function () {
         return gulp.src(__dirname + '/propagate/rollup-index.js')
@@ -19,7 +18,7 @@ module.exports = function(tasksSuffix, srcDir, destDir)
 
     gulp.task('gen-stage1-file-list' + tasksSuffix, function ()
     {
-        return gulp.src('src/**/*.js')
+        return gulp.src(srcDir + '/**/*.js')
             .pipe(directoryMap({
                 filename: 'modules.json'
             }))
@@ -52,8 +51,8 @@ module.exports = function(tasksSuffix, srcDir, destDir)
 
     gulp.task('gen-stage3-finalize-exports' + tasksSuffix, ['gen-stage2-wildcard-exports' + tasksSuffix], function ()
     {
-        return gulp.src([destDir + '/rollup-wildcard-exports.js' , 'src/.rollup-manual-exports.js'])
-            .pipe(replace('./', '../../src/'))
+        return gulp.src([destDir + '/rollup-wildcard-exports.js' , srcDir + '/.rollup-manual-exports.js'])
+            .pipe(replace('./', '../../' + srcDir + '/'))
             .pipe(concat('rollup-all-exports.js'))
             .pipe(gulp.dest(destDir + '/'))
     });
