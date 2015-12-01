@@ -6,9 +6,9 @@ var prod = require('../common').prod;
 var rollup = require('gulp-rollup');
 var babel = require('rollup-plugin-babel');
 
-module.exports = function(entry, moduleName)
+module.exports = function(dir, moduleName)
 {
-    return gulp.src(entry, {read: false})
+    return gulp.src(dir + '/work/rollup-index.js', {read: false})
         .pipe(rollup({
             // any option supported by rollup can be set here, including sourceMap
             format: 'iife',
@@ -21,5 +21,5 @@ module.exports = function(entry, moduleName)
         }))
         .pipe(concat(moduleName + '.js'))
         .pipe(sourcemaps.write('.', {includeContent: !prod}))
-        .pipe(gulp.dest('dist/'));
+        .pipe(gulp.dest(dir + '/'));
 };
