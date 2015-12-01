@@ -6,8 +6,7 @@ var forIn = require('lodash.forin');
 var is = require('is');
 var replace = require('gulp-replace');
 
-module.exports = function(tasksSuffix, srcDir, destDir)
-{
+module.exports = function(tasksSuffix, srcDir, destDir) {
     var destDir = destDir + '/work';
 
     gulp.task('copy-rollup-index' + tasksSuffix, function () {
@@ -34,7 +33,7 @@ module.exports = function(tasksSuffix, srcDir, destDir)
                 fillLines = function(modulesPathes) {
                     forIn(modulesPathes, function(modulePath) {
                         if (is.string(modulePath)) {
-                            if (blacklist.indexOf(modulePath) === -1 && modulePath.indexOf(destDir) === -1) {
+                            if (blacklist.indexOf(modulePath) === -1 && modulePath.indexOf('work/') === -1) {
                                 lines.push("export * from './" + modulePath.replace(/\.js$/, '') + "';");
                             }
                         } else {
@@ -57,5 +56,6 @@ module.exports = function(tasksSuffix, srcDir, destDir)
             .pipe(gulp.dest(destDir + '/'))
     });
 
-    gulp.task('generate-es6-index' + tasksSuffix, ['copy-rollup-index' + tasksSuffix, 'gen-stage3-finalize-exports' + tasksSuffix]);
-}
+    gulp.task('generate-es6-index' + tasksSuffix, ['copy-rollup-index' + tasksSuffix, 'gen-stage3-finalize-exports' +
+        tasksSuffix]);
+};
