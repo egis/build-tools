@@ -31,14 +31,14 @@ module.exports = function(tasksSuffix, srcDir, destDir)
                 var blacklist = ['.rollup-lib-exports.js', '.rollup-manual-exports.js', '.rollup-index.js', 'index.js'];
                 var lines = [];
                 var fillLines;
-                fillLines = function(values) {
-                    forIn(values, function(value) {
-                        if (is.string(value)) {
-                            if (blacklist.indexOf(value) === -1) {
-                                lines.push("export * from './" + value.replace(/\.js$/, '') + "';");
+                fillLines = function(modulesPathes) {
+                    forIn(modulesPathes, function(modulePath) {
+                        if (is.string(modulePath)) {
+                            if (blacklist.indexOf(modulePath) === -1 && modulePath.indexOf(destDir) === -1) {
+                                lines.push("export * from './" + modulePath.replace(/\.js$/, '') + "';");
                             }
                         } else {
-                            fillLines(value);
+                            fillLines(modulePath);
                         }
                     });
                 };
