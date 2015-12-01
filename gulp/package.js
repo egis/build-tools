@@ -17,7 +17,7 @@ module.exports = function()
     var file = pkg.name + (pkg.plugin ? ".zip" : ".war");
     del.sync('build/' + file);
     console.log('Deploying to ' + deploy + "/" + file);
-    return gulp.src(["build/**/*", '!**/' + file, '!build/' + pkg.name + '/**/*'])
+    return gulp.src(["build/**/*", '!**/' + file, '!build/' + pkg.name + '/**/*', '!build/test/**/**'])
         .pipe(addsrc("dist/*.png"))
         .pipe(zip(file))
         .pipe(gulp.dest(deploy))
