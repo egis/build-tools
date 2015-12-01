@@ -6,17 +6,25 @@ var forIn = require('lodash.forin');
 var is = require('is');
 
 var filename = 'lib-exports.js.gen';
+
+var destDir = 'dist/work';
+gulp.task('copy-rollup-index', function () {
+    return gulp.src(__dirname + '/../propagate/rollup-index.js')
+        .pipe(gulp.dest(destDir));
+
+});
+
 gulp.task('gen-stage1-file-list', function ()
 {
     return gulp.src('src/**/*.js')
         .pipe(directoryMap({
             filename: filename
         }))
-        .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest(destDir))
 });
 
 gulp.task('gen-stage2-wildcard-exports', ['gen-stage1-file-list'], function () {
-    return gulp.src('dist/' + filename)
+    return gulp.src('dist/work/' + filename)
         .pipe(jsonTransform(function(data) {
             var blacklist = ['.rollup-lib-exports.js', '.rollup-manual-exports.js', '.rollup-index.js', 'index.js'];
             var lines = [];
@@ -35,14 +43,14 @@ gulp.task('gen-stage2-wildcard-exports', ['gen-stage1-file-list'], function () {
             fillLines(data);
             return lines.join('\n');
         }))
-        .pipe(gulp.dest('dist/out'))
+        .pipe(gulp.dest(destDir + '/out'))
 });
 
 gulp.task('gen-stage3-join-exports', ['gen-stage2-wildcard-exports'], function ()
 {
-    return gulp.src(['dist/out/' + filename , 'src/.rollup-manual-exports.js'])
-        .pipe(concat('.rollup-lib-exports.js'))
-        .pipe(gulp.dest('src/'))
+    return gulp.src([destDir + '/out/' + filename , 'src/.rollup-manual-exports.js'])
+        .pipe(concat('rollup-lib-exports.js'))
+        .pipe(gulp.dest(destDir))
 });
 
-gulp.task('generate-es6-index', ['gen-stage3-join-exports']);
+gulp.task('generate-es6-index', ['copy-rollup-index', 'gen-stage3-join-exports']);
