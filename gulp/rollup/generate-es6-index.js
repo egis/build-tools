@@ -9,7 +9,7 @@ var filename = 'lib-exports.js.gen';
 
 var destDir = 'dist/work';
 gulp.task('copy-rollup-index', function () {
-    return gulp.src(__dirname + '/rollup-index.js')
+    return gulp.src(__dirname + '/propagate/rollup-index.js')
         .pipe(gulp.dest(destDir));
 
 });
