@@ -17,7 +17,7 @@ var oldRollupStructureCleanup = require('./gulp/rollup/old-rollup-structure-clea
 
 var generateEs6IndexTasks = require('./gulp/rollup/generate-es6-index-tasks');
 generateEs6IndexTasks('', 'src', 'dist/work');
-generateEs6IndexTasks('-test', 'test', 'build-tests/work');
+generateEs6IndexTasks('-test', 'test', 'build-test/work');
 
 var port = common.pkg.port || 8101;
 
@@ -38,7 +38,7 @@ gulp.task('compile', ['del-dist', 'old-rollup-structure-cleanup', 'generate-es6-
 });
 
 gulp.task('compile-tests', ['generate-es6-index-test'], function() {
-    return rollup('build-tests', 'tests');
+    return rollup('build-test', 'tests');
 });
 
 gulp.task('bundle', ['compile', 'templates'], require('./gulp/bundle'));
@@ -48,8 +48,8 @@ gulp.task('webserver', webserver(port));
 require('./gulp/plugin.js');
 
 gulp.task('watch', ['dev-bundle', 'compile-tests', 'webserver'], function() {
-    gulp.watch(['src/**/*.js'], ['dev-bundle']);
-    gulp.watch(['dist/*.js'], ['compile-tests']);
+    gulp.watch(['src/**/*.js', 'src/.rollup-manual-exports.js'], ['dev-bundle']);
+    gulp.watch(['dist/*.js', 'test/**/*.js'], ['compile-tests']);
     gulp.watch('src/**/*.hbs', ['templates']);
     gulp.watch('style/**/*.*', ['styles']);
 });
