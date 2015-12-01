@@ -9,13 +9,13 @@ var common = require('./gulp/common');
 var pack = require('./gulp/package');
 var partials = require('./gulp/partials');
 var templates = require('./gulp/templates');
-var rollup = require('./gulp/rollup');
+var rollup = require('./gulp/rollup/compile-and-bundle');
 var webserver = require('./gulp/webserver');
 var exit = require('gulp-exit');
 var delDist = require('./gulp/del-dist');
+var oldRollupStructureCleanup = require('./gulp/rollup/old-rollup-structure-cleanup');
 
-require('./gulp/generate-es6-index');
-require('./gulp/copy-app-configs');
+require('./gulp/rollup/generate-es6-index');
 
 var port = common.pkg.port || 8101;
 
@@ -30,8 +30,9 @@ gulp.task('partials', partials);
 gulp.task('default', ['package', 'webserver', 'watch']);
 gulp.task('del-dist', delDist);
 
-gulp.task('compile', ['del-dist', 'copy-app-configs', 'generate-es6-index'], function() {
-    return rollup('src/.rollup-index.js', common.pkg.name);
+gulp.task('old-rollup-structure-cleanup', oldRollupStructureCleanup);
+gulp.task('compile', ['del-dist', 'old-rollup-structure-cleanup', 'generate-es6-index'], function() {
+    return rollup('dist/work/rollup-index.js', common.pkg.name);
 });
 
 gulp.task('bundle', ['compile', 'templates'], require('./gulp/bundle'));
