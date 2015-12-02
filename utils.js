@@ -88,6 +88,7 @@ module.exports = {
                 '**/*.json'   : ['json_fixtures']
             },
             files: [
+                'build-test/tests.js',
                 'node_modules/jasmine-ajax/lib/mock-ajax.js'
             ],
             customLaunchers: {
