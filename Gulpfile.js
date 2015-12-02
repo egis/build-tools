@@ -52,7 +52,7 @@ require('./gulp/plugin.js');
 
 gulp.task('watch', ['dev-bundle', 'compile-tests', 'webserver'], function() {
     gulp.watch(['src/**/*.js', 'src/.rollup-manual-exports.js'], ['dev-bundle']);
-    gulp.watch(['dist/*.js', 'test/**/*.js'], ['compile-tests']);
+    gulp.watch(['test/**/*.js'], ['compile-tests']);
     gulp.watch('src/**/*.hbs', ['templates']);
     gulp.watch('style/**/*.*', ['styles']);
 });
