@@ -12,7 +12,7 @@ var templates = require('./gulp/templates');
 var rollup = require('./gulp/rollup/compile-and-bundle');
 var webserver = require('./gulp/webserver');
 var exit = require('gulp-exit');
-var delDist = require('./gulp/del-dist');
+var delDir = require('./gulp/del-dir');
 var oldRollupStructureCleanup = require('./gulp/rollup/old-rollup-structure-cleanup');
 
 var generateEs6IndexTasks = require('./gulp/rollup/generate-es6-index-tasks');
@@ -23,6 +23,8 @@ var port = common.pkg.port || 8101;
 
 require('./gulp/styles');
 
+var testsBundleDir = 'build-test';
+
 gulp.task('resources', resources);
 gulp.task('dependencies', ['resources'], bower);
 gulp.task('package', ['all'], pack);
@@ -30,15 +32,16 @@ gulp.task('all', ['bundle', 'styles', 'resources']);
 gulp.task('templates', ['partials'], templates);
 gulp.task('partials', partials);
 gulp.task('default', ['package', 'webserver', 'watch']);
-gulp.task('del-dist', delDist);
+gulp.task('del-dist', delDir('dist'));
+gulp.task('del-build-test', delDir(testsBundleDir));
 
 gulp.task('old-rollup-structure-cleanup', oldRollupStructureCleanup);
 gulp.task('compile', ['del-dist', 'old-rollup-structure-cleanup', 'generate-es6-index'], function() {
     return rollup('dist', common.pkg.name);
 });
 
-gulp.task('compile-tests', ['generate-es6-index-test'], function() {
-    return rollup('build-test', 'tests');
+gulp.task('compile-tests', ['del-build-test', 'generate-es6-index-test'], function() {
+    return rollup(testsBundleDir, 'tests');
 });
 
 gulp.task('bundle', ['compile', 'templates'], require('./gulp/bundle'));
