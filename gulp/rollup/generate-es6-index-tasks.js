@@ -40,7 +40,7 @@ module.exports = function(tasksSuffix, srcDir, destDir) {
                     });
                 };
                 fillLines(data);
-                return lines.join('\n');
+                return lines.sort().join('\n');
             }))
             .pipe(concat('rollup-wildcard-exports.js'))
             .pipe(gulp.dest(destDir + '/'))
