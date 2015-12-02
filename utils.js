@@ -87,10 +87,6 @@ module.exports = {
                 '**/*.js': ['sourcemap'],
                 '**/*.json'   : ['json_fixtures']
             },
-            files: [
-                'build-test/tests.js',
-                'node_modules/jasmine-ajax/lib/mock-ajax.js'
-            ],
             customLaunchers: {
                 'REMOTE-IE11': {
                     base: 'WebDriver',
