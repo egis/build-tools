@@ -4,6 +4,7 @@ var concat = require('gulp-concat');
 
 var rollup = require('gulp-rollup');
 var babel = require('rollup-plugin-babel');
+var prod = require('../common').prod;
 
 module.exports = function(bundleDir, moduleName) {
     return gulp.src(bundleDir + '/work/rollup-index.js', {read: false})
@@ -19,6 +20,6 @@ module.exports = function(bundleDir, moduleName) {
             plugins: [ babel({'presets': ['es2015-rollup'], 'highlightCode': true}) ]
         }))
         .pipe(concat(moduleName + '.js'))
-        .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../src'}))
+        .pipe(sourcemaps.write('.', {includeContent: !prod, sourceRoot: '../src'}))
         .pipe(gulp.dest(bundleDir + '/'));
 };
