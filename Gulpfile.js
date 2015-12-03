@@ -40,9 +40,13 @@ gulp.task('del-build-test', function () {
 });
 
 gulp.task('old-rollup-structure-cleanup', oldRollupStructureCleanup);
-gulp.task('compile', ['del-dist', 'old-rollup-structure-cleanup', 'generate-es6-index'], function() {
+gulp.task('rollup-compile', ['del-dist', 'old-rollup-structure-cleanup', 'generate-es6-index'], function() {
     return rollup('dist', common.pkg.name);
 });
+
+gulp.task('fix-rollup-sourcemaps', ['rollup-compile'], require('./gulp/rollup/fix-sourcemaps'));
+
+gulp.task('compile', ['rollup-compile', 'fix-rollup-sourcemaps']);
 
 gulp.task('compile-tests', ['del-build-test', 'generate-es6-index-test'], function() {
     return rollup(testsBundleDir, 'tests');
