@@ -8,16 +8,37 @@ var port = common.pkg.port || 8101;
 var main = common.pkg.mainFile;
 var host = common.host || 'localhost';
 var replace = require('gulp-replace');
+var rollup = require('./rollup/rollup');
+var debug = require('gulp-debug');
+var print = require('gulp-print');
+var changed = require('gulp-changed');
 
-module.exports = function()
-{
-    return gulp.src(['dist/**/*.js', '!dist/work/**/*', 'dist/templates/*.js'])
+gulp.task('dev-recompile', function () {
+    var d0 = 0;
+    return gulp.src(['src/**/*.js', '!src/.rollup*'])
+        .pipe(changed('dist'))
+        .once('data', function() {d0 = new Date().getTime()})
+        .pipe(debug())
+        .pipe(rollup('EgisUI'))
+        .pipe(print(function() {
+            var d = new Date().getTime();
+            var res = d - d0;
+            d0 = d;
+            return ['done in ', res, 'ms'].join("");
+        }))
+        .pipe(sourcemaps.write('.', {includeContent: !common.prod, sourceRoot: '../src'}))
+        .pipe(gulp.dest('dist'));
+
+});
+
+gulp.task('dev-bundle', ['dev-recompile', 'templates'], function() {
+    return gulp.src(['dist/**/*.js', '!dist/EgisUI.js', '!dist/work/**/*', 'dist/templates/*.js'])
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(pseudoconcat(main + ".js", {
             webRoot: 'src',
             host: 'http://' + host + ':' + port + '/'
-        }), concat( main + ".js"))
+        }))
         .pipe(sourcemaps.write('.', {includeContent: true}))
         .pipe(gulp.dest('build'))
         .pipe(connect.reload());
-};
+});

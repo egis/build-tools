@@ -70,6 +70,7 @@
     "gulp-less": "^3.0.5",
     "gulp-main-bower-files": "^1.2.5",
     "gulp-plumber": "^1.0.1",
+    "gulp-print": "^2.0.1",
     "gulp-pseudoconcat-js": "egis/gulp-pseudoconcat-js",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
