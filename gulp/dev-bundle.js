@@ -8,7 +8,7 @@ var port = common.pkg.port || 8101;
 var main = common.pkg.mainFile;
 var host = common.host || 'localhost';
 var replace = require('gulp-replace');
-var rollup = require('./rollup/rollup');
+var babel = require('gulp-babel');
 var debug = require('gulp-debug');
 var print = require('gulp-print');
 var changed = require('gulp-changed');
@@ -19,7 +19,12 @@ gulp.task('dev-recompile', function () {
         .pipe(changed('dist'))
         .once('data', function() {d0 = new Date().getTime()})
         .pipe(debug())
-        .pipe(rollup('EgisUI'))
+        .pipe(function() {
+            return babel({
+                highlightCode: true,
+                presets: ['es2015-rollup']
+            })
+        })
         .pipe(print(function() {
             var d = new Date().getTime();
             var res = d - d0;
