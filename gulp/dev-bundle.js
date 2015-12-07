@@ -15,7 +15,7 @@ var changed = require('gulp-changed');
 
 gulp.task('dev-recompile', function () {
     var d0 = 0;
-    return gulp.src(['src/**/*.js', '!src/.rollup*'])
+    return gulp.src(['src/**/*.js', '!src/.rollup*', '!src/**/*_scsslint_*'])
         .pipe(changed('dist'))
         .once('data', function() {d0 = new Date().getTime()})
         .pipe(debug())
