@@ -9,9 +9,10 @@
         "full": "npm run setup && npm run build && npm run test",
         "sprites": "gulp --gulpfile node_modules/build-tools/Gulpfile.js --cwd ./ sprites",
         "build": "gulp --gulpfile node_modules/build-tools/Gulpfile.js --cwd ./ package --env production",
-        "local": "karma start --browsers=Chrome --host=localhost",
-        "localPhantom": "karma start --browsers=PhantomJS --host=localhost",
-        "test": "karma start --single-run --reporters=junit,coverage,html,verbose"
+        "test:build": "gulp --gulpfile node_modules/build-tools/Gulpfile.js --cwd ./ compile-tests",
+        "test:local:run": "karma start --browsers=Chrome --host=localhost",
+        "test:local": "npm run test:build && npm run test:local:run",
+        "test": "npm run test:build && karma start --single-run --reporters=junit,coverage,html,verbose"
     },
     "version": "0.0.1",
     "devDependencies": {

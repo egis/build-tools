@@ -75,5 +75,6 @@ module.exports = {
     host: options.host,
     prod: options.env === 'production',
     main: main,
-    replaceAll: replaceAll
+    replaceAll: replaceAll,
+    testPkgName: 'bundle'
 };

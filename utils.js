@@ -80,23 +80,12 @@ module.exports = {
             },
             hostname: hostname.split(' ').join(''),
             basePath: '',
-            frameworks: ['jasmine-jquery', 'jasmine'],
+            frameworks: ['jasmine-jquery', 'jasmine', 'fixture'],
             exclude: [],
             preprocessors: {
                 '**/*.coffee': ['coffee'],
-                '**/*.js': ['sourcemap']
-            },
-            coffeePreprocessor: {
-                // options passed to the coffee compiler
-                options: {
-                    bare: true,
-                    sourceMap: true
-                },
-                // transforming the filenames
-                transformPath: function (path)
-                {
-                    return path.replace(/\.coffee$/, '.js')
-                }
+                '**/*.js': ['sourcemap'],
+                '**/*.json'   : ['json_fixtures']
             },
             customLaunchers: {
                 'REMOTE-IE11': {
@@ -120,6 +109,9 @@ module.exports = {
                     name: 'Karma',
                     pseudoActivityInterval: 30000
                 }
+            },
+            jsonFixturesPreprocessor: {
+                variableName: '__json__'
             }
         });
     },
