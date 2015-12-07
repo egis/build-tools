@@ -58,7 +58,9 @@ gulp.task('bundle', ['compile', 'templates'], require('./gulp/bundle'));
 
 gulp.task('webserver', webserver(port));
 
-gulp.task('watch', ['dev-bundle', 'compile-tests', 'webserver'], function() {
+gulp.task('dev-package', ['dev-bundle', 'styles', 'resources'], pack);
+
+gulp.task('watch', ['dev-package', 'compile-tests', 'webserver'], function() {
     gulp.watch(['src/**/*.js'], ['dev-recompile']);
     gulp.watch(['test/**/*.js'], ['compile-tests']);
     gulp.watch('src/**/*.hbs', ['templates']);

@@ -35,13 +35,20 @@ gulp.task('dev-recompile', function () {
 
 });
 
-gulp.task('dev-bundle', ['dev-recompile', 'templates'], function() {
-    return gulp.src(['dist/**/*.js', '!dist/EgisUI.js', '!dist/work/**/*', 'dist/templates/*.js'])
+gulp.task('generate-systemjs-index', ['generate-es6-index'], function() {
+    var destDir  = 'dist';
+    return gulp.src([destDir + '/work/rollup-wildcard-exports.js'])
+        .pipe(replace(/export \* from '(.+)'/g, "require('$1')"))
+        .pipe(concat('index.js'))
+        .pipe(gulp.dest(destDir + '/'))
+});
+
+gulp.task('dev-bundle', ['generate-systemjs-index', 'dev-recompile', 'templates'], function() {
+    return gulp.src([__dirname + '/systemjs/propagate/loader.js', __dirname + '/../../systemjs/dist/systemjs.js',
+        'dist/templates/*.js'])
+
         .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(pseudoconcat(main + ".js", {
-            webRoot: 'src',
-            host: 'http://' + host + ':' + port + '/'
-        }))
+        .pipe(concat(main + ".js"))
         .pipe(sourcemaps.write('.', {includeContent: true}))
-        .pipe(gulp.dest('build'))
+        .pipe(gulp.dest('build'));
 });
