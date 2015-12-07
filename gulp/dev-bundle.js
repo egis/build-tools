@@ -2,11 +2,8 @@ var gulp = require('gulp');
 var sourcemaps = require('gulp-sourcemaps');
 var connect = require('gulp-connect');
 var concat = require('gulp-concat');
-var pseudoconcat = require('gulp-pseudoconcat-js');
 var common = require('./common');
-var port = common.pkg.port || 8101;
 var main = common.pkg.mainFile;
-var host = common.host || 'localhost';
 var replace = require('gulp-replace');
 var babel = require('gulp-babel');
 var debug = require('gulp-debug');
@@ -44,9 +41,8 @@ gulp.task('generate-systemjs-index', ['generate-es6-index'], function() {
 });
 
 gulp.task('dev-bundle', ['generate-systemjs-index', 'dev-recompile', 'templates'], function() {
-    return gulp.src([__dirname + '/systemjs/propagate/loader.js', __dirname + '/../../systemjs/dist/systemjs.js',
-        'dist/templates/*.js'])
-
+    return gulp.src(['dist/templates/*.js', __dirname + '/../../systemjs/dist/system.js', __dirname + '/systemjs/propagate/loader.js'])
+        .pipe(debug())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(concat(main + ".js"))
         .pipe(sourcemaps.write('.', {includeContent: true}))
