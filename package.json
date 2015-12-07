@@ -115,6 +115,7 @@
     "rollup-plugin-babel": "^2.2.0",
     "semver": "^5.1.0",
     "source-map": "^0.5.3",
+    "systemjs": "^0.19.6",
     "underscore": "^1.8.3",
     "unzip": "^0.1.11",
     "vinyl-buffer": "^1.0.0",

@@ -15,16 +15,14 @@ var changed = require('gulp-changed');
 
 gulp.task('dev-recompile', function () {
     var d0 = 0;
-    return gulp.src(['src/**/*.js', '!src/.rollup*', '!src/**/*_scsslint_*'])
+    return gulp.src(['src/**/*.js', '!src/.rollup*', '!src/**/*_scsslint_*', '!src/index.js'])
         .pipe(changed('dist'))
         .once('data', function() {d0 = new Date().getTime()})
         .pipe(debug())
-        .pipe(function() {
-            return babel({
-                highlightCode: true,
-                presets: ['es2015-rollup']
-            })
-        })
+        .pipe(babel({
+            highlightCode: true,
+            presets: ['es2015']
+        }))
         .pipe(print(function() {
             var d = new Date().getTime();
             var res = d - d0;
@@ -32,7 +30,8 @@ gulp.task('dev-recompile', function () {
             return ['done in ', res, 'ms'].join("");
         }))
         .pipe(sourcemaps.write('.', {includeContent: !common.prod, sourceRoot: '../src'}))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist'))
+        .pipe(connect.reload());
 
 });
 
@@ -45,5 +44,4 @@ gulp.task('dev-bundle', ['dev-recompile', 'templates'], function() {
         }))
         .pipe(sourcemaps.write('.', {includeContent: true}))
         .pipe(gulp.dest('build'))
-        .pipe(connect.reload());
 });
