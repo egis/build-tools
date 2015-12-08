@@ -1,9 +1,13 @@
-// loads relative to the current page URL
-System.config({
-    "defaultJSExtensions": true
-});
-var d0 = new Date().getTime();
-System.import('../dist/index').then(function(m) {
-    console.log('loaded in', new Date().getTime() - d0);
-    window.bundle.loaded();
-});
+var EgisUILoadPromise = (function () {
+    "use strict";
+
+    System.config({
+        "defaultJSExtensions": true
+    });
+    var d0 = new Date().getTime();
+    var p = System.import('http://localhost:8101/dist/index');
+    p.then(function() {
+        console.log('loaded in', new Date().getTime() - d0);
+    });
+    return p;
+})();
