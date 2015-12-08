@@ -11,7 +11,7 @@ var common = require('./common');
 var pkg = common.pkg;
 
 module.exports = function() {
-    return gulp.src(['dist/**/*.js', 'dist/templates/*.js', '!dist/work/**/*'])
+    return gulp.src(['dist/' + common.pkg.name + '.js', 'dist/templates/*.js', '!dist/work/**/*'])
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(common.replaceAll())
         .pipe(uglify({mangle: false}))
