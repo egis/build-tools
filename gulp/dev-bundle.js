@@ -9,12 +9,15 @@ var babel = require('gulp-babel');
 var debug = require('gulp-debug');
 var print = require('gulp-print');
 var changed = require('gulp-changed');
+var plumber = require('gulp-plumber');
 
 function devCompilingPipeline(src, renameTo) {
     var d0 = 0;
     var res = src
         .pipe(changed('dist'))
+        .pipe(sourcemaps.init())
         .once('data', function() {d0 = new Date().getTime()})
+        .pipe(plumber())
         .pipe(debug())
         .pipe(babel({
             highlightCode: true,
@@ -32,23 +35,23 @@ function devCompilingPipeline(src, renameTo) {
     }
 
     res
-        .pipe(sourcemaps.write('.', {includeContent: !common.prod, sourceRoot: '../src'}))
+        .pipe(sourcemaps.write('.', {includeContent: true, sourceRoot: '../src'}))
         .pipe(gulp.dest('dist'))
         .pipe(connect.reload());
 
 }
 
 gulp.task('dev-recompile', function () {
-    return devCompilingPipeline(gulp.src(['src/**/*.js', '!src/.rollup*', '!src/**/*_scsslint_*']));
+    return devCompilingPipeline(gulp.src(['src/**/*.js', 'src/.lib-exports.js', '!src/**/*_scsslint_*']));
 });
 
 gulp.task('examples-recompile', function () {
     return devCompilingPipeline(gulp.src(['src/.Examples.js']), 'Examples.js');
 });
 
-gulp.task('generate-systemjs-index', ['generate-es6-index'], function() {
+gulp.task('generate-systemjs-index', ['generate-es6-index', 'dev-recompile'], function() {
     var destDir  = 'dist';
-    return gulp.src([destDir + '/work/rollup-wildcard-exports.js'])
+    return gulp.src([destDir + '/work/rollup-wildcard-exports.js', destDir + '/.lib-exports.js'])
         .pipe(replace(/export \* from '(.+)'/g, "require('$1')"))
         .pipe(concat('index.js'))
         .pipe(gulp.dest(destDir + '/'))

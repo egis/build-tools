@@ -35,6 +35,7 @@ gulp.task('dev-package', ['del-dist', 'dev-bundle', 'dev-examples-bundle', 'styl
 
 gulp.task('watch', ['dev-package', 'compile-tests', 'webserver'], function() {
     gulp.watch(['src/**/*.js'], ['dev-recompile']);
+    gulp.watch(['src/.loader.js', __dirname + '/gulp/systemjs/propagate/loader.js'], ['dev-bundle']);
     gulp.watch(['src/.examples-loader.js'], ['dev-examples-bundle']);
     gulp.watch(['src/.Examples.js'], ['examples-recompile']);
     gulp.watch(['test/**/*.js'], ['compile-tests']);
