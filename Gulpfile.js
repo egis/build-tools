@@ -11,6 +11,7 @@ var partials = require('./gulp/partials');
 var templates = require('./gulp/templates');
 var webserver = require('./gulp/webserver');
 var exit = require('gulp-exit');
+var reloadConnection = require('./gulp/reload-connection');
 
 require('./gulp/styles');
 require('./gulp/dev-bundle');
@@ -34,12 +35,12 @@ gulp.task('webserver', webserver(port));
 gulp.task('dev-package', ['del-dist', 'dev-bundle', 'dev-examples-bundle', 'styles', 'resources'], pack);
 
 gulp.task('watch', ['dev-package', 'compile-tests', 'webserver'], function() {
-    gulp.watch(['src/**/*.js'], ['dev-recompile']);
-    gulp.watch(['src/.loader.js', __dirname + '/gulp/systemjs/propagate/loader.js'], ['dev-bundle']);
-    gulp.watch(['src/.examples-loader.js'], ['dev-examples-bundle']);
-    gulp.watch(['src/.Examples.js'], ['examples-recompile']);
-    gulp.watch(['test/**/*.js'], ['compile-tests']);
-    gulp.watch('src/**/*.hbs', ['templates']);
-    gulp.watch('style/**/*.*', ['styles']);
+    gulp.watch(['src/**/*.js'], ['dev-recompile'], reloadConnection);
+    gulp.watch(['src/.loader.js', __dirname + '/gulp/systemjs/propagate/loader.js'], ['dev-bundle'], reloadConnection);
+    gulp.watch(['src/.examples-loader.js'], ['dev-examples-bundle'], reloadConnection);
+    gulp.watch(['src/.Examples.js'], ['examples-recompile'], reloadConnection);
+    gulp.watch(['test/**/*.js'], ['compile-tests'], reloadConnection);
+    gulp.watch('src/**/*.hbs', ['templates'], reloadConnection);
+    gulp.watch('style/**/*.*', ['styles'], reloadConnection);
 });
 

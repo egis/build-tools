@@ -8,7 +8,7 @@ var replace = require('gulp-replace');
 
 module.exports = function(tasksSuffix, srcDir, destDir) {
     gulp.task('copy-rollup-index' + tasksSuffix, function () {
-        return gulp.src([__dirname + '/propagate/' + srcDir + '/rollup-index.js', srcDir + '/.lib-exports.js'])
+        return gulp.src([__dirname + '/propagate/rollup-index.js', srcDir + '/.lib-exports.js'])
             .pipe(concat('rollup-index.js'))
             .pipe(gulp.dest(destDir + '/'));
 

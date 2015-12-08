@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var sourcemaps = require('gulp-sourcemaps');
-var connect = require('gulp-connect');
 var concat = require('gulp-concat');
 var common = require('./common');
 var main = common.pkg.mainFile;
@@ -34,11 +33,9 @@ function devCompilingPipeline(src, renameTo) {
         res = res.pipe(concat(renameTo));
     }
 
-    res
+    return res
         .pipe(sourcemaps.write('.', {includeContent: true, sourceRoot: '../src'}))
-        .pipe(gulp.dest('dist'))
-        .pipe(connect.reload());
-
+        .pipe(gulp.dest('dist'));
 }
 
 gulp.task('dev-recompile', function () {
@@ -52,6 +49,7 @@ gulp.task('examples-recompile', function () {
 gulp.task('generate-systemjs-index', ['generate-es6-index', 'dev-recompile'], function() {
     var destDir  = 'dist';
     return gulp.src([destDir + '/work/rollup-wildcard-exports.js', destDir + '/.lib-exports.js'])
+        .pipe(debug())
         .pipe(replace(/export \* from '(.+)'/g, "require('$1')"))
         .pipe(concat('index.js'))
         .pipe(gulp.dest(destDir + '/'))
