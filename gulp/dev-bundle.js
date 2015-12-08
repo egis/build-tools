@@ -39,7 +39,7 @@ function devCompilingPipeline(src, renameTo) {
 }
 
 gulp.task('dev-recompile', function () {
-    return devCompilingPipeline(gulp.src(['src/**/*.js', 'src/.lib-exports.js', '!src/**/*_scsslint_*']));
+    return devCompilingPipeline(gulp.src(['src/**/*.js', 'src/lib-exports.js', '!src/**/*_scsslint_*']));
 });
 
 gulp.task('examples-recompile', function () {
@@ -48,7 +48,7 @@ gulp.task('examples-recompile', function () {
 
 gulp.task('generate-systemjs-index', ['generate-es6-index', 'dev-recompile'], function() {
     var destDir  = 'dist';
-    return gulp.src([destDir + '/work/rollup-wildcard-exports.js', destDir + '/.lib-exports.js'])
+    return gulp.src([destDir + '/work/rollup-wildcard-exports.js', destDir + '/lib-exports.js'])
         .pipe(debug())
         .pipe(replace(/export \* from '(.+)'/g, "require('$1')"))
         .pipe(concat('index.js'))
