@@ -6,11 +6,12 @@ var rollup = require('./rollup');
 var babel = require('rollup-plugin-babel');
 var prod = require('../common').prod;
 
-module.exports = function(bundleDir, moduleName) {
-    return gulp.src(bundleDir + '/work/rollup-index.js', {read: false})
+module.exports = function(bundleDir, moduleName, entryFile) {
+    entryFile = entryFile || bundleDir + '/work/rollup-index.js';
+    return gulp.src(entryFile, {read: false})
         .pipe(sourcemaps.init())
         .pipe(rollup(moduleName))
         .pipe(concat(moduleName + '.js'))
-        .pipe(sourcemaps.write('.', {includeContent: !prod, sourceRoot: '../src'}))
+        .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../src'}))
         .pipe(gulp.dest(bundleDir + '/'));
 };
