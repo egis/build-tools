@@ -10,9 +10,9 @@ var debug = require('gulp-debug');
 var print = require('gulp-print');
 var changed = require('gulp-changed');
 
-gulp.task('dev-recompile', function () {
+function devCompilingPipeline(src, renameTo) {
     var d0 = 0;
-    return gulp.src(['src/**/*.js', '!src/.rollup*', '!src/**/*_scsslint_*', '!src/index.js'])
+    var res = src
         .pipe(changed('dist'))
         .once('data', function() {d0 = new Date().getTime()})
         .pipe(debug())
@@ -25,11 +25,25 @@ gulp.task('dev-recompile', function () {
             var res = d - d0;
             d0 = d;
             return ['done in ', res, 'ms'].join("");
-        }))
+        }));
+
+    if (renameTo) {
+        res = res.pipe(concat(renameTo));
+    }
+
+    res
         .pipe(sourcemaps.write('.', {includeContent: !common.prod, sourceRoot: '../src'}))
         .pipe(gulp.dest('dist'))
         .pipe(connect.reload());
 
+}
+
+gulp.task('dev-recompile', function () {
+    return devCompilingPipeline(gulp.src(['src/**/*.js', '!src/.rollup*', '!src/**/*_scsslint_*']));
+});
+
+gulp.task('examples-recompile', function () {
+    return devCompilingPipeline(gulp.src(['src/.Examples.js']), 'Examples.js');
 });
 
 gulp.task('generate-systemjs-index', ['generate-es6-index'], function() {
@@ -41,10 +55,18 @@ gulp.task('generate-systemjs-index', ['generate-es6-index'], function() {
 });
 
 gulp.task('dev-bundle', ['generate-systemjs-index', 'dev-recompile', 'templates'], function() {
-    return gulp.src(['dist/templates/*.js', __dirname + '/../../systemjs/dist/system.js', __dirname + '/systemjs/propagate/loader.js'])
-        .pipe(debug())
+    return gulp.src(['dist/templates/*.js', __dirname + '/../../systemjs/dist/system.js',
+            __dirname + '/systemjs/propagate/loader.js', 'src/.loader.js'])
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(concat(main + ".js"))
+        .pipe(sourcemaps.write('.', {includeContent: true}))
+        .pipe(gulp.dest('build'));
+});
+
+gulp.task('dev-examples-bundle', ['examples-recompile'], function() {
+    return gulp.src(['src/.examples-loader.js'])
+        .pipe(sourcemaps.init({loadMaps: true}))
+        .pipe(concat("examples.js"))
         .pipe(sourcemaps.write('.', {includeContent: true}))
         .pipe(gulp.dest('build'));
 });
