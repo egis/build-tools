@@ -23,7 +23,7 @@ module.exports = function(tasksSuffix, srcDir, destDir) {
 
     gulp.task('gen-stage1-file-list' + tasksSuffix, function ()
     {
-        return gulp.src([srcDir + '/**/*.js', '!src/lib-exports.js', '!src/**/*_scsslint_*'])
+        return gulp.src([srcDir + '/**/*.js', '!' + srcDir + '/lib-exports.js', '!' + srcDir + '/**/*_scsslint_*'])
             .pipe(directoryMap({
                 filename: 'modules.json'
             }))
