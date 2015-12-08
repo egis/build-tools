@@ -4,7 +4,6 @@ var concat = require('gulp-concat');
 
 var rollup = require('./rollup');
 var babel = require('rollup-plugin-babel');
-var prod = require('../common').prod;
 
 module.exports = function(bundleDir, moduleName, entryFile) {
     entryFile = entryFile || bundleDir + '/work/rollup-index.js';
