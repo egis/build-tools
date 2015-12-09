@@ -24,10 +24,6 @@ gulp.task('fix-main-sourcemaps', ['compile'], function() {
     return fixSourcemaps.distBundle('main');
 });
 
-gulp.task('fix-examples-sourcemaps', ['compile-examples'], function() {
-    return fixSourcemaps.distBundle('examples');
-});
-
 gulp.task('fix-main-build-sourcemaps', ['do-bundle-main'], function() {
     return fixSourcemaps.endBundle('main');
 });
@@ -46,12 +42,7 @@ gulp.task('do-bundle-main', ['compile', 'templates', 'fix-main-sourcemaps'], fun
 
 gulp.task('bundle-main', ['do-bundle-main', 'fix-main-build-sourcemaps']);
 
-gulp.task('bundle-examples', ['compile-examples', 'fix-examples-sourcemaps'], function() {
-    return gulp.src([common.dist.examples + '/' + common.bundles.examples])
-        .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../' + common.srcDirs.examples}))
-        .pipe(gulp.dest('build'));
-});
+gulp.task('bundle-examples', ['compile-examples']);
 
 gulp.task('bundle', ['old-dist-structure-cleanup', 'bundle-main', 'bundle-examples']);
 

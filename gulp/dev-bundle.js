@@ -54,7 +54,7 @@ gulp.task('generate-systemjs-index', ['generate-es6-index', 'dev-recompile'], fu
         .pipe(gulp.dest(destDir + '/'))
 });
 
-gulp.task('generate-systemjs-tests-index', ['generate-es6-index-test', 'dev-recompile-tests'], function() {
+gulp.task('generate-systemjs-tests-index', ['generate-es6-index-tests', 'dev-recompile-tests'], function() {
     var destDir  = common.dist.tests;
     return gulp.src([destDir + '/.work/.rollup-wildcard-exports.js', destDir + '/.lib-exports.js'])
         .pipe(debug())
