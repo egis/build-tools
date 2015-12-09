@@ -2,20 +2,13 @@ var rollup = require('./compile-and-bundle');
 var gulp = require('gulp');
 var generateEs6IndexTasks = require('./generate-es6-index-tasks');
 var common = require('../common');
+var _ = require('lodash');
 
-generateEs6IndexTasks('main');
-generateEs6IndexTasks('tests');
-generateEs6IndexTasks('examples');
+_.each(common.bundleKinds, function(kind) {
+    generateEs6IndexTasks(kind);
 
-gulp.task('compile', ['generate-es6-index-main'], function() {
-    return rollup('main', common.pkg.name);
+    gulp.task('compile-' + kind, ['generate-es6-index-' + kind], function() {
+        return rollup('main', common.module[kind]);
+    });
+
 });
-
-gulp.task('compile-examples', ['generate-es6-index-examples'], function() {
-    return rollup('examples', 'Examples');
-});
-
-gulp.task('compile-tests', ['generate-es6-index-tests'], function() {
-    return rollup('tests', 'Tests');
-});
-

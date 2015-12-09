@@ -3,18 +3,14 @@ var gulp = require('gulp');
 var debug = require('gulp-debug');
 var gulpif = require('gulp-if');
 var replace = require('gulp-replace');
-var addsrc = require('gulp-add-src');
 var zip = require('gulp-zip');
 var concat = require('gulp-concat');
 var exit = require('gulp-exit');
 var del = require('del');
-var pseudoconcat = require('gulp-pseudoconcat-js');
-var uglify = require('gulp-uglify');
-var rename = require('gulp-rename');
 var sourcemaps = require('gulp-sourcemaps');
 var common = require('./common');
 
-gulp.task('plugin_concat', ['compile', 'templates'], function() {
+gulp.task('plugin_concat', ['compile-main', 'templates'], function() {
      return gulp.src([common.dist.main + "/**/*.js", common.dist.main + "/templates/*.js"])
         .pipe(concat( common.bundles.main ))
         .pipe(gulpif(common.watch, replace('/dist/', '/')))

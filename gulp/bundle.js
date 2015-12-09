@@ -21,7 +21,7 @@ gulp.task('old-build-test-structure-cleanup', function() {
     del.sync('build-test');
 });
 
-gulp.task('fix-main-sourcemaps', ['compile'], function() {
+gulp.task('fix-main-sourcemaps', ['compile-main'], function() {
     return fixSourcemaps.distBundle('main');
 });
 
@@ -29,7 +29,7 @@ gulp.task('fix-main-build-sourcemaps', ['do-bundle-main'], function() {
     return fixSourcemaps.endBundle('main');
 });
 
-gulp.task('do-bundle-main', ['compile', 'templates', 'fix-main-sourcemaps'], function() {
+gulp.task('do-bundle-main', ['compile-main', 'templates', 'fix-main-sourcemaps'], function() {
     return gulp.src([common.dist.main + '/' + common.bundles.main, common.dist.main + '/templates/*.js'])
         .pipe(sourcemaps.init({loadMaps: true, debug: true}))
         .pipe(common.replaceAll())

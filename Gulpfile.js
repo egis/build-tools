@@ -31,7 +31,7 @@ gulp.task('default', ['package', 'webserver', 'watch']);
 
 gulp.task('webserver', webserver(common.port));
 
-gulp.task('dev-package', ['dev-bundle', 'dev-bundle-examples', 'styles', 'resources'], pack);
+gulp.task('dev-package', ['dev-bundle-main', 'dev-bundle-examples', 'styles', 'resources'], pack);
 
 gulp.task('watch', ['dev-package', 'dev-bundle-tests', 'webserver'], function() {
     _.each(common.bundleKinds, function(kind) {

@@ -15,13 +15,13 @@ module.exports = function(kind) {
     var up = '../../';  //let's improve when needed
     var workDir = destDir + '/.work';
 
-    gulp.task('prepare-lib-exports' + tasksSuffix, ['del-' + kind + '-dist'], function () {
+    gulp.task('prepare-lib-exports-rollup-' + tasksSuffix, ['del-' + kind + '-dist'], function () {
         return gulp.src([srcDir + '/.lib-exports.js'])
             .pipe(replace('./', up + srcDir + '/'))
             .pipe(gulp.dest(destDir + '/'));
     });
 
-    gulp.task('copy-rollup-index' + tasksSuffix, ['prepare-lib-exports' + tasksSuffix], function () {
+    gulp.task('copy-rollup-index' + tasksSuffix, ['prepare-lib-exports-rollup-' + tasksSuffix], function () {
         return gulp.src([__dirname + '/propagate/.rollup-index.js', destDir + '/.lib-exports.js'])
             .pipe(concat('.rollup-index.js'))
             .pipe(gulp.dest(destDir + '/'));

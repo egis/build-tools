@@ -97,5 +97,10 @@ module.exports = {
         main: distDir + '/main',
         tests: distDir + '/test',
         examples: distDir + '/examples'
+    },
+    module: {
+        main: pkg.name,
+        tests: 'Tests',
+        examples: 'Examples'
     }
 };

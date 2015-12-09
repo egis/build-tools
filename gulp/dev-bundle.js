@@ -16,7 +16,7 @@ function devCompilingPipeline(kind) {
     var srcDir = common.srcDirs[kind];
     var destDir = common.dist[kind];
     var d0 = 0;
-    return gulp.src([srcDir + '/**/*.js', srcDir + '/.lib-exports.js', '!' + srcDir + '/**/*_scsslint_*'])
+    return gulp.src([srcDir + '/**/*.js', destDir + '/.lib-exports.js', '!' + srcDir + '/**/*_scsslint_*'])
         .pipe(changed(destDir))
         .pipe(sourcemaps.init())
         .once('data', function() {d0 = new Date().getTime()})
@@ -37,11 +37,11 @@ function devCompilingPipeline(kind) {
 }
 
 _.each(['main', 'tests', 'examples'], function(kind) {
-    gulp.task('dev-recompile-' + kind, function () {
+    gulp.task('dev-recompile-' + kind, [], function () {
         return devCompilingPipeline(kind);
     });
 
-    gulp.task('generate-systemjs-' + kind + '-index', ['generate-es6-index-' + kind, 'dev-recompile-' + kind], function() {
+    gulp.task('generate-systemjs-' + kind + '-index', ['gen-stage2-wildcard-exports-' + kind, 'dev-recompile-' + kind], function() {
         var destDir  = common.dist[kind];
         return gulp.src([destDir + '/.work/.rollup-wildcard-exports.js', destDir + '/.lib-exports.js'])
             .pipe(debug())
@@ -51,7 +51,7 @@ _.each(['main', 'tests', 'examples'], function(kind) {
     });
 
     gulp.task('prepare-' + kind + '-dev-loader', ['del-' + kind + '-dist'], function() {
-        return gulp.src([common.srcDir[kind] + '/.dev-loader.js'])
+        return gulp.src([common.srcDirs[kind] + '/.dev-loader.js'])
             .pipe(sourcemaps.init())
             .pipe(replace('HOST', common.host))
             .pipe(replace('PORT', common.port))
@@ -61,7 +61,7 @@ _.each(['main', 'tests', 'examples'], function(kind) {
 });
 
 function devBundle(kind, sources) {
-    sources = sources || [common.srcDirs[kind] + '/.dev-loader.js'];
+    sources = sources || [common.dist[kind] + '/.dev-loader.js'];
     return gulp.src(sources)
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(concat(common.bundles[kind]))
@@ -69,12 +69,15 @@ function devBundle(kind, sources) {
         .pipe(gulp.dest('build'));
 }
 
-gulp.task('dev-bundle-main', ['generate-systemjs-main-index', 'dev-recompile', 'templates', 'prepare-main-dev-loader'], function() {
-    return devBundle('main', [common.dist.main + '/templates/*.js', __dirname + '/../../systemjs/dist/system.js', 'src/.dev-loader.js'])
+gulp.task('dev-bundle-main', ['generate-systemjs-main-index', 'dev-recompile-main', 'templates', 'prepare-main-dev-loader'], function() {
+    return devBundle('main', [common.dist.main + '/templates/*.js', __dirname + '/../../systemjs/dist/system.js',
+            common.dist.main  + '/.dev-loader.js'])
 });
 
 _.each(['tests', 'examples'], function(kind) {
-    gulp.task('dev-bundle-' + kind, ['generate-systemjs-' + kind + '-index', 'dev-recompile-' + kind], function() {
+    gulp.task('dev-bundle-' + kind, ['generate-systemjs-' + kind + '-index', 'dev-recompile-' + kind,
+            'prepare-' + kind + '-dev-loader'], function() {
+
         return devBundle(kind);
     });
 });
