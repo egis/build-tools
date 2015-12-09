@@ -2,7 +2,6 @@ var oldBuildTestStructureCleanup = require('./old-build-test-structure-cleanup')
 var rollup = require('./compile-and-bundle');
 var gulp = require('gulp');
 var generateEs6IndexTasks = require('./generate-es6-index-tasks');
-var fixSourcemaps = require('./fix-sourcemaps');
 var common = require('../common');
 var delDist = require('../del-dist');
 
@@ -19,17 +18,15 @@ gulp.task('del-test-dist', ['old-build-test-structure-cleanup'], function () {
 
 gulp.task('old-build-test-structure-cleanup', oldBuildTestStructureCleanup);
 gulp.task('rollup-compile', ['del-dist', 'generate-es6-index'], function() {
-    return rollup(common.dist.main, common.pkg.name);
+    return rollup(common.dist.main, common.pkg.name, 'src');
 });
 
 gulp.task('rollup-compile-examples', function() {
-    return rollup('build', 'examples', 'examples/index.js');
+    return rollup('build', 'examples', 'examples', 'examples/index.js');
 });
 
-gulp.task('fix-rollup-sourcemaps', ['rollup-compile'], fixSourcemaps);
-
-gulp.task('compile', ['rollup-compile', 'fix-rollup-sourcemaps', 'rollup-compile-examples']);
+gulp.task('compile', ['rollup-compile', 'rollup-compile-examples']);
 gulp.task('compile-tests', ['del-test-dist', 'generate-es6-index-test'], function() {
-    return rollup(common.dist.test, 'tests');
+    return rollup(common.dist.test, 'tests', 'test');
 });
 
