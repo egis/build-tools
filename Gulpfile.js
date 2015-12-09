@@ -31,15 +31,15 @@ gulp.task('bundle', ['compile', 'templates'], require('./gulp/bundle'));
 
 gulp.task('webserver', webserver(port));
 
-gulp.task('dev-package', ['del-dist', 'dev-bundle', 'dev-examples-bundle', 'styles', 'resources'], pack);
+gulp.task('dev-package', ['del-dist', 'dev-bundle', 'dev-bundle-examples', 'styles', 'resources'], pack);
 
 gulp.task('watch', ['dev-package', 'dev-bundle-tests', 'webserver'], function() {
     gulp.watch(['src/**/*.js'], ['dev-recompile'], reloadConnection);
-    gulp.watch(['src/.loader.js'], ['dev-bundle'], reloadConnection);
-    gulp.watch(['src/.examples-loader.js'], ['dev-examples-bundle'], reloadConnection);
-    gulp.watch(['src/.Examples.js'], ['recompile-examples'], reloadConnection);
+    gulp.watch(['src/.dev-loader.js'], ['dev-bundle'], reloadConnection);
+    gulp.watch(['examples/**/*.js'], ['recompile-examples'], reloadConnection);
+    gulp.watch(['examples/.dev-loader.js'], ['dev-bundle-examples'], reloadConnection);
     gulp.watch(['test/**/*.js'], ['dev-recompile-tests'], reloadConnection);
-    gulp.watch(['test/.loader.js'], ['dev-bundle-tests'], reloadConnection);
+    gulp.watch(['test/.dev-loader.js'], ['dev-bundle-tests'], reloadConnection);
     gulp.watch('src/**/*.hbs', ['templates'], reloadConnection);
     gulp.watch('style/**/*.*', ['styles'], reloadConnection);
 });

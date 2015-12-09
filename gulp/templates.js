@@ -20,5 +20,5 @@ module.exports = function()
             root: 'window'
         }))
         .pipe(flatten())
-        .pipe(gulp.dest('dist/templates'));
+        .pipe(gulp.dest(common.dist.main + '/templates'));
 };

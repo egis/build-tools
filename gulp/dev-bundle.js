@@ -10,11 +10,9 @@ var print = require('gulp-print');
 var changed = require('gulp-changed');
 var plumber = require('gulp-plumber');
 
-function devCompilingPipeline(src, renameTo, destDir, srcDir) {
-    destDir = destDir || 'dist';
-    srcDir = srcDir || 'src';
+function devCompilingPipeline(srcDir, destDir) {
     var d0 = 0;
-    var res = src
+    return gulp.src([srcDir + '/**/*.js', srcDir + '/.lib-exports.js', '!' + srcDir + '/**/*_scsslint_*'])
         .pipe(changed(destDir))
         .pipe(sourcemaps.init())
         .once('data', function() {d0 = new Date().getTime()})
@@ -29,32 +27,25 @@ function devCompilingPipeline(src, renameTo, destDir, srcDir) {
             var res = d - d0;
             d0 = d;
             return ['done in ', res, 'ms'].join("");
-        }));
-
-    if (renameTo) {
-        res = res.pipe(concat(renameTo));
-    }
-
-    return res
+        }))
         .pipe(sourcemaps.write('.', {includeContent: true, sourceRoot: '../' + srcDir}))
         .pipe(gulp.dest(destDir));
 }
 
 gulp.task('dev-recompile', function () {
-    return devCompilingPipeline(gulp.src(['src/**/*.js', 'src/.lib-exports.js', '!src/**/*_scsslint_*']));
+    return devCompilingPipeline('src', common.dist.main);
 });
 
 gulp.task('dev-recompile-tests', function () {
-    return devCompilingPipeline(gulp.src(['test/**/*.js', 'test/.lib-exports.js', '!test/**/*_scsslint_*']), null,
-        'build-test', 'test');
+    return devCompilingPipeline('test', common.dist.test);
 });
 
 gulp.task('recompile-examples', function () {
-    return devCompilingPipeline(gulp.src(['src/.Examples.js']), 'Examples.js');
+    return devCompilingPipeline('examples', common.dist.examples);
 });
 
 gulp.task('generate-systemjs-index', ['generate-es6-index', 'dev-recompile'], function() {
-    var destDir  = 'dist';
+    var destDir  = common.dist.main;
     return gulp.src([destDir + '/work/rollup-wildcard-exports.js', destDir + '/.lib-exports.js'])
         .pipe(debug())
         .pipe(replace(/export \* from '(.+)'/g, "require('$1')"))
@@ -63,7 +54,7 @@ gulp.task('generate-systemjs-index', ['generate-es6-index', 'dev-recompile'], fu
 });
 
 gulp.task('generate-systemjs-tests-index', ['generate-es6-index-test', 'dev-recompile-tests'], function() {
-    var destDir  = 'build-test';
+    var destDir  = common.dist.test;
     return gulp.src([destDir + '/work/rollup-wildcard-exports.js', destDir + '/.lib-exports.js'])
         .pipe(debug())
         .pipe(replace(/export \* from '(.+)'/g, "require('$1')"))
@@ -72,16 +63,17 @@ gulp.task('generate-systemjs-tests-index', ['generate-es6-index-test', 'dev-reco
 });
 
 gulp.task('dev-bundle', ['generate-systemjs-index', 'dev-recompile', 'templates'], function() {
-    return gulp.src(['dist/templates/*.js', __dirname + '/../../systemjs/dist/system.js',
-            __dirname + '/systemjs/propagate/loader.js', 'src/.loader.js'])
+    return gulp.src([common.dist.main + '/templates/*.js', __dirname + '/../../systemjs/dist/system.js',
+        'src/.dev-loader.js'])
+
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(concat(main + ".js"))
         .pipe(sourcemaps.write('.', {includeContent: true}))
         .pipe(gulp.dest('build'));
 });
 
-gulp.task('dev-examples-bundle', ['recompile-examples'], function() {
-    return gulp.src(['src/.examples-loader.js'])
+gulp.task('dev-bundle-examples', ['recompile-examples'], function() {
+    return gulp.src(['examples/.dev-loader.js'])
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(concat("examples.js"))
         .pipe(sourcemaps.write('.', {includeContent: true}))
@@ -89,9 +81,9 @@ gulp.task('dev-examples-bundle', ['recompile-examples'], function() {
 });
 
 gulp.task('dev-bundle-tests', ['generate-systemjs-tests-index', 'dev-recompile-tests'], function() {
-    return gulp.src(['test/.loader.js'])
+    return gulp.src(['test/.dev-loader.js'])
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(concat("tests.js"))
         .pipe(sourcemaps.write('.', {includeContent: true}))
-        .pipe(gulp.dest('build-test'));
+        .pipe(gulp.dest('build'));
 });

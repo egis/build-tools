@@ -25,5 +25,5 @@ module.exports = function ()
             }
         }))
         .pipe(concat('partials.js'))
-        .pipe(gulp.dest('dist/templates'));
+        .pipe(gulp.dest(common.dist.main + '/templates'));
 };

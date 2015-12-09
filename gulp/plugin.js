@@ -15,7 +15,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var common = require('./common');
 
 gulp.task('plugin_concat', ['compile', 'templates'], function() {
-     return gulp.src(["dist/**/*.js", "dist/templates/*.js"])  
+     return gulp.src([common.dist.main + "/**/*.js", common.dist.main + "/templates/*.js"])
         .pipe(concat( common.main + ".js"))
         .pipe(gulpif(common.watch, replace('/dist/', '/')))
         .pipe(gulpif(common.watch, replace('http://localhost:' +  common.port  + '/../', 'http://localhost:' +  common.port  + '/')))

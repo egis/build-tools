@@ -67,6 +67,7 @@ var replaceAll = lazypipe()
         return replace('@@timestamp', timestamp)
     });
 
+var distDir = 'dist';
 module.exports = {
     deploy: deploy,
     pkg: pkg,
@@ -76,5 +77,10 @@ module.exports = {
     prod: options.env === 'production',
     main: main,
     replaceAll: replaceAll,
-    testPkgName: 'bundle'
+    dist: {
+        dir: distDir,
+        main: distDir + '/main',
+        test: distDir + '/test',
+        examples: distDir + '/examples'
+    }
 };
