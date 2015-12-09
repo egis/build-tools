@@ -11,6 +11,6 @@ module.exports = function(bundleDir, moduleName, entryFile) {
         .pipe(sourcemaps.init())
         .pipe(rollup(moduleName))
         .pipe(concat(moduleName + '.js'))
-        .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../src'}))
+        .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../src'}))
         .pipe(gulp.dest(bundleDir + '/'));
 };

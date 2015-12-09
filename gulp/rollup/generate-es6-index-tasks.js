@@ -33,7 +33,7 @@ module.exports = function(tasksSuffix, srcDir, destDir) {
     });
 
     gulp.task('gen-stage2-wildcard-exports' + tasksSuffix, ['gen-stage1-file-list' + tasksSuffix], function () {
-        return gulp.src(destDir + '/modules.json')
+        return gulp.src(workDir + '/modules.json')
             .pipe(jsonTransform(function(data) {
                 var blacklist = [];
                 var lines = [];
