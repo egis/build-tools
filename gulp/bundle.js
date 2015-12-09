@@ -8,12 +8,13 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var gzip = require('gulp-gzip');
 var common = require('./common');
-var delDist = require('./del-dist');
 var fixSourcemaps = require('./rollup/fix-sourcemaps');
 var del = require('del');
 
+require('./cleanup');
+
 gulp.task('old-dist-structure-cleanup', function() {
-    return delDist(common.dist.dir);
+    //return delDist(common.dist.dir);
 });
 
 gulp.task('old-build-test-structure-cleanup', function() {

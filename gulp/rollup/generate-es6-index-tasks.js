@@ -6,6 +6,7 @@ var forIn = require('lodash.forin');
 var is = require('is');
 var replace = require('gulp-replace');
 var common = require('../common');
+require('../cleanup');
 
 module.exports = function(kind) {
     var tasksSuffix = '-' + kind;
@@ -14,7 +15,7 @@ module.exports = function(kind) {
     var up = '../../';  //let's improve when needed
     var workDir = destDir + '/.work';
 
-    gulp.task('prepare-lib-exports' + tasksSuffix, function () {
+    gulp.task('prepare-lib-exports' + tasksSuffix, ['del-' + kind + '-dist'], function () {
         return gulp.src([srcDir + '/.lib-exports.js'])
             .pipe(replace('./', up + srcDir + '/'))
             .pipe(gulp.dest(destDir + '/'));
