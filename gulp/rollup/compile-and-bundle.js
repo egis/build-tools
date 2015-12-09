@@ -4,23 +4,19 @@ var concat = require('gulp-concat');
 
 var rollup = require('./rollup');
 var babel = require('rollup-plugin-babel');
-var fixSourcemaps = require('./fix-sourcemaps');
-var foreach = require('gulp-foreach');
+var delDist = require('../del-dist');
+var common = require('../common');
 
-module.exports = function(bundleDir, moduleName, srcDir, entryFile) {
-    entryFile = entryFile || bundleDir + '/.rollup-index.js';
-    var moduleFilename = moduleName + '.js';
+module.exports = function(bundleKind, moduleName) {
+    var bundleDir = common.dist[bundleKind];
+    var entryFile = bundleDir + '/.rollup-index.js';
+    var bundleFilename = common.bundles[bundleKind];
+    var srcDir = common.srcDirs[bundleKind];
+    delDist(bundleDir);
     return gulp.src(entryFile, {read: false})
         .pipe(sourcemaps.init())
         .pipe(rollup(moduleName))
-        .pipe(concat(moduleFilename))
+        .pipe(concat(bundleFilename))
         .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../' + srcDir}))
-        .pipe(foreach(function(stream, file){
-            if (file.path.indexOf('js.map') !== -1) {
-                return stream.pipe(fixSourcemaps(bundleDir, srcDir));
-            } else {
-                return stream;
-            }
-        }))
         .pipe(gulp.dest(bundleDir + '/'))
 };

@@ -5,8 +5,12 @@ var concat = require('gulp-concat');
 var forIn = require('lodash.forin');
 var is = require('is');
 var replace = require('gulp-replace');
+var common = require('../common');
 
-module.exports = function(tasksSuffix, srcDir, destDir) {
+module.exports = function(kind) {
+    var tasksSuffix = '-' + kind;
+    var srcDir = common.srcDirs[kind];
+    var destDir = common.dist[kind];
     var up = '../../';  //let's improve when needed
     var workDir = destDir + '/.work';
 

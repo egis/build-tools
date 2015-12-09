@@ -71,6 +71,16 @@ var distDir = 'dist';
 module.exports = {
     deploy: deploy,
     pkg: pkg,
+    bundles: {
+        main: pkg.mainFile + '.js',
+        tests: 'tests.js',
+        examples: 'examples.js'
+    },
+    srcDirs: {
+        main: 'src',
+        tests: 'test',
+        examples: 'examples'
+    },
     bowerJson: bowerJson,
     watch: options.watch,
     host: options.host,
@@ -80,7 +90,7 @@ module.exports = {
     dist: {
         dir: distDir,
         main: distDir + '/main',
-        test: distDir + '/test',
+        tests: distDir + '/test',
         examples: distDir + '/examples'
     }
 };

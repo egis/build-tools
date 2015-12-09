@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var sourcemaps = require('gulp-sourcemaps');
 var concat = require('gulp-concat');
 var common = require('./common');
-var main = common.pkg.mainFile;
 var replace = require('gulp-replace');
 var babel = require('gulp-babel');
 var debug = require('gulp-debug');
@@ -37,7 +36,7 @@ gulp.task('dev-recompile', function () {
 });
 
 gulp.task('dev-recompile-tests', function () {
-    return devCompilingPipeline('test', common.dist.test);
+    return devCompilingPipeline('test', common.dist.tests);
 });
 
 gulp.task('recompile-examples', function () {
@@ -54,7 +53,7 @@ gulp.task('generate-systemjs-index', ['generate-es6-index', 'dev-recompile'], fu
 });
 
 gulp.task('generate-systemjs-tests-index', ['generate-es6-index-test', 'dev-recompile-tests'], function() {
-    var destDir  = common.dist.test;
+    var destDir  = common.dist.tests;
     return gulp.src([destDir + '/.work/.rollup-wildcard-exports.js', destDir + '/.lib-exports.js'])
         .pipe(debug())
         .pipe(replace(/export \* from '(.+)'/g, "require('$1')"))
@@ -67,7 +66,7 @@ gulp.task('dev-bundle', ['generate-systemjs-index', 'dev-recompile', 'templates'
         'src/.dev-loader.js'])
 
         .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(concat(main + ".js"))
+        .pipe(concat(common.bundles.main))
         .pipe(sourcemaps.write('.', {includeContent: true}))
         .pipe(gulp.dest('build'));
 });
@@ -75,7 +74,7 @@ gulp.task('dev-bundle', ['generate-systemjs-index', 'dev-recompile', 'templates'
 gulp.task('dev-bundle-examples', ['recompile-examples'], function() {
     return gulp.src(['examples/.dev-loader.js'])
         .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(concat("examples.js"))
+        .pipe(concat(common.bundles.tests))
         .pipe(sourcemaps.write('.', {includeContent: true}))
         .pipe(gulp.dest('build'));
 });

@@ -16,7 +16,7 @@ var common = require('./common');
 
 gulp.task('plugin_concat', ['compile', 'templates'], function() {
      return gulp.src([common.dist.main + "/**/*.js", common.dist.main + "/templates/*.js"])
-        .pipe(concat( common.main + ".js"))
+        .pipe(concat( common.bundles.main ))
         .pipe(gulpif(common.watch, replace('/dist/', '/')))
         .pipe(gulpif(common.watch, replace('http://localhost:' +  common.port  + '/../', 'http://localhost:' +  common.port  + '/')))
         .pipe(debug())
