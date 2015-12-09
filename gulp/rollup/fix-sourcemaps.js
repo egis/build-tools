@@ -1,7 +1,22 @@
 var gulp = require('gulp');
 var replace = require('gulp-replace');
+var common = require('../common');
 
-module.exports = function(srcDir) {
-    //return replace('../../' + srcDir + '/', '../src/'); //this loads correct sourcemaps for examples if used without uglifier
-    return replace('../../' + srcDir + '/', '/'); //this makes uglifier not error about missing files, but it doesn't work still.
-};
+module.exports = (function () {
+    function fix(mapFile, srcDir, destDir) {
+        return gulp.src(mapFile)
+            .pipe(replace('../../' + srcDir + '/', ''))
+            .pipe(gulp.dest(destDir));
+    }
+
+    return {
+        distBundle: function (kind) {
+            return fix(common.dist[kind] + '/' + common.bundles[kind] + '.map', common.srcDirs[kind],
+                common.dist[kind]);
+        },
+
+        endBundle: function (kind) {
+            return fix('build/' + common.bundles[kind] + '.map', common.srcDirs[kind], 'build');
+        }
+    }
+})();
