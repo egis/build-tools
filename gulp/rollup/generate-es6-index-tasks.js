@@ -9,13 +9,13 @@ var replace = require('gulp-replace');
 module.exports = function(tasksSuffix, srcDir, destDir) {
     var up = '../../';  //let's improve when needed
     gulp.task('prepare-lib-exports' + tasksSuffix, function () {
-        return gulp.src([srcDir + '/lib-exports.js'])
+        return gulp.src([srcDir + '/.lib-exports.js'])
             .pipe(replace('./', up + srcDir + '/'))
             .pipe(gulp.dest(destDir + '/'));
     });
 
     gulp.task('copy-rollup-index' + tasksSuffix, ['prepare-lib-exports' + tasksSuffix], function () {
-        return gulp.src([__dirname + '/propagate/rollup-index.js', destDir + '/lib-exports.js'])
+        return gulp.src([__dirname + '/propagate/rollup-index.js', destDir + '/.lib-exports.js'])
             .pipe(concat('rollup-index.js'))
             .pipe(gulp.dest(destDir + '/'));
 
@@ -23,7 +23,7 @@ module.exports = function(tasksSuffix, srcDir, destDir) {
 
     gulp.task('gen-stage1-file-list' + tasksSuffix, function ()
     {
-        return gulp.src([srcDir + '/**/*.js', '!' + srcDir + '/lib-exports.js', '!' + srcDir + '/**/*_scsslint_*'])
+        return gulp.src([srcDir + '/**/*.js', '!' + srcDir + '/.lib-exports.js', '!' + srcDir + '/**/*_scsslint_*'])
             .pipe(directoryMap({
                 filename: 'modules.json'
             }))

@@ -27,19 +27,19 @@ gulp.task('all', ['bundle', 'styles', 'resources']);
 gulp.task('templates', ['partials'], templates);
 gulp.task('partials', partials);
 gulp.task('default', ['package', 'webserver', 'watch']);
-gulp.task('do-bundle', ['compile', 'templates'], require('./gulp/bundle'));
 gulp.task('bundle', ['compile', 'templates'], require('./gulp/bundle'));
 
 gulp.task('webserver', webserver(port));
 
 gulp.task('dev-package', ['del-dist', 'dev-bundle', 'dev-examples-bundle', 'styles', 'resources'], pack);
 
-gulp.task('watch', ['dev-package', 'compile-tests', 'webserver'], function() {
+gulp.task('watch', ['dev-package', 'dev-bundle-tests', 'webserver'], function() {
     gulp.watch(['src/**/*.js'], ['dev-recompile'], reloadConnection);
-    gulp.watch(['src/.loader.js', __dirname + '/gulp/systemjs/propagate/loader.js'], ['dev-bundle'], reloadConnection);
+    gulp.watch(['src/.loader.js'], ['dev-bundle'], reloadConnection);
     gulp.watch(['src/.examples-loader.js'], ['dev-examples-bundle'], reloadConnection);
-    gulp.watch(['src/.Examples.js'], ['examples-recompile'], reloadConnection);
-    gulp.watch(['test/**/*.js'], ['compile-tests'], reloadConnection);
+    gulp.watch(['src/.Examples.js'], ['recompile-examples'], reloadConnection);
+    gulp.watch(['test/**/*.js'], ['dev-recompile-tests'], reloadConnection);
+    gulp.watch(['test/.loader.js'], ['dev-bundle-tests'], reloadConnection);
     gulp.watch('src/**/*.hbs', ['templates'], reloadConnection);
     gulp.watch('style/**/*.*', ['styles'], reloadConnection);
 });
