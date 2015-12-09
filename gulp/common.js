@@ -8,6 +8,7 @@ var lazypipe = require('lazypipe');
 var replace = require('gulp-replace');
 var utils = require('../utils');
 var deploy = process.env.WORK_DIR;
+var _ = require('lodash');
 
 var knownOptions = {
     string: 'env',
@@ -68,14 +69,17 @@ var replaceAll = lazypipe()
     });
 
 var distDir = 'dist';
+var bundles = {
+    main: pkg.mainFile + '.js',
+    tests: 'tests.js',
+    examples: 'examples.js'
+};
+
 module.exports = {
     deploy: deploy,
     pkg: pkg,
-    bundles: {
-        main: pkg.mainFile + '.js',
-        tests: 'tests.js',
-        examples: 'examples.js'
-    },
+    bundleKinds: _.keys(bundles),
+    bundles: bundles,
     srcDirs: {
         main: 'src',
         tests: 'test',
@@ -83,7 +87,8 @@ module.exports = {
     },
     bowerJson: bowerJson,
     watch: options.watch,
-    host: options.host,
+    host: pkg.host || 'localhost',
+    port: pkg.port || '8101',
     prod: options.env === 'production',
     main: main,
     replaceAll: replaceAll,

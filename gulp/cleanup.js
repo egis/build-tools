@@ -1,14 +1,10 @@
 var gulp = require('gulp');
 var delDist = require('./del-dist');
+var common = require('./common');
+var _ = require('lodash');
 
-gulp.task('del-main-dist', function() {
-    return delDist(common.dist.main);
-});
-
-gulp.task('del-examples-dist', function() {
-    return delDist(common.dist.examples);
-});
-
-gulp.task('del-tests-dist', function() {
-    return delDist(common.dist.tests);
+_.each(common.bundleKinds, function(kind) {
+    gulp.task('del-' + kind + '-dist', function() {
+        return delDist(common.dist[kind]);
+    });
 });

@@ -8,6 +8,9 @@ var debug = require('gulp-debug');
 var print = require('gulp-print');
 var changed = require('gulp-changed');
 var plumber = require('gulp-plumber');
+var _ = require('lodash');
+
+require('./cleanup');
 
 function devCompilingPipeline(kind) {
     var srcDir = common.srcDirs[kind];
@@ -33,58 +36,45 @@ function devCompilingPipeline(kind) {
         .pipe(gulp.dest(destDir));
 }
 
-gulp.task('dev-recompile', function () {
-    return devCompilingPipeline('main');
+_.each(['main', 'tests', 'examples'], function(kind) {
+    gulp.task('dev-recompile-' + kind, function () {
+        return devCompilingPipeline(kind);
+    });
+
+    gulp.task('generate-systemjs-' + kind + '-index', ['generate-es6-index-' + kind, 'dev-recompile-' + kind], function() {
+        var destDir  = common.dist[kind];
+        return gulp.src([destDir + '/.work/.rollup-wildcard-exports.js', destDir + '/.lib-exports.js'])
+            .pipe(debug())
+            .pipe(replace(/export \* from '(.+)'/g, "require('$1')"))
+            .pipe(concat('index.js'))
+            .pipe(gulp.dest(destDir + '/'))
+    });
+
+    gulp.task('prepare-' + kind + '-dev-loader', ['del-' + kind + '-dist'], function() {
+        return gulp.src([common.srcDir[kind] + '/.dev-loader.js'])
+            .pipe(sourcemaps.init())
+            .pipe(replace('HOST', common.host))
+            .pipe(replace('PORT', common.port))
+            .pipe(sourcemaps.write('.', {includeContent: true}))
+            .pipe(gulp.dest(common.dist[kind]))
+    });
 });
 
-gulp.task('dev-recompile-tests', function () {
-    return devCompilingPipeline('tests');
-});
-
-gulp.task('dev-recompile-examples', function () {
-    return devCompilingPipeline('examples');
-});
-
-gulp.task('generate-systemjs-index', ['generate-es6-index', 'dev-recompile'], function() {
-    var destDir  = common.dist.main;
-    return gulp.src([destDir + '/.work/.rollup-wildcard-exports.js', destDir + '/.lib-exports.js'])
-        .pipe(debug())
-        .pipe(replace(/export \* from '(.+)'/g, "require('$1')"))
-        .pipe(concat('index.js'))
-        .pipe(gulp.dest(destDir + '/'))
-});
-
-gulp.task('generate-systemjs-tests-index', ['generate-es6-index-tests', 'dev-recompile-tests'], function() {
-    var destDir  = common.dist.tests;
-    return gulp.src([destDir + '/.work/.rollup-wildcard-exports.js', destDir + '/.lib-exports.js'])
-        .pipe(debug())
-        .pipe(replace(/export \* from '(.+)'/g, "require('$1')"))
-        .pipe(concat('index.js'))
-        .pipe(gulp.dest(destDir + '/'))
-});
-
-gulp.task('dev-bundle', ['generate-systemjs-index', 'dev-recompile', 'templates'], function() {
-    return gulp.src([common.dist.main + '/templates/*.js', __dirname + '/../../systemjs/dist/system.js',
-        'src/.dev-loader.js'])
-
+function devBundle(kind, sources) {
+    sources = sources || [common.srcDirs[kind] + '/.dev-loader.js'];
+    return gulp.src(sources)
         .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(concat(common.bundles.main))
+        .pipe(concat(common.bundles[kind]))
         .pipe(sourcemaps.write('.', {includeContent: true}))
         .pipe(gulp.dest('build'));
+}
+
+gulp.task('dev-bundle-main', ['generate-systemjs-main-index', 'dev-recompile', 'templates', 'prepare-main-dev-loader'], function() {
+    return devBundle('main', [common.dist.main + '/templates/*.js', __dirname + '/../../systemjs/dist/system.js', 'src/.dev-loader.js'])
 });
 
-gulp.task('dev-bundle-examples', ['dev-recompile-examples'], function() {
-    return gulp.src(['examples/.dev-loader.js'])
-        .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(concat(common.bundles.tests))
-        .pipe(sourcemaps.write('.', {includeContent: true}))
-        .pipe(gulp.dest('build'));
-});
-
-gulp.task('dev-bundle-tests', ['generate-systemjs-tests-index', 'dev-recompile-tests'], function() {
-    return gulp.src(['test/.dev-loader.js'])
-        .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(concat("tests.js"))
-        .pipe(sourcemaps.write('.', {includeContent: true}))
-        .pipe(gulp.dest('build'));
+_.each(['tests', 'examples'], function(kind) {
+    gulp.task('dev-bundle-' + kind, ['generate-systemjs-' + kind + '-index', 'dev-recompile-' + kind], function() {
+        return devBundle(kind);
+    });
 });

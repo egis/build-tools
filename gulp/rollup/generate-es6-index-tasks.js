@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var jsonTransform = require('gulp-json-transform');
 var directoryMap = require("gulp-directory-map");
 var concat = require('gulp-concat');
-var forIn = require('lodash.forin');
+var _ = require('lodash');
 var is = require('is');
 var replace = require('gulp-replace');
 var common = require('../common');
@@ -44,7 +44,7 @@ module.exports = function(kind) {
                 var lines = [];
                 var fillLines;
                 fillLines = function(modulesPathes) {
-                    forIn(modulesPathes, function(modulePath) {
+                    _.forIn(modulesPathes, function(modulePath) {
                         if (is.string(modulePath)) {
                             if (blacklist.indexOf(modulePath) === -1) {
                                 lines.push("export * from './" + modulePath.replace(/\.js$/, '') + "';");
