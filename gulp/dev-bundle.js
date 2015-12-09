@@ -16,7 +16,7 @@ function devCompilingPipeline(kind) {
     var srcDir = common.srcDirs[kind];
     var destDir = common.dist[kind];
     var d0 = 0;
-    return gulp.src([srcDir + '/**/*.js', destDir + '/.lib-exports.js', '!' + srcDir + '/**/*_scsslint_*'])
+    return gulp.src([srcDir + '/**/*.js', srcDir + '/.lib-exports.js', '!' + srcDir + '/**/*_scsslint_*'])
         .pipe(changed(destDir))
         .pipe(sourcemaps.init())
         .once('data', function() {d0 = new Date().getTime()})
@@ -32,7 +32,7 @@ function devCompilingPipeline(kind) {
             d0 = d;
             return ['done in ', res, 'ms'].join("");
         }))
-        .pipe(sourcemaps.write('.', {includeContent: true, sourceRoot: '../' + srcDir}))
+        .pipe(sourcemaps.write('.', {includeContent: true}))
         .pipe(gulp.dest(destDir));
 }
 
@@ -46,7 +46,7 @@ _.each(['main', 'tests', 'examples'], function(kind) {
         return gulp.src([destDir + '/.work/.rollup-wildcard-exports.js', destDir + '/.lib-exports.js'])
             .pipe(debug())
             .pipe(replace(/export \* from '(.+)'/g, "require('$1')"))
-            .pipe(concat('index.js'))
+            .pipe(concat('dev-index.js'))   //not with dot 'cause Gulp webserver doesn't serve .dotfiles
             .pipe(gulp.dest(destDir + '/'))
     });
 
@@ -60,24 +60,23 @@ _.each(['main', 'tests', 'examples'], function(kind) {
     });
 });
 
-function devBundle(kind, sources) {
-    sources = sources || [common.dist[kind] + '/.dev-loader.js'];
+function devBundle(kind, sources, destDir) {
     return gulp.src(sources)
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(concat(common.bundles[kind]))
         .pipe(sourcemaps.write('.', {includeContent: true}))
-        .pipe(gulp.dest('build'));
+        .pipe(gulp.dest(destDir));
 }
 
 gulp.task('dev-bundle-main', ['generate-systemjs-main-index', 'dev-recompile-main', 'templates', 'prepare-main-dev-loader'], function() {
     return devBundle('main', [common.dist.main + '/templates/*.js', __dirname + '/../../systemjs/dist/system.js',
-            common.dist.main  + '/.dev-loader.js'])
+            common.dist.main  + '/.dev-loader.js'], 'build')
 });
 
 _.each(['tests', 'examples'], function(kind) {
     gulp.task('dev-bundle-' + kind, ['generate-systemjs-' + kind + '-index', 'dev-recompile-' + kind,
             'prepare-' + kind + '-dev-loader'], function() {
 
-        return devBundle(kind);
+        return devBundle(kind, [common.dist[kind] + '/.dev-loader.js'], common.dist[kind]);
     });
 });

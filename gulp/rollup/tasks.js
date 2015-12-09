@@ -8,7 +8,7 @@ _.each(common.bundleKinds, function(kind) {
     generateEs6IndexTasks(kind);
 
     gulp.task('compile-' + kind, ['generate-es6-index-' + kind], function() {
-        return rollup('main', common.module[kind]);
+        return rollup(kind);
     });
 
 });

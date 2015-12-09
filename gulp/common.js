@@ -71,8 +71,8 @@ var replaceAll = lazypipe()
 var distDir = 'dist';
 var bundles = {
     main: pkg.mainFile + '.js',
-    tests: 'tests.js',
-    examples: 'examples.js'
+    tests: 'tests-bundle.js',
+    examples: 'examples-bundle.js'
 };
 
 module.exports = {

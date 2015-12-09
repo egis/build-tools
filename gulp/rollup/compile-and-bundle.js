@@ -6,8 +6,9 @@ var rollup = require('./rollup');
 var babel = require('rollup-plugin-babel');
 var common = require('../common');
 
-module.exports = function(bundleKind, moduleName) {
+module.exports = function(bundleKind) {
     var bundleDir = common.dist[bundleKind];
+    var moduleName = common.module[bundleKind];
     var entryFile = bundleDir + '/.rollup-index.js';
     var bundleFilename = common.bundles[bundleKind];
     var srcDir = common.srcDirs[bundleKind];
