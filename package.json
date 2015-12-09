@@ -61,6 +61,7 @@
     "gulp-exit": "0.0.2",
     "gulp-filter": "^3.0.1",
     "gulp-flatten": "^0.2.0",
+    "gulp-foreach": "^0.1.0",
     "gulp-glue": "",
     "gulp-gzip": "^1.2.0",
     "gulp-handlebars": "^4.0.0",
