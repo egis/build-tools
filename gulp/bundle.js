@@ -10,9 +10,14 @@ var gzip = require('gulp-gzip');
 var common = require('./common');
 var delDist = require('./del-dist');
 var fixSourcemaps = require('./rollup/fix-sourcemaps');
+var del = require('del');
 
 gulp.task('old-dist-structure-cleanup', function() {
     return delDist(common.dist.dir);
+});
+
+gulp.task('old-build-test-structure-cleanup', function() {
+    del.sync('build-test');
 });
 
 gulp.task('fix-main-sourcemaps', ['compile'], function() {
@@ -49,3 +54,6 @@ gulp.task('bundle-examples', ['compile-examples', 'fix-examples-sourcemaps'], fu
 });
 
 gulp.task('bundle', ['old-dist-structure-cleanup', 'bundle-main', 'bundle-examples']);
+
+
+gulp.task('bundle-tests', ['old-build-test-structure-cleanup', 'compile-tests']);

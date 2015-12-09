@@ -9,7 +9,9 @@ var print = require('gulp-print');
 var changed = require('gulp-changed');
 var plumber = require('gulp-plumber');
 
-function devCompilingPipeline(srcDir, destDir) {
+function devCompilingPipeline(kind) {
+    var srcDir = common.srcDirs[kind];
+    var destDir = common.dist[kind];
     var d0 = 0;
     return gulp.src([srcDir + '/**/*.js', srcDir + '/.lib-exports.js', '!' + srcDir + '/**/*_scsslint_*'])
         .pipe(changed(destDir))
@@ -32,15 +34,15 @@ function devCompilingPipeline(srcDir, destDir) {
 }
 
 gulp.task('dev-recompile', function () {
-    return devCompilingPipeline('src', common.dist.main);
+    return devCompilingPipeline('main');
 });
 
 gulp.task('dev-recompile-tests', function () {
-    return devCompilingPipeline('test', common.dist.tests);
+    return devCompilingPipeline('tests');
 });
 
-gulp.task('recompile-examples', function () {
-    return devCompilingPipeline('examples', common.dist.examples);
+gulp.task('dev-recompile-examples', function () {
+    return devCompilingPipeline('examples');
 });
 
 gulp.task('generate-systemjs-index', ['generate-es6-index', 'dev-recompile'], function() {
@@ -71,7 +73,7 @@ gulp.task('dev-bundle', ['generate-systemjs-index', 'dev-recompile', 'templates'
         .pipe(gulp.dest('build'));
 });
 
-gulp.task('dev-bundle-examples', ['recompile-examples'], function() {
+gulp.task('dev-bundle-examples', ['dev-recompile-examples'], function() {
     return gulp.src(['examples/.dev-loader.js'])
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(concat(common.bundles.tests))
