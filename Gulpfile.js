@@ -12,6 +12,7 @@ var templates = require('./gulp/templates');
 var webserver = require('./gulp/webserver');
 var exit = require('gulp-exit');
 var reloadConnection = require('./gulp/reload-connection');
+var delDist = require('./gulp/del-dist');
 
 require('./gulp/styles');
 require('./gulp/dev-bundle');
@@ -20,6 +21,10 @@ require('./gulp/plugin');
 
 var port = common.pkg.port || 8101;
 
+gulp.task('old-dist-structure-cleanup', function() {
+    return delDist(common.dist.dir);
+});
+
 gulp.task('resources', resources);
 gulp.task('dependencies', ['resources'], bower);
 gulp.task('package', ['all'], pack);
@@ -27,7 +32,7 @@ gulp.task('all', ['bundle', 'styles', 'resources']);
 gulp.task('templates', ['partials'], templates);
 gulp.task('partials', partials);
 gulp.task('default', ['package', 'webserver', 'watch']);
-gulp.task('bundle', ['compile', 'templates'], require('./gulp/bundle'));
+gulp.task('bundle', ['old-dist-structure-cleanup', 'compile', 'templates'], require('./gulp/bundle'));
 
 gulp.task('webserver', webserver(port));
 

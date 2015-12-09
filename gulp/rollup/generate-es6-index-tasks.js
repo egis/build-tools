@@ -8,6 +8,8 @@ var replace = require('gulp-replace');
 
 module.exports = function(tasksSuffix, srcDir, destDir) {
     var up = '../../';  //let's improve when needed
+    var workDir = destDir + '/.work';
+
     gulp.task('prepare-lib-exports' + tasksSuffix, function () {
         return gulp.src([srcDir + '/.lib-exports.js'])
             .pipe(replace('./', up + srcDir + '/'))
@@ -15,8 +17,8 @@ module.exports = function(tasksSuffix, srcDir, destDir) {
     });
 
     gulp.task('copy-rollup-index' + tasksSuffix, ['prepare-lib-exports' + tasksSuffix], function () {
-        return gulp.src([__dirname + '/propagate/rollup-index.js', destDir + '/.lib-exports.js'])
-            .pipe(concat('rollup-index.js'))
+        return gulp.src([__dirname + '/propagate/.rollup-index.js', destDir + '/.lib-exports.js'])
+            .pipe(concat('.rollup-index.js'))
             .pipe(gulp.dest(destDir + '/'));
 
     });
@@ -27,7 +29,7 @@ module.exports = function(tasksSuffix, srcDir, destDir) {
             .pipe(directoryMap({
                 filename: 'modules.json'
             }))
-            .pipe(gulp.dest(destDir + '/'))
+            .pipe(gulp.dest(workDir))
     });
 
     gulp.task('gen-stage2-wildcard-exports' + tasksSuffix, ['gen-stage1-file-list' + tasksSuffix], function () {
@@ -50,15 +52,15 @@ module.exports = function(tasksSuffix, srcDir, destDir) {
                 fillLines(data);
                 return lines.sort().join('\n');
             }))
-            .pipe(concat('rollup-wildcard-exports.js'))
-            .pipe(gulp.dest(destDir + '/'))
+            .pipe(concat('.rollup-wildcard-exports.js'))
+            .pipe(gulp.dest(workDir))
     });
 
     gulp.task('gen-stage3-finalize-exports' + tasksSuffix, ['gen-stage2-wildcard-exports' + tasksSuffix], function ()
     {
-        return gulp.src([destDir + '/rollup-wildcard-exports.js' , srcDir + '/.rollup-manual-exports.js'])
+        return gulp.src([workDir + '/.rollup-wildcard-exports.js' , srcDir + '/.rollup-manual-exports.js'])
             .pipe(replace('./', up + srcDir + '/'))
-            .pipe(concat('rollup-all-exports.js'))
+            .pipe(concat('.rollup-all-exports.js'))
             .pipe(gulp.dest(destDir + '/'))
     });
 

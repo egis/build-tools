@@ -6,7 +6,7 @@ var rollup = require('./rollup');
 var babel = require('rollup-plugin-babel');
 
 module.exports = function(bundleDir, moduleName, entryFile) {
-    entryFile = entryFile || bundleDir + '/work/rollup-index.js';
+    entryFile = entryFile || bundleDir + '/.rollup-index.js';
     return gulp.src(entryFile, {read: false})
         .pipe(sourcemaps.init())
         .pipe(rollup(moduleName))

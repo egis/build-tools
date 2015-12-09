@@ -46,7 +46,7 @@ gulp.task('recompile-examples', function () {
 
 gulp.task('generate-systemjs-index', ['generate-es6-index', 'dev-recompile'], function() {
     var destDir  = common.dist.main;
-    return gulp.src([destDir + '/work/rollup-wildcard-exports.js', destDir + '/.lib-exports.js'])
+    return gulp.src([destDir + '/.work/.rollup-wildcard-exports.js', destDir + '/.lib-exports.js'])
         .pipe(debug())
         .pipe(replace(/export \* from '(.+)'/g, "require('$1')"))
         .pipe(concat('index.js'))
@@ -55,7 +55,7 @@ gulp.task('generate-systemjs-index', ['generate-es6-index', 'dev-recompile'], fu
 
 gulp.task('generate-systemjs-tests-index', ['generate-es6-index-test', 'dev-recompile-tests'], function() {
     var destDir  = common.dist.test;
-    return gulp.src([destDir + '/work/rollup-wildcard-exports.js', destDir + '/.lib-exports.js'])
+    return gulp.src([destDir + '/.work/.rollup-wildcard-exports.js', destDir + '/.lib-exports.js'])
         .pipe(debug())
         .pipe(replace(/export \* from '(.+)'/g, "require('$1')"))
         .pipe(concat('index.js'))

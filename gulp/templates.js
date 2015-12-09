@@ -8,6 +8,7 @@ var handlebars = require('gulp-handlebars');
 var wrap = require('gulp-wrap');
 var declare = require('gulp-declare');
 var flatten = require('gulp-flatten');
+var common = require('./common');
 
 module.exports = function()
 {
