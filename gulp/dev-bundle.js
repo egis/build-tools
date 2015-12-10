@@ -9,6 +9,7 @@ var print = require('gulp-print');
 var changed = require('gulp-changed');
 var plumber = require('gulp-plumber');
 var _ = require('lodash');
+var gzip = require('gulp-gzip');
 
 require('./cleanup');
 
@@ -65,7 +66,9 @@ function devBundle(kind, sources, destDir) {
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(concat(common.bundles[kind]))
         .pipe(sourcemaps.write('.', {includeContent: true}))
-        .pipe(gulp.dest(destDir));
+        .pipe(gulp.dest(destDir))
+        .pipe(gzip())
+        .pipe(gulp.dest('build'));
 }
 
 gulp.task('dev-bundle-main', ['generate-systemjs-main-index', 'dev-recompile-main', 'templates', 'prepare-main-dev-loader'], function() {

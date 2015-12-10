@@ -32,14 +32,14 @@ gulp.task('fix-main-build-sourcemaps', ['do-bundle-main'], function() {
 
 gulp.task('do-bundle-main', ['compile-main', 'templates', 'fix-main-sourcemaps'], function() {
     return gulp.src([common.dist.main + '/' + common.bundles.main, common.dist.main + '/templates/*.js'])
-        .pipe(sourcemaps.init({loadMaps: true, debug: true}))
+        .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(common.replaceAll())
         //.pipe(uglify({mangle: false}))
         .pipe(concat(common.bundles.main))
         .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../' + common.srcDirs.main}))
         .pipe(gulp.dest('build'))
         .pipe(gzip())
-        .pipe(gulp.dest('build/'));
+        .pipe(gulp.dest('build'));
 });
 
 gulp.task('bundle-main', ['do-bundle-main', 'fix-main-build-sourcemaps']);
