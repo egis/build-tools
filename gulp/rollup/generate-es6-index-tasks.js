@@ -65,9 +65,9 @@ module.exports = function(kind) {
 
     gulp.task('gen-stage3-finalize-exports-' + kind, ['gen-stage2-wildcard-exports-' + kind], function ()
     {
-        return gulp.src([workDir + '/.rollup-wildcard-exports.js' , srcDir + '/.rollup-manual-exports.js'])
+        return gulp.src([workDir + '/.rollup-wildcard-exports.js'])
             .pipe(replace('./', up + srcDir + '/'))
-            .pipe(concat('.rollup-all-exports.js'))
+            .pipe(concat('.rollup-wildcard-exports.js'))
             .pipe(gulp.dest(destDir + '/'))
     });
 
