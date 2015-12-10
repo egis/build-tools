@@ -75,10 +75,13 @@ var bundles = {
     examples: 'examples-bundle.js'
 };
 
+var bundleKinds = ['main', 'tests'];
+if (pkg.examples) bundleKinds.push('examples');
+
 module.exports = {
     deploy: deploy,
     pkg: pkg,
-    bundleKinds: _.keys(bundles),
+    bundleKinds: bundleKinds,
     bundles: bundles,
     srcDirs: {
         main: 'src',

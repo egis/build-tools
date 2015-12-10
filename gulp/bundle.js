@@ -10,6 +10,7 @@ var gzip = require('gulp-gzip');
 var common = require('./common');
 var fixSourcemaps = require('./rollup/fix-sourcemaps');
 var del = require('del');
+var delDist = require('./del-dist');
 
 require('./cleanup');
 
@@ -43,9 +44,12 @@ gulp.task('do-bundle-main', ['compile-main', 'templates', 'fix-main-sourcemaps']
 
 gulp.task('bundle-main', ['do-bundle-main', 'fix-main-build-sourcemaps']);
 
-gulp.task('bundle-examples', ['compile-examples']);
+var bundleTaskDeps = ['old-dist-structure-cleanup', 'bundle-main'];
+if (common.pkg.examples) {
+    gulp.task('bundle-examples', ['compile-examples']);
+    bundleTaskDeps.push('bundle-examples')
+}
 
-gulp.task('bundle', ['old-dist-structure-cleanup', 'bundle-main', 'bundle-examples']);
-
+gulp.task('bundle', bundleTaskDeps);
 
 gulp.task('bundle-tests', ['old-build-test-structure-cleanup', 'compile-tests']);
