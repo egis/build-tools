@@ -5,6 +5,7 @@ var concat = require('gulp-concat');
 var rollup = require('./rollup');
 var babel = require('rollup-plugin-babel');
 var common = require('../common');
+var plumber = require('gulp-plumber');
 
 module.exports = function(bundleKind) {
     var bundleDir = common.dist[bundleKind];
@@ -14,6 +15,7 @@ module.exports = function(bundleKind) {
     var srcDir = common.srcDirs[bundleKind];
     return gulp.src(entryFile, {read: false})
         .pipe(sourcemaps.init())
+        .pipe(plumber())
         .pipe(rollup(moduleName))
         .pipe(concat(bundleFilename))
         .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../' + srcDir}))

@@ -6,6 +6,8 @@ var _ = require('lodash');
 var is = require('is');
 var replace = require('gulp-replace');
 var common = require('../common');
+var plumber = require('gulp-plumber');
+
 require('../cleanup');
 
 module.exports = function(kind) {
@@ -30,6 +32,7 @@ module.exports = function(kind) {
     gulp.task('gen-stage1-file-list-' + kind, function ()
     {
         return gulp.src([srcDir + '/**/*.js', '!' + srcDir + '/.lib-exports.js', '!' + srcDir + '/**/*_scsslint_*'])
+            .pipe(plumber())
             .pipe(directoryMap({
                 filename: 'modules.json'
             }))
