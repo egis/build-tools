@@ -14,7 +14,7 @@ var del = require('del');
 require('./cleanup');
 
 gulp.task('old-dist-structure-cleanup', function() {
-    //return delDist(common.dist.dir);
+    return delDist(common.dist.dir);
 });
 
 gulp.task('old-build-test-structure-cleanup', function() {
