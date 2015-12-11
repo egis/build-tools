@@ -6,6 +6,7 @@ var rollup = require('./rollup');
 var babel = require('rollup-plugin-babel');
 var common = require('../common');
 var plumber = require('gulp-plumber');
+var replace = require('gulp-replace');
 
 module.exports = function(bundleKind) {
     var bundleDir = common.dist[bundleKind];
@@ -18,6 +19,8 @@ module.exports = function(bundleKind) {
         .pipe(plumber())
         .pipe(rollup(moduleName))
         .pipe(concat(bundleFilename))
+        .pipe(replace('(function (egisui)', 'EgisUI.loaded(function() {(function (egisui)'))
+        .pipe(replace('})(EgisUI);', '})(EgisUI)});'))
         .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../' + srcDir}))
         .pipe(gulp.dest(bundleDir + '/'))
 };
