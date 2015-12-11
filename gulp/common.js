@@ -8,6 +8,7 @@ var lazypipe = require('lazypipe');
 var replace = require('gulp-replace');
 var utils = require('../utils');
 var deploy = process.env.WORK_DIR;
+var _ = require('lodash');
 
 var knownOptions = {
     string: 'env',
@@ -67,14 +68,42 @@ var replaceAll = lazypipe()
         return replace('@@timestamp', timestamp)
     });
 
+var distDir = 'dist';
+var bundles = {
+    main: pkg.mainFile + '.js',
+    tests: 'tests-bundle.js',
+    examples: 'examples-bundle.js'
+};
+
+var bundleKinds = ['main', 'tests'];
+if (pkg.examples) bundleKinds.push('examples');
+
 module.exports = {
     deploy: deploy,
     pkg: pkg,
+    bundleKinds: bundleKinds,
+    bundles: bundles,
+    srcDirs: {
+        main: 'src',
+        tests: 'test',
+        examples: 'examples'
+    },
     bowerJson: bowerJson,
     watch: options.watch,
-    host: options.host,
+    host: pkg.host || 'localhost',
+    port: pkg.port || '8101',
     prod: options.env === 'production',
     main: main,
     replaceAll: replaceAll,
-    testPkgName: 'bundle'
+    dist: {
+        dir: distDir,
+        main: distDir + '/main',
+        tests: distDir + '/test',
+        examples: distDir + '/examples'
+    },
+    module: {
+        main: pkg.name,
+        tests: 'Tests',
+        examples: 'Examples'
+    }
 };

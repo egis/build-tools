@@ -8,6 +8,7 @@ var handlebars = require('gulp-handlebars');
 var wrap = require('gulp-wrap');
 var declare = require('gulp-declare');
 var flatten = require('gulp-flatten');
+var common = require('./common');
 
 module.exports = function()
 {
@@ -20,5 +21,5 @@ module.exports = function()
             root: 'window'
         }))
         .pipe(flatten())
-        .pipe(gulp.dest('dist/templates'));
+        .pipe(gulp.dest(common.dist.main + '/templates'));
 };

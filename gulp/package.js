@@ -18,7 +18,7 @@ module.exports = function()
     del.sync('build/' + file);
     console.log('Deploying to ' + deploy + "/" + file);
     return gulp.src(["build/**/*", '!**/' + file, '!build/' + pkg.name + '/**/*', '!build/test/**/**'])
-        .pipe(addsrc("dist/*.png"))
+        .pipe(addsrc(common.dist.main + "/*.png"))
         .pipe(zip(file))
         .pipe(gulp.dest(deploy))
         .pipe(gulp.dest('.'));
