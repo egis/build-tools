@@ -10,6 +10,8 @@ var changed = require('gulp-changed');
 var plumber = require('gulp-plumber');
 var _ = require('lodash');
 var gzip = require('gulp-gzip');
+var pseudoconcat = require('gulp-pseudoconcat-js');
+var connect = require('gulp-connect');
 
 require('./cleanup');
 
@@ -34,7 +36,8 @@ function devCompilingPipeline(kind) {
             return ['done in ', res, 'ms'].join("");
         }))
         .pipe(sourcemaps.write('.', {includeContent: true}))
-        .pipe(gulp.dest(destDir));
+        .pipe(gulp.dest(destDir))
+        .pipe(connect.reload());
 }
 
 _.each(common.bundleKinds, function(kind) {
@@ -51,37 +54,41 @@ _.each(common.bundleKinds, function(kind) {
             .pipe(gulp.dest(destDir + '/'))
     });
 
-    gulp.task('prepare-' + kind + '-dev-loader', ['del-' + kind + '-dist'], function() {
+    gulp.task('dist-' + kind + '-systemjs', function() {
+        return gulp.src([__dirname + '/../../systemjs/dist/system-polyfills.js', __dirname + '/../../systemjs/dist/system.js'])
+            .pipe(gulp.dest(common.dist[kind]))
+    });
+
+    gulp.task('prepare-' + kind + '-dev-loader', ['del-' + kind + '-dist', 'dist-' + kind + '-systemjs'], function() {
         return gulp.src([common.srcDirs[kind] + '/.dev-loader.js'])
             .pipe(sourcemaps.init())
             .pipe(replace('HOST', common.host))
             .pipe(replace('PORT', common.port))
+            .pipe(concat('dev-loader.js'))   //not with dot 'cause Gulp webserver doesn't serve .dotfiles
             .pipe(sourcemaps.write('.', {includeContent: true}))
             .pipe(gulp.dest(common.dist[kind]))
     });
-});
 
-function devBundle(kind, sources, destDir) {
-    return gulp.src(sources)
-        .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(concat(common.bundles[kind]))
-        .pipe(sourcemaps.write('.', {includeContent: true}))
-        .pipe(gulp.dest(destDir))
-        .pipe(gzip())
-        .pipe(gulp.dest('build'));
-}
-
-gulp.task('dev-bundle-main', ['generate-systemjs-main-index', 'dev-recompile-main', 'templates', 'prepare-main-dev-loader'], function() {
-    return devBundle('main', [common.dist.main + '/templates/*.js', __dirname + '/../../systemjs/dist/system.js',
-            common.dist.main  + '/.dev-loader.js'], 'build')
-});
-
-var nonMainKinds = ['tests'];
-if (common.pkg.examples) nonMainKinds.push('examples');
-_.each(nonMainKinds, function(kind) {
     gulp.task('dev-bundle-' + kind, ['generate-systemjs-' + kind + '-index', 'dev-recompile-' + kind,
-            'prepare-' + kind + '-dev-loader'], function() {
+        'templates', 'prepare-' + kind + '-dev-loader'], function() {
 
-        return devBundle(kind, [common.dist[kind] + '/.dev-loader.js'], common.dist[kind]);
+        var destDir = common.dist[kind];
+        var sources = [
+                common.dist[kind] + '/dev-loader.js',
+                common.dist[kind] + '/templates/*.js'];
+        if (kind === 'main') {
+            sources = _(sources).unshift(common.dist['main'] + '/system.js').value();
+            destDir = 'build';
+        }
+        return gulp.src(sources)
+            .pipe(sourcemaps.init({loadMaps: true}))
+            .pipe(pseudoconcat(common.bundles[kind], {
+                host: 'http://' + common.host + ':' + common.port + '/'
+            }))
+            .pipe(sourcemaps.write('.', {includeContent: true}))
+            .pipe(gulp.dest(destDir))
+            .pipe(gzip())
+            .pipe(gulp.dest(destDir));
     });
 });
+

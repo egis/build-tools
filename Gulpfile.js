@@ -11,7 +11,7 @@ var partials = require('./gulp/partials');
 var templates = require('./gulp/templates');
 var webserver = require('./gulp/webserver');
 var exit = require('gulp-exit');
-var reloadConnection = require('./gulp/reload-connection');
+var connect = require('gulp-connect');
 var _ = require('lodash');
 
 require('./gulp/styles');
@@ -36,13 +36,17 @@ if (common.pkg.examples) devPackageTaskDeps.push('dev-bundle-examples');
 
 gulp.task('dev-package', devPackageTaskDeps, pack);
 
+gulp.task('dev-repackage', ['dev-package'], connect.reload);
+gulp.task('recompile-templates', ['templates'], connect.reload);
+gulp.task('recompile-styles', ['styles'], connect.reload);
+
 gulp.task('watch', ['dev-package', 'dev-bundle-tests', 'webserver'], function() {
     _.each(common.bundleKinds, function(kind) {
-        gulp.watch([common.srcDirs[kind] + '/**/*.js'], ['dev-recompile-' + kind], reloadConnection);
-        gulp.watch([common.srcDirs[kind] + '/.lib-exports.js'], ['dev-recompile-' + kind, 'generate-systemjs-' + kind + '-index'], reloadConnection);
+        gulp.watch([common.srcDirs[kind] + '/**/*.js'], ['dev-recompile-' + kind]);
+        gulp.watch([common.srcDirs[kind] + '/.lib-exports.js'], ['dev-recompile-' + kind, 'generate-systemjs-' + kind + '-index']);
     });
-    gulp.watch([common.srcDirs.main + '/.dev-loader.js'], ['dev-package'], reloadConnection);
-    gulp.watch('src/**/*.hbs', ['templates'], reloadConnection);
-    gulp.watch('style/**/*.*', ['styles'], reloadConnection);
+    gulp.watch([common.srcDirs.main + '/.dev-loader.js'], ['dev-repackage']);
+    gulp.watch('src/**/*.hbs', ['recompile-templates']);
+    gulp.watch('style/**/*.*', ['recompile-styles']);
 });
 
