@@ -12,7 +12,7 @@ module.exports = function(moduleName) {
         sourceMap: true,
         moduleName: moduleName,
         globals: {
-            egisui: 'EgisUI'
+            'EgisUI': 'EgisUI'
         },
         plugins: [ babel({
             'presets': ['es2015-rollup'],

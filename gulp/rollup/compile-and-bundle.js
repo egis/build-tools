@@ -19,7 +19,7 @@ module.exports = function(bundleKind) {
         .pipe(plumber())
         .pipe(rollup(moduleName))
         .pipe(concat(bundleFilename))
-        .pipe(replace('(function (egisui)', 'EgisUI.loaded(function() {(function (egisui)'))
+        .pipe(replace('(function (EgisUI)', 'EgisUI.loaded(function() {(function (EgisUI)'))
         .pipe(replace('})(EgisUI);', '})(EgisUI)});'))
         .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../' + srcDir}))
         .pipe(gulp.dest(bundleDir + '/'))
