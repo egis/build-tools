@@ -37,7 +37,7 @@ function devCompilingPipeline(kind) {
         .pipe(gulp.dest(destDir));
 }
 
-_.each(['main', 'tests', 'examples'], function(kind) {
+_.each(common.bundleKinds, function(kind) {
     gulp.task('dev-recompile-' + kind, [], function () {
         return devCompilingPipeline(kind);
     });
@@ -76,7 +76,9 @@ gulp.task('dev-bundle-main', ['generate-systemjs-main-index', 'dev-recompile-mai
             common.dist.main  + '/.dev-loader.js'], 'build')
 });
 
-_.each(['tests', 'examples'], function(kind) {
+var nonMainKinds = ['tests'];
+if (common.pkg.examples) nonMainKinds.push('examples');
+_.each(nonMainKinds, function(kind) {
     gulp.task('dev-bundle-' + kind, ['generate-systemjs-' + kind + '-index', 'dev-recompile-' + kind,
             'prepare-' + kind + '-dev-loader'], function() {
 

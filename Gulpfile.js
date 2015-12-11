@@ -31,12 +31,15 @@ gulp.task('default', ['package', 'webserver', 'watch']);
 
 gulp.task('webserver', webserver(common.port));
 
-gulp.task('dev-package', ['dev-bundle-main', 'dev-bundle-examples', 'styles', 'resources'], pack);
+var devPackageTaskDeps = ['dev-bundle-main', 'styles', 'resources'];
+if (common.pkg.examples) devPackageTaskDeps.push('dev-bundle-examples');
+
+gulp.task('dev-package', devPackageTaskDeps, pack);
 
 gulp.task('watch', ['dev-package', 'dev-bundle-tests', 'webserver'], function() {
     _.each(common.bundleKinds, function(kind) {
         gulp.watch([common.srcDirs[kind] + '/**/*.js'], ['dev-recompile-' + kind], reloadConnection);
-        gulp.watch([common.srcDirs[kind] + '/.dev-loader.js'], ['dev-bundle-' + kind], reloadConnection);
+        gulp.watch([common.srcDirs[kind] + '/.dev-loader.js', common.srcDirs[kind] + '.lib-exports.js'], ['dev-bundle-' + kind], reloadConnection);
     });
     gulp.watch('src/**/*.hbs', ['templates'], reloadConnection);
     gulp.watch('style/**/*.*', ['styles'], reloadConnection);
