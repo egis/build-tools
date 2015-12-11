@@ -39,7 +39,7 @@ gulp.task('dev-package', devPackageTaskDeps, pack);
 gulp.task('watch', ['dev-package', 'dev-bundle-tests', 'webserver'], function() {
     _.each(common.bundleKinds, function(kind) {
         gulp.watch([common.srcDirs[kind] + '/**/*.js'], ['dev-recompile-' + kind], reloadConnection);
-        gulp.watch([common.srcDirs[kind] + '.lib-exports.js'], ['dev-bundle-' + kind], reloadConnection);
+        gulp.watch([common.srcDirs[kind] + '/.lib-exports.js'], ['dev-bundle-' + kind], reloadConnection);
     });
     gulp.watch([common.srcDirs.main + '/.dev-loader.js'], ['dev-package'], reloadConnection);
     gulp.watch('src/**/*.hbs', ['templates'], reloadConnection);
