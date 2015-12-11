@@ -59,7 +59,9 @@ _.each(common.bundleKinds, function(kind) {
             .pipe(gulp.dest(common.dist[kind]))
     });
 
-    gulp.task('prepare-' + kind + '-dev-loader', ['del-' + kind + '-dist', 'dist-' + kind + '-systemjs'], function() {
+    var prepareDevLoaderTaskDeps = ['del-' + kind + '-dist'];
+    if (kind === 'main') prepareDevLoaderTaskDeps.push('dist-' + kind + '-systemjs');
+    gulp.task('prepare-' + kind + '-dev-loader', prepareDevLoaderTaskDeps, function() {
         return gulp.src([common.srcDirs[kind] + '/.dev-loader.js'])
             .pipe(sourcemaps.init())
             .pipe(replace('HOST', common.host))
@@ -69,8 +71,11 @@ _.each(common.bundleKinds, function(kind) {
             .pipe(gulp.dest(common.dist[kind]))
     });
 
-    gulp.task('dev-bundle-' + kind, ['generate-systemjs-' + kind + '-index', 'dev-recompile-' + kind,
-        'templates', 'prepare-' + kind + '-dev-loader'], function() {
+    var devBundleTaskDeps = ['generate-systemjs-' + kind + '-index', 'dev-recompile-' + kind,
+        'prepare-' + kind + '-dev-loader'];
+    if (kind === 'main') devBundleTaskDeps.push('templates');
+
+    gulp.task('dev-bundle-' + kind, devBundleTaskDeps, function() {
 
         var destDir = common.dist[kind];
         var sources = [
