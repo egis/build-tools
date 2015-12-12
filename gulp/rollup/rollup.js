@@ -4,16 +4,17 @@ var concat = require('gulp-concat');
 
 var rollup = require('gulp-rollup');
 var babel = require('rollup-plugin-babel');
+var common = require('../common');
 
 module.exports = function(moduleName) {
+    var globals = {};
+    globals[common.egisUiPkgName] = common.egisUiPkgName;
     return rollup({
         // any option supported by rollup can be set here, including sourceMap
         format: 'iife',
         sourceMap: true,
         moduleName: moduleName,
-        globals: {
-            'EgisUI': 'EgisUI'
-        },
+        globals: globals,
         plugins: [ babel({
             'plugins': [
                 [require("babel-plugin-transform-es2015-template-literals"), {loose: true}],

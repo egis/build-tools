@@ -14,13 +14,17 @@ module.exports = function(bundleKind) {
     var entryFile = bundleDir + '/.rollup-index.js';
     var bundleFilename = common.bundles[bundleKind];
     var srcDir = common.srcDirs[bundleKind];
-    return gulp.src(entryFile, {read: false})
+    var res =  gulp.src(entryFile, {read: false})
         .pipe(sourcemaps.init())
         .pipe(plumber())
         .pipe(rollup(moduleName))
-        .pipe(concat(bundleFilename))
-        .pipe(replace('(function (EgisUI)', 'EgisUI.loaded(function() {(function (EgisUI)'))
-        .pipe(replace('})(EgisUI);', '})(EgisUI)});'))
+        .pipe(concat(bundleFilename));
+    if (common.pkg.name !== common.egisUiPkgName) {
+        res = res
+            .pipe(replace('(function (exports)', common.egisUiPkgName + '.loaded(function() {(function (exports)'))
+            .pipe(replace('})((this.' + common.pkg.name + ' = {}));', '})((this.' + common.pkg.name + ' = {}))});'));
+    }
+    return res
         .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../' + srcDir}))
         .pipe(gulp.dest(bundleDir + '/'))
 };

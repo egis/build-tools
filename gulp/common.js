@@ -105,5 +105,6 @@ module.exports = {
         main: pkg.name,
         tests: 'Tests',
         examples: 'Examples'
-    }
+    },
+    egisUiPkgName: 'EgisUI'
 };
