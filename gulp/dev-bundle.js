@@ -25,7 +25,6 @@ _.each(common.bundleKinds, function(kind) {
             .pipe(print(function(filename) {
                 var t = new Date().getTime();
                 var fnKey = filename.replace(srcDir, '');
-                console.log('remebered t0 for', fnKey);
                 t0[fnKey] = t;
             }))
             .pipe(sourcemaps.init())
