@@ -77,6 +77,7 @@ var bundles = {
 
 var bundleKinds = ['main', 'tests'];
 if (pkg.examples) bundleKinds.push('examples');
+var egisUiPkgName = 'EgisUI';
 
 module.exports = {
     deploy: deploy,
@@ -106,5 +107,6 @@ module.exports = {
         tests: 'Tests',
         examples: 'Examples'
     },
-    egisUiPkgName: 'EgisUI'
+    egisUiPkgName: egisUiPkgName,
+    egisUiModuleName: egisUiPkgName
 };

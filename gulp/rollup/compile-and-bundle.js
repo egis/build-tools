@@ -21,7 +21,7 @@ module.exports = function(bundleKind) {
         .pipe(concat(bundleFilename));
     if (common.pkg.name !== common.egisUiPkgName) {
         res = res
-            .pipe(replace('(function (exports)', common.egisUiPkgName + '.loaded(function() {(function (exports)'))
+            .pipe(replace('(function (exports)', common.egisUiModuleName + '.loaded(function() {(function (exports)'))
             .pipe(replace('})((this.' + common.pkg.name + ' = {}));', '})((this.' + common.pkg.name + ' = {}))});'));
     }
     return res
