@@ -19,25 +19,31 @@ _.each(common.bundleKinds, function(kind) {
     gulp.task('dev-recompile-' + kind, [], function () {
         var srcDir = common.srcDirs[kind];
         var destDir = common.dist[kind];
-        var d0 = 0;
+        var t0 = {};
         return gulp.src([srcDir + '/**/*.js', srcDir + '/.lib-exports.js', '!' + srcDir + '/**/*_scsslint_*'])
             .pipe(changed(destDir))
+            .pipe(print(function(filename) {
+                var t = new Date().getTime();
+                var fnKey = filename.replace(srcDir, '');
+                console.log('remebered t0 for', fnKey);
+                t0[fnKey] = t;
+            }))
             .pipe(sourcemaps.init())
-            .once('data', function() {d0 = new Date().getTime()})
             .pipe(plumber())
             .pipe(debug())
             .pipe(babel({
                 highlightCode: true,
                 presets: ['es2015']
             }))
-            .pipe(print(function() {
-                var d = new Date().getTime();
-                var res = d - d0;
-                d0 = d;
-                return ['done in ', res, 'ms'].join("");
-            }))
             .pipe(sourcemaps.write('.', {includeContent: true}))
             .pipe(gulp.dest(destDir))
+            .pipe(print(function(filename) {
+                var t = new Date().getTime();
+                var fnKey = filename.replace(destDir, '').replace('.map', '');
+                var res = t - (t0[fnKey] || 0);
+                var report = ['done ', filename, ' in ', res, 'ms'];
+                return report.join("");
+            }))
             .pipe(connect.reload());
     });
 
@@ -68,7 +74,7 @@ _.each(common.bundleKinds, function(kind) {
     });
 
     var devBundleTaskDeps = ['generate-systemjs-' + kind + '-index', 'dev-recompile-' + kind,
-        'prepare-' + kind + '-dev-loader'];
+            'prepare-' + kind + '-dev-loader'];
     if (kind === 'main') devBundleTaskDeps.push('templates');
 
     gulp.task('dev-bundle-' + kind, devBundleTaskDeps, function() {
