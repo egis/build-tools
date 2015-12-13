@@ -7,7 +7,10 @@ var babel = require('rollup-plugin-babel');
 var common = require('../common');
 
 module.exports = function(moduleName) {
-    var globals = {};
+    var globals = {
+        eSign: 'eSign',
+        PortalApp: 'PortalApp'
+    };
     globals[common.egisUiModuleName] = common.egisUiModuleName;
     return rollup({
         // any option supported by rollup can be set here, including sourceMap
