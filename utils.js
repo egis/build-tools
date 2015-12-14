@@ -140,14 +140,6 @@ module.exports = {
 
         });
         return ip;
-    },
-
-    // a registy of our SystemJS dev module URLs, used for local dev envs
-    devModuleUrls: {
-        // here module ID must be the same we use for ES6 imports
-        'EgisUI': 'http://localhost:8101/dist/main/dev-index',
-        'eSign': 'http://localhost:8102/dist/main/dev-index',
-        'PortalApp': 'http://localhost:8104/dist/main/dev-index'
     }
 };
 
