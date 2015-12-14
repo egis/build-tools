@@ -9,6 +9,7 @@ var common = require('../common');
 module.exports = function(moduleName) {
     var globals = {};
     globals[common.egisUiModuleName] = common.egisUiModuleName;
+    globals[common.pkg.name] = common.pkg.name; //allows importing own module for tests
     return rollup({
         // any option supported by rollup can be set here, including sourceMap
         format: 'iife',
