@@ -8,6 +8,7 @@ var concat = require('gulp-concat');
 var handlebars = require('gulp-handlebars');
 var wrap = require('gulp-wrap');
 var path = require('path');
+var common = require('./common');
 
 module.exports = function ()
 {
@@ -25,5 +26,5 @@ module.exports = function ()
             }
         }))
         .pipe(concat('partials.js'))
-        .pipe(gulp.dest('dist/templates'));
+        .pipe(gulp.dest(common.dist.main + '/templates'));
 };

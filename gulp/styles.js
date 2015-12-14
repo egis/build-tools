@@ -16,10 +16,13 @@ var replace = require('gulp-replace');
 var addsrc = require('gulp-add-src');
 var connect = require('gulp-connect');
 var os = require('os');
-var utils = require('../utils')
+var utils = require('../utils');
 var del = require('del');
+var common = require('./common');
 
-var main = require('./common').main;
+var main = common.main;
+
+require('./cleanup');
 
 gulp.task('styles', ['less', 'sass', 'css'], function (done)
 {
@@ -27,15 +30,15 @@ gulp.task('styles', ['less', 'sass', 'css'], function (done)
     done();
 });
 
-gulp.task('sass', function ()
+gulp.task('sass', ['del-main-dist'], function ()
 {
     return gulp.src(['style/*.sass', 'style/*.scss'])
         .pipe(plumber())
         .pipe(sass.sync())
-        .pipe(gulp.dest('dist'))
+        .pipe(gulp.dest(common.dist.main))
 });
 
-gulp.task('less', function ()
+gulp.task('less', ['del-main-dist'], function ()
 {
     return gulp.src('style/theme.less')
         .pipe(plumber())
@@ -51,7 +54,7 @@ gulp.task('less', function ()
 
 gulp.task('css', ['less', 'sass'], function ()
 {
-    return gulp.src(['dist/*.css', 'sprites/build/*.css', 'style/*.css'])
+    return gulp.src([common.dist.main + '/*.css', 'sprites/build/*.css', 'style/*.css'])
         .pipe(debug())
         .pipe(concat(main + ".css"))
         .pipe(debug())
