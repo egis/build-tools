@@ -34,7 +34,7 @@ gulp.task('do-bundle-main', ['compile-main', 'templates', 'fix-main-sourcemaps']
     return gulp.src([common.dist.main + '/' + common.bundles.main, common.dist.main + '/templates/*.js'])
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(common.replaceAll())
-        //.pipe(uglify({mangle: false}))
+        .pipe(uglify({mangle: false}))
         .pipe(concat(common.bundles.main))
         .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../' + common.srcDirs.main}))
         .pipe(gulp.dest('build'))
