@@ -22,15 +22,13 @@ var common = require('./common');
 
 var main = common.main;
 
-require('./cleanup');
-
 gulp.task('styles', ['less', 'sass', 'css'], function (done)
 {
     connect.reload();
     done();
 });
 
-gulp.task('sass', ['del-main-dist'], function ()
+gulp.task('sass', function ()
 {
     return gulp.src(['style/*.sass', 'style/*.scss'])
         .pipe(plumber())
@@ -38,7 +36,7 @@ gulp.task('sass', ['del-main-dist'], function ()
         .pipe(gulp.dest(common.dist.main))
 });
 
-gulp.task('less', ['del-main-dist'], function ()
+gulp.task('less', function ()
 {
     return gulp.src('style/theme.less')
         .pipe(plumber())
