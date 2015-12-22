@@ -19,14 +19,13 @@ require('./gulp/bundle');
 require('./gulp/dev-bundle');
 require('./gulp/rollup/tasks');
 require('./gulp/plugin');
-require('./gulp/cleanup');
 
-gulp.task('resources', ['del-main-dist'], resources);
+gulp.task('resources', resources);
 gulp.task('dependencies', ['resources'], bower);
 gulp.task('package', ['all'], pack);
 gulp.task('all', ['bundle', 'styles', 'resources']);
 gulp.task('templates', ['partials'], templates);
-gulp.task('partials', ['del-main-dist'], partials);
+gulp.task('partials', partials);
 gulp.task('default', ['package', 'webserver', 'watch']);
 
 gulp.task('webserver', webserver(common.port));

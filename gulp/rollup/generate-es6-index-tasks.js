@@ -8,15 +8,13 @@ var replace = require('gulp-replace');
 var common = require('../common');
 var plumber = require('gulp-plumber');
 
-require('../cleanup');
-
 module.exports = function(kind) {
     var srcDir = common.srcDirs[kind];
     var destDir = common.dist[kind];
     var up = '../../';  //let's improve when needed
     var workDir = destDir + '/.work';
 
-    gulp.task('prepare-lib-exports-rollup-' + kind, ['del-' + kind + '-dist'], function () {
+    gulp.task('prepare-lib-exports-rollup-' + kind, function () {
         return gulp.src([srcDir + '/.lib-exports.js'])
             .pipe(replace('./', up + srcDir + '/'))
             .pipe(gulp.dest(destDir + '/'));

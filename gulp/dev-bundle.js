@@ -13,8 +13,6 @@ var gzip = require('gulp-gzip');
 var pseudoconcat = require('gulp-pseudoconcat-js');
 var connect = require('gulp-connect');
 
-require('./cleanup');
-
 _.each(common.bundleKinds, function(kind) {
     gulp.task('dev-recompile-' + kind, [], function () {
         var srcDir = common.srcDirs[kind];
@@ -63,7 +61,7 @@ _.each(common.bundleKinds, function(kind) {
             .pipe(gulp.dest(common.dist[kind]))
     });
 
-    var prepareDevLoaderTaskDeps = ['del-' + kind + '-dist'];
+    var prepareDevLoaderTaskDeps = [];
     if (kind === 'main') prepareDevLoaderTaskDeps.push('dist-' + kind + '-systemjs');
     gulp.task('prepare-' + kind + '-dev-loader', prepareDevLoaderTaskDeps, function() {
         return gulp.src([common.srcDirs[kind] + '/.dev-loader.js'])
