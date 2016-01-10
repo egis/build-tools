@@ -48,4 +48,3 @@ gulp.task('watch', ['dev-package', 'dev-bundle-tests', 'webserver'], function() 
     gulp.watch('src/**/*.hbs', ['recompile-templates']);
     gulp.watch('style/**/*.*', ['recompile-styles']);
 });
-
