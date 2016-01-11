@@ -25,7 +25,7 @@ module.exports = function(bundleKind) {
         // by SystemJS, and the code client app relies on can become available later.
         res = res
             .pipe(replace('(function (exports)', common.egisUiModuleName + '.loaded(function() {(function (exports)'))
-            .pipe(replace('})((this.' + common.pkg.name + ' = {}));', '})((this.' + common.pkg.name + ' = {}))});'));
+            .pipe(replace('}((this.' + common.pkg.name + ' = {})));', '}((this.' + common.pkg.name + ' = {})))});'));
     }
     return res
         .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../' + srcDir}))
