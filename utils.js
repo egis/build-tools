@@ -149,7 +149,20 @@ module.exports = {
                 }
             },
             browsers: Object.keys(customLaunchers).concat(['Chrome']),
-            browserNoActivityTimeout: 200000
+            browserNoActivityTimeout: 200000,
+            htmlReporter: {
+                outputFile: 'test-output/unit.html'
+            },
+            coverageReporter: {
+                reporters: [
+                    { type: 'html', dir: 'coverage' }
+                ]
+            },
+            colors: true,
+            logLevel: config.LOG_INFO,
+            autoWatch: true,
+            singleRun: false,
+            hostname: config.hostname.split(' ').join('')
         });
     },
 
