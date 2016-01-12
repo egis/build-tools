@@ -118,6 +118,8 @@ module.exports = {
         // testingbot time cost money so we don't want to run extra on regular basis. REMOTE-Chrome is extra because there's also a local Chrome
         // customLaunchers = _.assign(customLaunchers, extra);
 
+        var browsers = Object.keys(customLaunchers);
+        browsers = browsers.concat(['Chrome']); // local Chrome plus to remotes
         config.set({
             junitReporter: {
                 outputDir: 'test-output/junit/' // results will be saved as $outputDir/$browserName.xml
@@ -148,7 +150,7 @@ module.exports = {
                     logfile: 'testingbot_tunnel.log'
                 }
             },
-            browsers: Object.keys(customLaunchers).concat(['Chrome']),
+            browsers: browsers,
             browserNoActivityTimeout: 200000,
             htmlReporter: {
                 outputFile: 'test-output/unit.html'
