@@ -110,7 +110,7 @@ module.exports = {
             'REMOTE-Chrome': {
                 base: launchersBase,
                 browserName: 'chrome',
-                platform: 'MAVERICKS',
+                platform: 'CAPITAN',
                 version: '47'
             }
         };
