@@ -4,6 +4,7 @@ var path = require('path');
 var argv = require('optimist').argv;
 var mkdirp = require('mkdirp');
 var child_process = require('child_process');
+var _ = require('lodash');
 
 module.exports = {
 
@@ -50,28 +51,73 @@ module.exports = {
         return true;
 
     },
-     dateFormat: function(date, fstr, utc) {
-      utc = utc ? 'getUTC' : 'get';
-      return fstr.replace (/%[YmdHMS]/g, function (m) {
-        switch (m) {
-        case '%Y': return date[utc + 'FullYear'] (); // no leading zeros required
-        case '%m': m = 1 + date[utc + 'Month'] (); break;
-        case '%d': m = date[utc + 'Date'] (); break;
-        case '%H': m = date[utc + 'Hours'] (); break;
-        case '%M': m = date[utc + 'Minutes'] (); break;
-        case '%S': m = date[utc + 'Seconds'] (); break;
-        default: return m.slice (1); // unknown code, remove %
-        }
-        // add leading zero if required
-        return ('0' + m).slice (-2);
-      });
+    dateFormat: function(date, fstr, utc) {
+        utc = utc ? 'getUTC' : 'get';
+        return fstr.replace (/%[YmdHMS]/g, function (m) {
+            switch (m) {
+                case '%Y': return date[utc + 'FullYear'] (); // no leading zeros required
+                case '%m': m = 1 + date[utc + 'Month'] (); break;
+                case '%d': m = date[utc + 'Date'] (); break;
+                case '%H': m = date[utc + 'Hours'] (); break;
+                case '%M': m = date[utc + 'Minutes'] (); break;
+                case '%S': m = date[utc + 'Seconds'] (); break;
+                default: return m.slice (1); // unknown code, remove %
+            }
+            // add leading zero if required
+            return ('0' + m).slice (-2);
+        });
     },
     defaultKarma: function (config)
     {
         this.buildDir();
         var hostname = argv.host || process.env['IP'] || this.ip();
 
-        var webdriverConfig = "http://hub.papertrail.co.za:4444/wd/hub";
+        var launchersBase = 'TestingBot';
+        var customLaunchers = {
+            'REMOTE-IE10': {
+                base: launchersBase,
+                browserName: 'internet explorer',
+                platform: 'WIN8',
+                version: '10'
+            },
+            'REMOTE-IE11': {
+                base: launchersBase,
+                browserName: 'internet explorer',
+                platform: 'WIN10',
+                version: '11'
+            },
+            'REMOTE-MSEdge': {
+                base: launchersBase,
+                browserName: 'microsoftedge',
+                platform: 'WIN10',
+                version: '20'
+            },
+            'REMOTE-FF': {
+                base: launchersBase,
+                browserName: 'firefox',
+                platform: 'WIN10',
+                version: '43'
+            },
+            'REMOTE-Safari': {
+                base: launchersBase,
+                browserName: 'safari',
+                platform: 'CAPITAN',
+                version: '9'
+            }
+        };
+
+        var extra = {
+            'REMOTE-Chrome': {
+                base: launchersBase,
+                browserName: 'chrome',
+                platform: 'MAVERICKS',
+                version: '47'
+            }
+        };
+
+        // testingbot time cost money so we don't want to run extra on regular basis. REMOTE-Chrome is extra because there's also a local Chrome
+        // customLaunchers = _.assign(customLaunchers, extra);
+
         config.set({
             junitReporter: {
                 outputDir: 'test-output/junit/' // results will be saved as $outputDir/$browserName.xml
@@ -87,38 +133,24 @@ module.exports = {
                 '**/*.js': ['sourcemap'],
                 '**/*.json'   : ['json_fixtures']
             },
-            customLaunchers: {
-                'REMOTE-IE11': {
-                    base: 'WebDriver',
-                    config: webdriverConfig,
-                    browserName: 'internet explorer',
-                    name: 'Karma',
-                    pseudoActivityInterval: 30000
-                },
-                'REMOTE-FF': {
-                    base: 'WebDriver',
-                    config: webdriverConfig,
-                    browserName: 'firefox',
-                    name: 'Karma',
-                    pseudoActivityInterval: 30000
-                },
-                'REMOTE-Chrome': {
-                    base: 'WebDriver',
-                    config: webdriverConfig,
-                    browserName: 'chrome',
-                    name: 'Karma',
-                    pseudoActivityInterval: 30000
-                }
-            },
+            customLaunchers: customLaunchers,
             jsonFixturesPreprocessor: {
                 variableName: '__json__'
-            }
+            },
+            reporters: ['progress', 'coverage', 'html', 'junit', 'verbose'],
+            testingbot: {
+                name: 'Karma',
+                screenrecorder: true,
+                screenshots: true,
+                connectOptions: {
+                    verbose: true,
+                    'se-port': 4445,
+                    logfile: 'testingbot_tunnel.log'
+                }
+            },
+            browsers: Object.keys(customLaunchers).concat(['Chrome']),
+            browserNoActivityTimeout: 200000
         });
-    },
-
-    allBrowsers: function ()
-    {
-        return ['REMOTE-IE11', 'REMOTE-FF', 'REMOTE-Chrome'];
     },
 
     ip: function ()
@@ -142,4 +174,3 @@ module.exports = {
         return ip;
     }
 };
-
