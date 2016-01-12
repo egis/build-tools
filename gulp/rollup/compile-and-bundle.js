@@ -3,7 +3,6 @@ var sourcemaps = require('gulp-sourcemaps');
 var concat = require('gulp-concat');
 
 var rollup = require('./rollup');
-var babel = require('rollup-plugin-babel');
 var common = require('../common');
 var plumber = require('gulp-plumber');
 var replace = require('gulp-replace');
