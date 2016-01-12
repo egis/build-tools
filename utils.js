@@ -119,7 +119,7 @@ module.exports = {
         // customLaunchers = _.assign(customLaunchers, extra);
 
         var browsers = Object.keys(customLaunchers);
-        browsers = browsers.concat(['Chrome']); // local Chrome plus to remotes
+        // browsers = browsers.concat(['Chrome']); // local Chrome plus to remotes
         config.set({
             junitReporter: {
                 outputDir: 'test-output/junit/' // results will be saved as $outputDir/$browserName.xml
