@@ -139,7 +139,7 @@ module.exports = {
             },
             reporters: ['progress', 'coverage', 'html', 'junit', 'verbose'],
             testingbot: {
-                name: 'Karma',
+                testName: (argv.testName || '') + ' Karma',
                 screenrecorder: true,
                 screenshots: true,
                 connectOptions: {
