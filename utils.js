@@ -115,6 +115,10 @@ module.exports = {
             }
         };
 
+        var projectName = argv.projectName;
+        var testingBotBuildName = process.env.CIRCLE_BUILD_NUM;
+        if (testingBotBuildName) testingBotBuildName = '' + projectName + '/' + testingBotBuildName;
+
         // testingbot time cost money so we don't want to run extra on regular basis. REMOTE-Chrome is extra because there's also a local Chrome
         // customLaunchers = _.assign(customLaunchers, extra);
 
@@ -141,14 +145,15 @@ module.exports = {
             },
             reporters: ['progress', 'coverage', 'html', 'junit', 'verbose'],
             testingbot: {
-                testName: (argv.testName || '') + ' Karma',
+                testName: (projectName || '') + ' Karma',
                 recordVideo: true,
                 recordScreenshots: true,
                 connectOptions: {
                     verbose: true,
                     'se-port': 4445,
                     logfile: 'test-output/testingbot_tunnel.log'
-                }
+                },
+                build: testingBotBuildName
             },
             browsers: browsers,
             browserNoActivityTimeout: 200000,
