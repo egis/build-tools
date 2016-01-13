@@ -10,7 +10,6 @@ var pack = require('./gulp/package');
 var partials = require('./gulp/partials');
 var templates = require('./gulp/templates');
 var webserver = require('./gulp/webserver');
-var exit = require('gulp-exit');
 var connect = require('gulp-connect');
 var _ = require('lodash');
 
