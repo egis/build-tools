@@ -142,8 +142,8 @@ module.exports = {
             reporters: ['progress', 'coverage', 'html', 'junit', 'verbose'],
             testingbot: {
                 testName: (argv.testName || '') + ' Karma',
-                screenrecorder: true,
-                screenshots: true,
+                recordVideo: true,
+                recordScreenshots: true,
                 connectOptions: {
                     verbose: true,
                     'se-port': 4445,
