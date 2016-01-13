@@ -147,7 +147,7 @@ module.exports = {
                 connectOptions: {
                     verbose: true,
                     'se-port': 4445,
-                    logfile: 'testingbot_tunnel.log'
+                    logfile: 'test-output/testingbot_tunnel.log'
                 }
             },
             browsers: browsers,
