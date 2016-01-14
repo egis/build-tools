@@ -5,7 +5,7 @@ var concat = require('gulp-concat');
 var rollup = require('./rollup');
 var common = require('../common');
 var plumber = require('gulp-plumber');
-var replace = require('gulp-replace');
+var insert = require('gulp-insert');
 
 module.exports = function(bundleKind) {
     var bundleDir = common.dist[bundleKind];
@@ -21,10 +21,8 @@ module.exports = function(bundleKind) {
     if (common.pkg.name !== common.egisUiPkgName) {
         // Make client apps' rollup build code run after the EgisUI.loaded: this is needed to make sure client
         // app can work with EgisUI in dev mode. This is because in dev mode app code is loaded asynchronously
-        // by SystemJS, and the code client app relies on can become available later.
-        res = res
-            .pipe(replace('(function (exports)', common.egisUiModuleName + '.loaded(function() {(function (exports)'))
-            .pipe(replace('}((this.' + common.pkg.name + ' = {})));', '}((this.' + common.pkg.name + ' = {})))});'));
+        // by SystemJS, and the code client app relies on can becomes available later.
+        res = res.pipe(insert.wrap(common.egisUiModuleName + '.loaded(function() {', '});'))
     }
     return res
         .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../' + srcDir}))
