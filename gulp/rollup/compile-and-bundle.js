@@ -22,7 +22,7 @@ module.exports = function(bundleKind) {
         // Make client apps' rollup build code run after the EgisUI.loaded: this is needed to make sure client
         // app can work with EgisUI in dev mode. This is because in dev mode app code is loaded asynchronously
         // by SystemJS, and the code client app relies on can becomes available later.
-        res = res.pipe(insert.wrap(common.egisUiModuleName + '.loaded(function() {', '});'))
+        res = res.pipe(insert.wrap(common.egisUiModuleName + '.loaded(function() {', '});'));
     }
     return res
         .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../' + srcDir}))
