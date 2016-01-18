@@ -8,7 +8,7 @@ var _ = require('lodash');
 
 module.exports = {
 
-    buildDir: function ()
+    fillEgisUiBuildDir: function ()
     {
         var EGISUI = path.normalize('../EgisUI/build/');
 
@@ -19,6 +19,7 @@ module.exports = {
         }
 
         console.log(EGISUI);
+        this.egisUiBuildDir = EGISUI;
         return EGISUI;
     },
 
@@ -69,7 +70,7 @@ module.exports = {
     },
     defaultKarma: function (config)
     {
-        this.buildDir();
+        this.fillEgisUiBuildDir();
         var hostname = argv.host || process.env['IP'] || this.ip();
 
         var launchersBase = 'TestingBot';
