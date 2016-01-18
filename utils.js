@@ -122,7 +122,7 @@ module.exports = {
         var browsers = Object.keys(customLaunchers);
         // browsers = browsers.concat(['Chrome']); // local Chrome plus to remotes
         var group_filename = function(base_fn, ext) {
-            return _.compact([base_fn, argv.group]).join('-') + ext;
+            return _.compact([base_fn, argv.group]).join('-') + '.' + ext;
         };
         config.set({
             junitReporter: {
