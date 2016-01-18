@@ -115,15 +115,14 @@ module.exports = {
             }
         };
 
-        var projectName = argv.projectName;
-        var testingBotBuildName = process.env.CIRCLE_BUILD_NUM;
-        if (testingBotBuildName) testingBotBuildName = '' + projectName + '/' + testingBotBuildName;
-
         // testingbot time cost money so we don't want to run extra on regular basis. REMOTE-Chrome is extra because there's also a local Chrome
         // customLaunchers = _.assign(customLaunchers, extra);
 
         var browsers = Object.keys(customLaunchers);
         // browsers = browsers.concat(['Chrome']); // local Chrome plus to remotes
+        var group_filename = function(base_fn, ext) {
+            return _.compact([base_fn, argv.group]).join('-') + ext;
+        };
         config.set({
             junitReporter: {
                 outputDir: 'test-output/junit/' // results will be saved as $outputDir/$browserName.xml
@@ -145,20 +144,21 @@ module.exports = {
             },
             reporters: ['progress', 'coverage', 'html', 'junit', 'verbose'],
             testingbot: {
-                testName: (projectName || '') + ' Karma',
+                testName: (argv.testName || '') + ' Karma',
                 recordVideo: true,
                 recordScreenshots: true,
                 connectOptions: {
                     verbose: true,
                     'se-port': 4445,
-                    logfile: 'test-output/testingbot_tunnel.log'
-                },
-                build: testingBotBuildName
+                    logfile: 'test-output/' + group_filename('testingbot_tunnel', 'log')
+                }
             },
             browsers: browsers,
-            browserNoActivityTimeout: 200000,
+            browserDisconnectTimeout: 10000,
+            browserDisconnectTolerance: 1,
+            browserNoActivityTimeout: 4*60*1000,
             htmlReporter: {
-                outputFile: 'test-output/unit.html'
+                outputFile: 'test-output/' + group_filename('unit', 'html')
             },
             coverageReporter: {
                 reporters: [
