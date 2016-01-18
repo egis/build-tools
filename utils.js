@@ -155,9 +155,10 @@ module.exports = {
                 }
             },
             browsers: browsers,
-            browserDisconnectTimeout: 10000,
-            browserDisconnectTolerance: 1,
-            browserNoActivityTimeout: 4*60*1000,
+            browserDisconnectTimeout: 10*1000, // default is 2000
+            browserDisconnectTolerance: 1, // default is 0
+            browserNoActivityTimeout: 4*60*1000, // default is 10*1000
+            captureTimeout: 2*60*1000, // default is 60*1000
             htmlReporter: {
                 outputFile: 'test-output/' + group_filename('unit', 'html')
             },
