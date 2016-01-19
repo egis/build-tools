@@ -120,7 +120,11 @@ module.exports = {
         // customLaunchers = _.assign(customLaunchers, extra);
 
         var browsers = Object.keys(customLaunchers);
-        // browsers = browsers.concat(['Chrome']); // local Chrome plus to remotes
+
+        var projectName = argv.projectName;
+        var testingBotBuildName = process.env.CIRCLE_BUILD_NUM;
+        if (testingBotBuildName) testingBotBuildName = '' + projectName + '/' + testingBotBuildName;
+
         var group_filename = function(base_fn, ext) {
             return _.compact([base_fn, argv.group]).join('-') + '.' + ext;
         };
@@ -145,14 +149,15 @@ module.exports = {
             },
             reporters: ['progress', 'coverage', 'html', 'junit', 'verbose'],
             testingbot: {
-                testName: (argv.testName || '') + ' Karma',
+                testName: (projectName || '') + ' Karma',
                 recordVideo: true,
                 recordScreenshots: true,
                 connectOptions: {
                     verbose: true,
                     'se-port': 4445,
                     logfile: 'test-output/' + group_filename('testingbot_tunnel', 'log')
-                }
+                },
+                build: testingBotBuildName
             },
             browsers: browsers,
             browserDisconnectTimeout: 10*1000, // default is 2000
