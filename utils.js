@@ -122,7 +122,7 @@ module.exports = {
         var browsers = Object.keys(customLaunchers);
         // browsers = browsers.concat(['Chrome']); // local Chrome plus to remotes
         var group_filename = function(base_fn, ext) {
-            return _.compact([base_fn, argv.group]).join('-') + ext;
+            return _.compact([base_fn, argv.group]).join('-') + '.' + ext;
         };
         config.set({
             junitReporter: {
@@ -155,9 +155,10 @@ module.exports = {
                 }
             },
             browsers: browsers,
-            browserDisconnectTimeout: 10000,
-            browserDisconnectTolerance: 1,
-            browserNoActivityTimeout: 4*60*1000,
+            browserDisconnectTimeout: 10*1000, // default is 2000
+            browserDisconnectTolerance: 1, // default is 0
+            browserNoActivityTimeout: 4*60*1000, // default is 10*1000
+            captureTimeout: 2*60*1000, // default is 60*1000
             htmlReporter: {
                 outputFile: 'test-output/' + group_filename('unit', 'html')
             },
