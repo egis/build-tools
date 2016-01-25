@@ -7,6 +7,7 @@ var is = require('is');
 var replace = require('gulp-replace');
 var common = require('../common');
 var plumber = require('gulp-plumber');
+var sourcemaps = require('gulp-sourcemaps');
 
 module.exports = function(kind) {
     var srcDir = common.srcDirs[kind];
@@ -16,13 +17,17 @@ module.exports = function(kind) {
 
     gulp.task('prepare-lib-exports-rollup-' + kind, function () {
         return gulp.src([srcDir + '/.lib-exports.js'])
+            .pipe(sourcemaps.init())
             .pipe(replace('./', up + srcDir + '/'))
+            .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: up + srcDir}))
             .pipe(gulp.dest(destDir + '/'));
     });
 
     gulp.task('copy-rollup-index-' + kind, ['prepare-lib-exports-rollup-' + kind], function () {
-        return gulp.src([__dirname + '/propagate/.rollup-index.js', destDir + '/.lib-exports.js'])
+        return gulp.src([__dirname + '/propagate/.rollup-index-proto.js', destDir + '/.lib-exports.js'], { base: 'src' })
+            .pipe(sourcemaps.init({loadMaps: true}))
             .pipe(concat('.rollup-index.js'))
+            .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: up + srcDir}))
             .pipe(gulp.dest(destDir + '/'));
 
     });

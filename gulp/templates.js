@@ -9,10 +9,12 @@ var wrap = require('gulp-wrap');
 var declare = require('gulp-declare');
 var flatten = require('gulp-flatten');
 var common = require('./common');
+var sourcemaps = require('gulp-sourcemaps');
 
 module.exports = function()
 {
     return gulp.src("src/**/*.hbs")
+        .pipe(sourcemaps.init())
         .pipe(plumber())
         .pipe(handlebars())
         .pipe(wrap('Handlebars.template(<%= contents %>)'))
@@ -21,5 +23,6 @@ module.exports = function()
             root: 'window'
         }))
         .pipe(flatten())
+        .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../src'}))
         .pipe(gulp.dest(common.dist.main + '/templates'));
 };
