@@ -139,8 +139,8 @@ module.exports = {
             frameworks: ['jasmine-jquery', 'jasmine', 'fixture'],
             exclude: [],
             preprocessors: {
-                '**/*.coffee': ['coffee'],
                 '**/*.js': ['sourcemap'],
+                'dist/main/egis-ui.js': ['coverage'],
                 '**/*.json'   : ['json_fixtures']
             },
             customLaunchers: customLaunchers,
@@ -169,7 +169,13 @@ module.exports = {
             },
             coverageReporter: {
                 reporters: [
-                    { type: 'html', dir: 'coverage' }
+                    {
+                        type : 'json',
+                        file : 'coverage-final.json',
+                        dir: 'coverage',
+                        subdir: '.',
+                        verbose: true
+                    }
                 ]
             },
             colors: true,
