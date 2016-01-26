@@ -104,10 +104,7 @@ module.exports = {
                 browserName: 'safari',
                 platform: 'CAPITAN',
                 version: '9'
-            }
-        };
-
-        var extra = {
+            },
             'REMOTE-Chrome': {
                 base: launchersBase,
                 browserName: 'chrome',
@@ -115,9 +112,6 @@ module.exports = {
                 version: '47'
             }
         };
-
-        // testingbot time cost money so we don't want to run extra on regular basis. REMOTE-Chrome is extra because there's also a local Chrome
-        // customLaunchers = _.assign(customLaunchers, extra);
 
         var browsers = Object.keys(customLaunchers);
 
@@ -139,7 +133,6 @@ module.exports = {
             frameworks: ['jasmine-jquery', 'jasmine', 'fixture'],
             exclude: [],
             preprocessors: {
-                '**/*.coffee': ['coffee'],
                 '**/*.js': ['sourcemap'],
                 '**/*.json'   : ['json_fixtures']
             },
@@ -147,7 +140,7 @@ module.exports = {
             jsonFixturesPreprocessor: {
                 variableName: '__json__'
             },
-            reporters: ['progress', 'coverage', 'html', 'junit', 'verbose'],
+            reporters: ['progress', 'html', 'junit', 'verbose'],
             testingbot: {
                 testName: (projectName || '') + ' Karma',
                 recordVideo: true,
@@ -166,11 +159,6 @@ module.exports = {
             captureTimeout: 2*60*1000, // default is 60*1000
             htmlReporter: {
                 outputFile: 'test-output/' + group_filename('unit', 'html')
-            },
-            coverageReporter: {
-                reporters: [
-                    { type: 'html', dir: 'coverage' }
-                ]
             },
             colors: true,
             logLevel: config.LOG_INFO,

@@ -13,8 +13,8 @@ module.exports = function(bundleKind) {
     var entryFile = bundleDir + '/.rollup-index.js';
     var bundleFilename = common.bundles[bundleKind];
     var srcDir = common.srcDirs[bundleKind];
-    var res =  gulp.src(entryFile, {read: false})
-        .pipe(sourcemaps.init())
+    var res =  gulp.src(entryFile)
+        .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(plumber())
         .pipe(rollup(moduleName))
         .pipe(concat(bundleFilename));

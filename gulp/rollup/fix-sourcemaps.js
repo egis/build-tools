@@ -15,6 +15,12 @@ module.exports = (function () {
                 common.dist[kind]);
         },
 
+        distBundleRollupIndex: function (kind) {
+            return gulp.src(common.dist[kind] + '/' + common.bundles[kind] + '.map')
+                .pipe(replace(".rollup-index.js", "../" + common.dist[kind] + "/.rollup-index.js"))
+                .pipe(gulp.dest(common.dist[kind]));
+        },
+
         endBundle: function (kind) {
             return fix('build/' + common.bundles[kind] + '.map', common.srcDirs[kind], 'build');
         }

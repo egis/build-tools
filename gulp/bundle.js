@@ -9,9 +9,16 @@ var uglify = require('gulp-uglify');
 var gzip = require('gulp-gzip');
 var common = require('./common');
 var fixSourcemaps = require('./rollup/fix-sourcemaps');
+var _ = require('lodash');
 
-gulp.task('fix-main-sourcemaps', ['compile-main'], function() {
-    return fixSourcemaps.distBundle('main');
+_.each(common.bundleKinds, function(kind) {
+    gulp.task('fix-' + kind + '-sourcemaps-rollup-index', ['compile-' + kind], function() {
+        return fixSourcemaps.distBundleRollupIndex(kind);
+    });
+    gulp.task('fix-' + kind + '-sourcemaps-main', ['compile-' + kind, 'fix-' + kind + '-sourcemaps-rollup-index'], function() {
+        return fixSourcemaps.distBundle(kind);
+    });
+    gulp.task('fix-' + kind + '-sourcemaps', ['fix-' + kind + '-sourcemaps-rollup-index', 'fix-' + kind + '-sourcemaps-main']);
 });
 
 gulp.task('fix-main-build-sourcemaps', ['do-bundle-main'], function() {
@@ -34,10 +41,10 @@ gulp.task('bundle-main', ['do-bundle-main', 'fix-main-build-sourcemaps']);
 
 var bundleTaskDeps = ['bundle-main'];
 if (common.pkg.examples) {
-    gulp.task('bundle-examples', ['compile-examples']);
+    gulp.task('bundle-examples', ['compile-examples', 'fix-examples-sourcemaps']);
     bundleTaskDeps.push('bundle-examples')
 }
 
 gulp.task('bundle', bundleTaskDeps);
 
-gulp.task('bundle-tests', ['compile-tests']);
+gulp.task('bundle-tests', ['compile-tests', 'fix-tests-sourcemaps']);
