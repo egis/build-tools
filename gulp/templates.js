@@ -23,6 +23,6 @@ module.exports = function()
             root: 'window'
         }))
         .pipe(flatten())
-        .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../src'}))
+        .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../../../src'}))
         .pipe(gulp.dest(common.dist.main + '/templates'));
 };
