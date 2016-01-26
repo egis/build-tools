@@ -26,7 +26,8 @@ gulp.task('fix-main-build-sourcemaps', ['do-bundle-main'], function() {
 });
 
 gulp.task('do-bundle-main', ['compile-main', 'templates', 'fix-main-sourcemaps'], function() {
-    return gulp.src([common.dist.main + '/' + common.bundles.main, common.dist.main + '/templates/*.js'])
+    return gulp.src([common.dist.main + '/' + common.bundles.main, common.dist.main + '/templates/*.js'],
+        { base: common.dist.main })
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(common.replaceAll())
         .pipe(uglify({mangle: false}))
