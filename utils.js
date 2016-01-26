@@ -140,14 +140,13 @@ module.exports = {
             exclude: [],
             preprocessors: {
                 '**/*.js': ['sourcemap'],
-                'dist/main/egis-ui.js': ['coverage'],
                 '**/*.json'   : ['json_fixtures']
             },
             customLaunchers: customLaunchers,
             jsonFixturesPreprocessor: {
                 variableName: '__json__'
             },
-            reporters: ['progress', 'coverage', 'html', 'junit', 'verbose'],
+            reporters: ['progress', 'html', 'junit', 'verbose'],
             testingbot: {
                 testName: (projectName || '') + ' Karma',
                 recordVideo: true,
@@ -166,17 +165,6 @@ module.exports = {
             captureTimeout: 2*60*1000, // default is 60*1000
             htmlReporter: {
                 outputFile: 'test-output/' + group_filename('unit', 'html')
-            },
-            coverageReporter: {
-                reporters: [
-                    {
-                        type : 'json',
-                        file : 'coverage-final.json',
-                        dir: 'coverage',
-                        subdir: '.',
-                        verbose: true
-                    }
-                ]
             },
             colors: true,
             logLevel: config.LOG_INFO,
