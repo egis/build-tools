@@ -104,10 +104,7 @@ module.exports = {
                 browserName: 'safari',
                 platform: 'CAPITAN',
                 version: '9'
-            }
-        };
-
-        var extra = {
+            },
             'REMOTE-Chrome': {
                 base: launchersBase,
                 browserName: 'chrome',
@@ -115,9 +112,6 @@ module.exports = {
                 version: '47'
             }
         };
-
-        // testingbot time cost money so we don't want to run extra on regular basis. REMOTE-Chrome is extra because there's also a local Chrome
-        // customLaunchers = _.assign(customLaunchers, extra);
 
         var browsers = Object.keys(customLaunchers);
 
