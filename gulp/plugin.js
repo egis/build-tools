@@ -20,7 +20,7 @@ gulp.task('plugin_concat', ['compile-main', 'templates'], function() {
 });
 
 gulp.task('plugin', ['plugin_concat'], function() {
-    var file = common.pkg.name + (common.pkg.plugin ? ".zip" : ".war");
+    var file = common.module.main + (common.pkg.plugin ? ".zip" : ".war");
     del.sync('tmp');
     utils.sh("mkdir -p tmp/System/plugins/" + common.pkg.plugin + "/")
     utils.sh("mkdir -p tmp/PT-SCRIPTS");

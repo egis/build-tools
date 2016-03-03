@@ -14,10 +14,10 @@ console.log('');
 
 module.exports = function()
 {
-    var file = pkg.name + (pkg.plugin ? ".zip" : ".war");
+    var file = common.module.main + (pkg.plugin ? ".zip" : ".war");
     del.sync('build/' + file);
     console.log('Deploying to ' + deploy + "/" + file);
-    return gulp.src(["build/**/*", '!**/' + file, '!build/' + pkg.name + '/', '!build/' + pkg.name + '/**/*', '!build/test/**/**'])
+    return gulp.src(["build/**/*", '!**/' + file, '!build/' + common.module.main + '/', '!build/' + common.module.main + '/**/*', '!build/test/**/**'])
         .pipe(addsrc(common.dist.main + "/*.png"))
         .pipe(zip(file))
         .pipe(gulp.dest(deploy))

@@ -103,7 +103,7 @@ module.exports = {
         examples: distDir + '/examples'
     },
     module: {
-        main: pkg.name,
+        main: pkg.moduleName,
         tests: 'Tests',
         examples: 'Examples'
     },
