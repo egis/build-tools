@@ -7,5 +7,7 @@ dependencies:
     - npm install
 
 test:
+  override:
+    - npm test && touch .local-success
   post:
     - test -f .local-success && (npm run semantic-release || true)
