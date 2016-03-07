@@ -1,0 +1,11 @@
+machine:
+  node:
+    version: 0.12.0
+
+dependencies:
+  pre:
+    - npm install
+
+test:
+  post:
+    - test -f .local-success && (npm run semantic-release || true)
