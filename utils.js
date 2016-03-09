@@ -11,6 +11,8 @@ module.exports = {
     fillEgisUiBuildDir: function ()
     {
         var base = path.normalize('./node_modules/@egis/egis-ui');
+        if (!this.exists(base)) return;
+
         var result = path.normalize(base + '/build/');
 
         if (!this.exists(result)) {
