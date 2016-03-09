@@ -10,10 +10,11 @@ module.exports = {
 
     fillEgisUiBuildDir: function ()
     {
-        var result = path.normalize('./node_modules/@egis/egis-ui/build/');
+        var base = path.normalize('./node_modules/@egis/egis-ui');
+        var result = path.normalize(base + '/build/');
 
         if (!this.exists(result)) {
-            this.unzip(path.join(result, 'EgisUI.war'), p);
+            this.unzip(path.join(base, 'EgisUI.war'), result);
         }
 
         console.log(result);
