@@ -8,23 +8,6 @@ var _ = require('lodash');
 
 module.exports = {
 
-    fillEgisUiBuildDir: function ()
-    {
-        var base = path.normalize('./node_modules/@egis/egis-ui');
-        if (!this.exists(base)) return;
-
-        var result = path.normalize(base + '/build/');
-
-        if (!this.exists(result)) {
-            this.unzip(path.join(base, 'EgisUI.war'), result);
-        }
-
-        console.log(result);
-        this.egisUiBuildDir = result;
-        return result;
-    },
-
-
     unzip: function (path, to)
     {
 
@@ -71,7 +54,6 @@ module.exports = {
     },
     defaultKarma: function (config)
     {
-        this.fillEgisUiBuildDir();
         var hostname = argv.host || process.env['IP'] || this.ip();
 
         var launchersBase = 'TestingBot';
