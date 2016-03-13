@@ -135,7 +135,6 @@
     "semantic-release": "semantic-release pre && npm publish --access public"
   },
   "release": {
-    "branch": "pull/36",
     "analyzeCommits": "./node_modules/@semantic-release/commit-analyzer/dist/index.js",
     "verifyConditions": "condition-circle"
   },
