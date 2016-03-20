@@ -48,7 +48,7 @@ bowerJson.excludes = bowerJson.excludes || [];
 bowerJson.standalone = bowerJson.standalone || [];
 bowerJson.directories = bowerJson.directories || {};
 bowerJson.overrides = bowerJson.overrides || {};
-var gitHash = utils.sh('git rev-parse --short HEAD');
+var gitHash = (utils.exists('.git/') ? utils.sh('git rev-parse --short HEAD') : 'current');
 var timestamp = utils.dateFormat(new Date(), '%Y-%m-%d %H:%M:%S')
 var replaceAll = lazypipe()
     .pipe(function ()
