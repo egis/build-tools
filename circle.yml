@@ -3,8 +3,10 @@ machine:
     version: 0.12.0
 
 dependencies:
-  pre:
+  override:
     - npm install
+    - gem install sass
+    - npm rebuild node-sass
 
 test:
   override:
