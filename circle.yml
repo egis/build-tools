@@ -8,6 +8,6 @@ dependencies:
 
 test:
   override:
-    - npm test && touch .local-success
+    - npm run dont-break && touch .local-success
   post:
     - test -f .local-success && (npm run semantic-release || true)

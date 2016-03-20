@@ -133,7 +133,8 @@
   },
   "scripts": {
     "test": "true",
-    "semantic-release": "semantic-release pre && npm publish --access public"
+    "semantic-release": "semantic-release pre && npm publish --access public",
+    "dont-break": "dont-break --timeout 600"
   },
   "release": {
     "branch": "pull/37",
