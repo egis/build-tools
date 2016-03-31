@@ -139,14 +139,21 @@
     "dont-break": "dont-break --timeout 600"
   },
   "release": {
-    "branch": "pull/37",
+    "branch": "pull/38",
     "analyzeCommits": "./node_modules/@semantic-release/commit-analyzer/dist/index.js",
     "verifyConditions": "condition-circle"
   },
-  "semantic-dependents": {
-    "@egis/egis-ui": "git@github.com:artemv/EgisUI.git",
-    "@egis/esign": "git@github.com:artemv/eSign.git",
-    "@egis/portal-app": "git@github.com:artemv/Portal.git"
+  "semantic-dependents-updates": {
+    "branchNameBase": "semadep-updater",
+    "targetBranch": "semantic-dependents-updates-github",
+    "author": {
+      "email": "semadep@egis-software.com"
+    },
+    "dependents": {
+      "@egis/egis-ui": "git@github.com:artemv/EgisUI.git",
+      "@egis/esign": "git@github.com:artemv/eSign.git",
+      "@egis/portal-app": "git@github.com:artemv/Portal.git"
+    }
   },
   "version": "0.0.0-semantic-release"
 }
