@@ -144,11 +144,7 @@
     "verifyConditions": "condition-circle"
   },
   "semantic-dependents-updates": {
-    "branchNameBase": "semadep-updater",
-    "targetBranch": "semantic-dependents-updates-github",
-    "author": {
-      "email": "semadep@egis-software.com"
-    },
+    "branch": "semantic-dependents-updates-github",
     "dependents": {
       "@egis/egis-ui": "git@github.com:artemv/EgisUI.git",
       "@egis/esign": "git@github.com:artemv/eSign.git",
