@@ -20,7 +20,6 @@ npm install -g karma-cli
 * Run `npm run build` to build a package suitable for production
 * Run `npm run test` to run karma test suites
 * Optional: Add an alias: `alias build='gulp --gulpfile node_modules/@egis/build-tools/Gulpfile.js --cwd ./'`
-  
 
 ## Build pipeline
 
@@ -30,20 +29,16 @@ npm install -g karma-cli
 ###src/*.js
 	Babel (ES6) > concat -> uglify -> gzip -> build/ 
 
-Concatenation order is specifed by adding a @requires annotation into the file header:
+Concatenation order is specifed by the ES6 import declaration
 ```javascript
-/**
- *
- * @requires utils/Utils.js
- * @requires Form.js
- */
+import assign from './utils/Utils.js'
+import Form from './Form.js'
 ```	
 
 
 		
 ###src/*.hbs
 	Handlebars -> concat into main JS, available in browser as TEMPLATES['name without extension']
-	
 	
 ###resources/*, *.html
 	Copied as is to build directory
