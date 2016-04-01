@@ -6,7 +6,7 @@
   "dependencies": {},
   "description": "## for MacOS users: ```shell # install 'native' (not Apple-supplied) Python to be able to install 'glue' tool: brew install python",
   "devDependencies": {
-    "@egis/semantic-dependents-updates-github": "1.0.3",
+    "@egis/semantic-dependents-updates-github": "1.0.6",
     "@semantic-release/commit-analyzer": "github:artemv/commit-analyzer#ceacb24e89ea696fb1b9e3452f0a8f386bf30619",
     "babel": "^6.3.26",
     "babel-plugin-check-es2015-constants": "^6.3.13",
@@ -147,7 +147,8 @@
       "@egis/egis-ui": "git@github.com:egis/EgisUI.git",
       "@egis/esign": "git@github.com:egis/eSign.git",
       "@egis/portal-app": "git@github.com:egis/Portal.git"
-    }
+    },
+    "branchNameBase": "autoupdate-build-tools"
   },
   "version": "0.0.0-semantic-release"
 }
