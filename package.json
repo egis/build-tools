@@ -147,7 +147,8 @@
       "@egis/egis-ui": "git@github.com:egis/EgisUI.git",
       "@egis/esign": "git@github.com:egis/eSign.git",
       "@egis/portal-app": "git@github.com:egis/Portal.git"
-    }
+    },
+    "branchNameBase": "autoupdate-build-tools"
   },
   "version": "0.0.0-semantic-release"
 }
