@@ -6,6 +6,8 @@
   "dependencies": {},
   "description": "## for MacOS users: ```shell # install 'native' (not Apple-supplied) Python to be able to install 'glue' tool: brew install python",
   "devDependencies": {
+    "@egis/semantic-dependents-updates-github": "1.0.3",
+    "@semantic-release/commit-analyzer": "github:artemv/commit-analyzer#ceacb24e89ea696fb1b9e3452f0a8f386bf30619",
     "babel": "^6.3.26",
     "babel-plugin-check-es2015-constants": "^6.3.13",
     "babel-plugin-external-helpers-2": "^6.3.13",
@@ -35,8 +37,10 @@
     "browserify": "^13.0.0",
     "browserify-istanbul": "^0.2.1",
     "bulkify": "^1.1.1",
+    "condition-circle": "^1.2.0",
     "del": "^2.2.0",
-    "fakey": "~0.0.8",
+    "dont-break": "github:artemv/dont-break#670d8d30b63c24469d79139e9a5323a9fdf563bf",
+    "fakey": "egis/fakey.js#e612a7f4e08a1c052a2db4814551cb3c91767652",
     "glob": "^6.0.3",
     "graceful-fs": "^4.1.2",
     "gulp": "^3.9.0",
@@ -107,8 +111,9 @@
     "readable-stream": "^2.0.5",
     "rollup": "^0.24.0",
     "rollup-plugin-babel": "^2.3.8",
-    "socket.io": "^1.4.4",
+    "semantic-release": "^4.3.5",
     "semver": "^5.1.0",
+    "socket.io": "^1.4.4",
     "source-map": "^0.5.3",
     "systemjs": "^0.19.13",
     "underscore": "^1.8.3",
@@ -120,16 +125,29 @@
   "homepage": "https://github.com/egis/build-tools#readme",
   "license": "ISC",
   "main": "utils.js",
-  "name": "build-tools",
+  "name": "@egis/build-tools",
   "optionalDependencies": {},
-  "readme": "# Gulp based builds.\n\n## for MacOS users:\n```shell\n# install 'native' (not Apple-supplied) Python to be able to install 'glue' tool:\nbrew install python\n\n# install 'glue' tool needed by build:\nbrew install jpeg\npip install glue\n\n# install Karma globally for tests to start:\nnpm install -g karma-cli\n```\n\n## Build steps:\n* Copy and rename the seed_package.json to package.json\n* Run `npm run setup` to install and build all required dependencies \n* Run `npm run dev` to  build files suitable for wathcing and startup a watch server\n* Run `npm run build` to build a package suitable for production\n* Run `npm run test` to run karma test suites\n* Optional: Add an alias: `alias build='gulp --gulpfile node_modules/build-tools/Gulpfile.js --cwd ./'`\n  \n\n## Build pipeline\n\n###stlye/*.less, *.sass, *.css\n\tRun through SASS or LESS >  dist/ -> concat -> uglify -> gzip -> build/ \n\n###src/*.js\n\tBabel (ES6) > concat -> uglify -> gzip -> build/ \n\nConcatenation order is specifed by adding a @requires annotation into the file header:\n```javascript\n/**\n *\n * @requires utils/Utils.js\n * @requires Form.js\n */\n```\t\n\n\n\t\t\n###src/*.hbs\n\tHandlebars -> concat into main JS, available in browser as TEMPLATES['name without extension']\n\t\n\t\n###resources/*, *.html\n\tCopied as is to build directory\n\t\n###sprites/{set}/*.png|jpg|gif\n\nCompiles all images into a single sprite call {set}.png sprites can be used like:\n\n```html\n<span class=\"sprite-{set}-{filebase}\"/>\n```\n\n## Customizing builds using bower.json and package.json\n\n\n#### bower.json\nAll bower dependencies with main files are concatenanted together, this can be overriden in bower.json as follows:\n\n```json \n\"overrides\": {\n           \"bootstrap\": {\n               \"main\": [\n                    \"dist/js/bootstrap.js\",\n                    \"dist/css/bootstrap.css\", \n                    \"dist/css/bootstrap.css.map\"\n               ]\n           },\n }   \n```\n\nTo exclude certain large libraries from concatenantion list in exclude, the main files will be concated together and placed in build/<libray name>\n```json\n   \"standalone\": [\"handsontable\", \"codemirror\"]\n```\n\nTo exclude libraries that have already been packaged elsewhere:\n```json\n\"excludes\": [\"jquery\"]\n```\n\nTo copy entire directories from dependencies:\n\n```json\n\"directories\": {\n    \"fontawesome\": \"fonts/*\",\n    \"bootstrap\": \"fonts/*\"\n  },\n```\n\nTo create a plugin package:\n\n```json\n\"plugin\": \"PortalApp\",\n```\nThis will create a .zip instead of a .war and place all the compiled .js file in to a subdirectory *System/plugins/{plugin}*\n\n",
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/egis/build-tools.git"
+    "url": "https://github.com/egis/build-tools.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "true",
+    "update-dependents": "semantic-dependents-updates-github",
+    "semantic-release": "semantic-release pre && npm publish --access public && npm run update-dependents",
+    "dont-break": "dont-break --timeout 600"
   },
-  "version": "1.0.0"
+  "release": {
+    "analyzeCommits": "./node_modules/@semantic-release/commit-analyzer/dist/index.js",
+    "verifyConditions": "condition-circle"
+  },
+  "semantic-dependents-updates": {
+    "dependents": {
+      "@egis/egis-ui": "git@github.com:egis/EgisUI.git",
+      "@egis/esign": "git@github.com:egis/eSign.git",
+      "@egis/portal-app": "git@github.com:egis/Portal.git"
+    }
+  },
+  "version": "0.0.0-semantic-release"
 }
