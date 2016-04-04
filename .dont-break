@@ -1,3 +1,3 @@
-@egis/egis-ui: npm run test-package
-@egis/esign: npm run test-package
-@egis/portal-app: npm run test-package
+@egis/egis-ui: npm run test-package-building
+@egis/esign: npm run test-package-building
+@egis/portal-app: npm run test-package-building
