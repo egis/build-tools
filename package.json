@@ -39,7 +39,7 @@
     "bulkify": "^1.1.1",
     "condition-circle": "^1.2.0",
     "del": "^2.2.0",
-    "dont-break": "github:artemv/dont-break#670d8d30b63c24469d79139e9a5323a9fdf563bf",
+    "dont-break": "github:artemv/dont-break#24fce62",
     "fakey": "egis/fakey.js#e612a7f4e08a1c052a2db4814551cb3c91767652",
     "glob": "^6.0.3",
     "graceful-fs": "^4.1.2",
