@@ -12,8 +12,8 @@ dependencies:
 
 test:
   override:
-    - test $CIRCLE_BRANCH = master && (cp -f .npmrc ~) && (npm run dont-break)
-    - test $CIRCLE_BRANCH = master && (rm ~/.npmrc)
+    - test $CIRCLE_BRANCH = master && (cp -f .npmrc ~) && (npm run dont-break) || true
+    - test $CIRCLE_BRANCH = master && (rm ~/.npmrc) || true
 
 deployment:
   semantic-release:
