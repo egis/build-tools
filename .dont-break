@@ -1,3 +1,3 @@
-@egis/egis-ui: npm run test-package-building
-@egis/esign: npm run test-package-building
-@egis/portal-app: npm run test-package-building
+@egis/egis-ui: ./node_modules/@egis/build-tools/dont-break-tests.sh
+@egis/esign: ./node_modules/@egis/build-tools/dont-break-tests.sh
+@egis/portal-app: ./node_modules/@egis/build-tools/dont-break-tests.sh
