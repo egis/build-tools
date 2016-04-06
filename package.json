@@ -146,7 +146,8 @@
     "dependents": {
       "@egis/egis-ui": "git@github.com:egis/EgisUI.git",
       "@egis/esign": "git@github.com:egis/eSign.git",
-      "@egis/portal-app": "git@github.com:egis/Portal.git"
+      "@egis/portal-app": "git@github.com:egis/Portal.git",
+      "@egis/bulk-capture": "git@github.com:egis/BulkCapture.git"
     },
     "branchNameBase": "autoupdate-build-tools"
   },
