@@ -3,6 +3,8 @@ machine:
     version: 0.12.0
 
 dependencies:
+  pre:
+    - test $CIRCLE_BRANCH != master && rm .npmrc || true
   override:
     - npm install
     - gem install sass
@@ -10,7 +12,11 @@ dependencies:
 
 test:
   override:
-    - (cp -f .npmrc ~) && (npm run dont-break) && touch .local-success
-    - rm ~/.npmrc
-  post:
-    - test -f .local-success && (npm run semantic-release || true)
+    - test $CIRCLE_BRANCH = master && (cp -f .npmrc ~) && (npm run dont-break) || true
+    - test $CIRCLE_BRANCH = master && (rm ~/.npmrc) || true
+
+deployment:
+  semantic-release:
+    branch: master
+    commands:
+      - npm run semantic-release || true
