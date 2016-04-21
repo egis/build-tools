@@ -24,7 +24,11 @@ module.exports = function(kind) {
     });
 
     gulp.task('copy-rollup-index-' + kind, ['prepare-lib-exports-rollup-' + kind], function () {
-        return gulp.src([__dirname + '/propagate/.rollup-index-proto.js', destDir + '/.lib-exports.js'], { base: 'src' })
+        var sources = [destDir + '/.lib-exports.js'];
+        if (common.build.autoImportAll) {
+            sources.unshift(__dirname + '/propagate/.rollup-index-proto.js');
+        }
+        return gulp.src(sources, { base: 'src' })
             .pipe(sourcemaps.init({loadMaps: true}))
             .pipe(concat('.rollup-index.js'))
             .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: up + srcDir}))
@@ -74,6 +78,9 @@ module.exports = function(kind) {
             .pipe(gulp.dest(destDir + '/'))
     });
 
-    gulp.task('generate-es6-index-' + kind, ['copy-rollup-index-' + kind, 'gen-stage3-finalize-exports-' +
-        kind]);
+    var lastDeps = ['copy-rollup-index-' + kind];
+    if (common.build.autoImportAll) {
+        lastDeps.push('gen-stage3-finalize-exports-' + kind);
+    }
+    gulp.task('generate-es6-index-' + kind, lastDeps);
 };

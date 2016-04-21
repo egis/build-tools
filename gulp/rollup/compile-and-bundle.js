@@ -6,6 +6,7 @@ var rollup = require('./rollup');
 var common = require('../common');
 var plumber = require('gulp-plumber');
 var insert = require('gulp-insert');
+var debug = require('gulp-debug');
 
 module.exports = function(bundleKind) {
     var bundleDir = common.dist[bundleKind];
@@ -16,6 +17,7 @@ module.exports = function(bundleKind) {
     var res =  gulp.src(entryFile)
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(plumber())
+        .pipe(debug())
         .pipe(rollup(moduleName))
         .pipe(concat(bundleFilename));
     if (common.module.main !== common.egisUiPkgName) {
