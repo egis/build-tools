@@ -100,7 +100,11 @@ module.exports = {
     main: main,
     replaceAll: replaceAll,
     build: {
-        autoImportAll: pkg.build.autoImportAll
+        autoImportAll: {
+            main: pkg.build.autoImportAll,
+            tests: true,
+            examples: true
+        }
     },
     dist: {
         dir: distDir,
