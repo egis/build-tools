@@ -25,7 +25,7 @@ module.exports = function(kind) {
 
     gulp.task('copy-rollup-index-' + kind, ['prepare-lib-exports-rollup-' + kind], function () {
         var sources = [destDir + '/.lib-exports.js'];
-        if (common.build.autoImportAll) {
+        if (common.build.autoImportAll[kind]) {
             sources.unshift(__dirname + '/propagate/.rollup-index-proto.js');
         }
         return gulp.src(sources, { base: 'src' })
@@ -79,7 +79,7 @@ module.exports = function(kind) {
     });
 
     var lastDeps = ['copy-rollup-index-' + kind];
-    if (common.build.autoImportAll) {
+    if (common.build.autoImportAll[kind]) {
         lastDeps.push('gen-stage3-finalize-exports-' + kind);
     }
     gulp.task('generate-es6-index-' + kind, lastDeps);

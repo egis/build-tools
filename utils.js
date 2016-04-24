@@ -6,7 +6,32 @@ var mkdirp = require('mkdirp');
 var child_process = require('child_process');
 var _ = require('lodash');
 
+function pathExists(path) {
+    try {
+        fs.statSync(path);
+    }
+    catch (err) {
+        if (err.code == 'ENOENT') {
+            return false;
+        }
+    }
+    return true;
+}
+
+function findEgisUi() {
+    var egisUiPath = path.normalize('../EgisUI/build/');
+
+    if (!pathExists(egisUiPath)) {
+        egisUiPath = './node_modules/@egis/egis-ui/build'
+    }
+    return egisUiPath;
+}
+
+var EGISUI = findEgisUi();
+
 module.exports = {
+
+    EGISUI: EGISUI,
 
     unzip: function (path, to)
     {
@@ -22,19 +47,7 @@ module.exports = {
 
     exists: function (path)
     {
-        try
-        {
-            fs.statSync(path);
-        }
-        catch (err)
-        {
-            if (err.code == 'ENOENT')
-            {
-                return false;
-            }
-        }
-        return true;
-
+        return pathExists(path);
     },
     dateFormat: function(date, fstr, utc) {
         utc = utc ? 'getUTC' : 'get';
