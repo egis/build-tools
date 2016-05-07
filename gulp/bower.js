@@ -19,53 +19,47 @@ var _ = require('underscore');
 var bowerJson = require('./common').bowerJson;
 var prod = require('./common').prod;
 
-module.exports = function (done)
-{
-    var bower_excludes = bowerJson.excludes.map(function (it)
-    {
+module.exports = function(done) {
+    var bower_excludes = bowerJson.excludes.map(function(it) {
         return "**/" + it + "/**/*";
     });
 
-    var bower_standalone = bowerJson.standalone.map(function (it)
-    {
+    var bower_standalone = bowerJson.standalone.map(function(it) {
         return "**/" + it + "/**/*";
     });
 
-    for (var i = 0; i < bowerJson.standalone.length; i++)
-    {
+    for (var i = 0; i < bowerJson.standalone.length; i++) {
         bowerConcat(filter('**/' + bowerJson.standalone[i] + "/**/*"), bowerJson.standalone[i]);
     }
 
-    _.each(bowerJson.directories, function (dirs, dep)
-    {
+    _.each(bowerJson.directories, function(dirs, dep) {
         console.log('coping ' + dirs + " for " + dep);
 
-        dirs.forEach(function (dir)
-        {
+        dirs.forEach(function(dir) {
             var base = "bower_components/" + dep;
-            gulp.src(base + "/" + dir, {base: base}).pipe(gulp.dest('build/'));
+            gulp.src(base + "/" + dir, {
+                base: base
+            }).pipe(gulp.dest('build/'));
         });
 
     });
 
-    if (bowerJson.excludes.length > 0 || bowerJson.standalone.length > 0)
-    {
+    if (bowerJson.excludes.length > 0 || bowerJson.standalone.length > 0) {
         bowerConcat(ignore.exclude(_.union(bower_excludes, bower_standalone)), 'dependencies', done);
-    }
-    else
-    {
+    } else {
         bowerConcat(gutil.noop(), 'dependencies', done)
     }
 };
 
-function bowerConcat(expr, name)
-{
+function bowerConcat(expr, name) {
     var js = bower()
         .pipe(expr)
         .pipe(filter('**/*.js'))
         .pipe(debug())
         .pipe(sourcemaps.init())
-        .pipe(gulpif(prod, uglify({mangle: false})))
+        .pipe(gulpif(prod, uglify({
+            mangle: false
+        })))
         .pipe(concat(name + '.js'))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('build'))
@@ -89,14 +83,12 @@ function bowerConcat(expr, name)
     return merge(js, css, other)
 }
 
-function bower()
-{
-    if (bowerJson.overrides.length > 0)
-    {
-        return gulp.src('./bower.json').pipe(mainBowerFiles({overrides: bowerJson.overrides}))
-    }
-    else
-    {
+function bower() {
+    if (bowerJson.overrides.length > 0) {
+        return gulp.src('./bower.json').pipe(mainBowerFiles({
+            overrides: bowerJson.overrides
+        }))
+    } else {
         return gulp.src('./bower.json').pipe(mainBowerFiles())
     }
 }
