@@ -19,6 +19,9 @@ var _ = require('underscore');
 var bowerJson = require('./common').bowerJson;
 var prod = require('./common').prod;
 
+prod = !process.env.DEV;
+
+console.log('prod mode=' + prod)
 module.exports = function(done) {
     var bower_excludes = bowerJson.excludes.map(function(it) {
         return "**/" + it + "/**/*";
@@ -29,7 +32,7 @@ module.exports = function(done) {
     });
 
     for (var i = 0; i < bowerJson.standalone.length; i++) {
-        bowerConcat(filter('**/' + bowerJson.standalone[i] + "/**/*"), bowerJson.standalone[i]);
+        bowerConcat(filter('**/' + bowerJson.standalone[i] + "/**/*"), bowerJson.standalone[i], false);
     }
 
     _.each(bowerJson.directories, function(dirs, dep) {
@@ -45,19 +48,19 @@ module.exports = function(done) {
     });
 
     if (bowerJson.excludes.length > 0 || bowerJson.standalone.length > 0) {
-        bowerConcat(ignore.exclude(_.union(bower_excludes, bower_standalone)), 'dependencies', done);
+        bowerConcat(ignore.exclude(_.union(bower_excludes, bower_standalone)), 'dependencies', prod, done);
     } else {
-        bowerConcat(gutil.noop(), 'dependencies', done)
+        bowerConcat(gutil.noop(), 'dependencies', prod, done)
     }
 };
 
-function bowerConcat(expr, name) {
+function bowerConcat(expr, name, _uglify) {
     var js = bower()
         .pipe(expr)
         .pipe(filter('**/*.js'))
         .pipe(debug())
         .pipe(sourcemaps.init())
-        .pipe(gulpif(prod, uglify({
+        .pipe(gulpif(_uglify, uglify({
             mangle: false
         })))
         .pipe(concat(name + '.js'))

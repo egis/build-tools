@@ -12,6 +12,7 @@ module.exports = function(moduleName) {
         // any option supported by rollup can be set here, including sourceMap
         format: 'iife',
         sourceMap: true,
+        // useStrict: false,
         moduleName: moduleName,
         globals: globals,
         plugins: [ babel({

@@ -8,6 +8,7 @@ var replace = require('gulp-replace');
 var common = require('../common');
 var plumber = require('gulp-plumber');
 var sourcemaps = require('gulp-sourcemaps');
+var debug = require('gulp-debug');
 
 module.exports = function(kind) {
     var srcDir = common.srcDirs[kind];
@@ -40,6 +41,7 @@ module.exports = function(kind) {
     {
         return gulp.src([srcDir + '/**/*.js', '!' + srcDir + '/.lib-exports.js', '!' + srcDir + '/**/*_scsslint_*'])
             .pipe(plumber())
+            .pipe(debug())
             .pipe(directoryMap({
                 filename: 'modules.json'
             }))

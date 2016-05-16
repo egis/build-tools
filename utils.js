@@ -86,26 +86,22 @@ module.exports = {
             'REMOTE-MSEdge': {
                 base: launchersBase,
                 browserName: 'microsoftedge',
-                platform: 'WIN10',
-                version: '20'
+                platform: 'WIN10'
             },
             'REMOTE-FF': {
                 base: launchersBase,
                 browserName: 'firefox',
-                platform: 'WIN10',
-                version: '43'
+                platform: 'WIN10'
             },
             'REMOTE-Safari': {
                 base: launchersBase,
                 browserName: 'safari',
-                platform: 'CAPITAN',
-                version: '9'
+                platform: 'CAPITAN'
             },
             'REMOTE-Chrome': {
                 base: launchersBase,
                 browserName: 'chrome',
-                platform: 'CAPITAN',
-                version: '47'
+                platform: 'CAPITAN'
             }
         };
 
@@ -142,7 +138,7 @@ module.exports = {
                 recordVideo: true,
                 recordScreenshots: true,
                 connectOptions: {
-                    verbose: true,
+                    verbose: false,
                     'se-port': 4445,
                     logfile: 'test-output/' + group_filename('testingbot_tunnel', 'log')
                 },
