@@ -81,9 +81,8 @@ _.each(common.bundleKinds, function(kind) {
     gulp.task('dev-bundle-' + kind, devBundleTaskDeps, function() {
 
         var destDir = common.dist[kind];
-        var sources = [
-                common.dist[kind] + '/dev-loader.js',
-                common.dist[kind] + '/templates/*.js'];
+        var sources = [common.dist[kind] + '/templates/*.js',
+                common.dist[kind] + '/dev-loader.js'];
         if (kind === 'main') {
             sources = _(sources).unshift(common.dist['main'] + '/system.js').value();
             destDir = 'build';
