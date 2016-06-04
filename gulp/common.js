@@ -9,6 +9,7 @@ var replace = require('gulp-replace');
 var utils = require('../utils');
 var deploy = process.env.WORK_DIR;
 var _ = require('lodash');
+var argv = require('optimist').argv;
 
 var knownOptions = {
     string: 'env',
@@ -94,7 +95,7 @@ module.exports = {
     },
     bowerJson: bowerJson,
     watch: options.watch,
-    host: pkg.host || 'localhost',
+    host: argv.host || pkg.host || 'localhost',
     port: pkg.port || '8101',
     prod: options.env === 'production',
     main: main,
