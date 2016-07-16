@@ -118,6 +118,7 @@
     "socket.io": "^1.4.4",
     "source-map": "^0.5.3",
     "systemjs": "^0.19.13",
+    "testingbot-tunnel-launcher": "1.0.7",
     "underscore": "^1.8.3",
     "unzip": "^0.1.11",
     "vinyl-buffer": "^1.0.0",
