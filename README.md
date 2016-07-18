@@ -1,6 +1,6 @@
 # Gulp based builds.
 
-## for MacOS users:
+## MacOSX: Installing glue:
 ```shell
 # install 'native' (not Apple-supplied) Python to be able to install 'glue' tool:
 brew install python
@@ -14,12 +14,12 @@ npm install -g karma-cli
 ```
 
 ## Build steps:
-* Copy and rename the seed_package.json to package.json
+* export your `NPM_TOKEN`
+* Copy and rename the seed_package.json to package.json (only when bootstraping new projects)
 * Run `npm run setup` to install and build all required dependencies 
 * Run `npm run dev` to  build files suitable for wathcing and startup a watch server
 * Run `npm run build` to build a package suitable for production
 * Run `npm run test` to run karma test suites
-* Optional: Add an alias: `alias build='gulp --gulpfile node_modules/@egis/build-tools/Gulpfile.js --cwd ./'`
 
 ## Build pipeline
 
