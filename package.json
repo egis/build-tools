@@ -42,7 +42,7 @@
     "coveralls": "^2.11.11",
     "david": "^7.0.1",
     "del": "^2.2.0",
-    "dont-break": "github:artemv/dont-break#24fce62",
+    "dont-break": "github:egis/dont-break",
     "exact-semver": "^1.2.0",
     "fakey": "egis/fakey.js#e612a7f4e08a1c052a2db4814551cb3c91767652",
     "glob": "^6.0.3",
