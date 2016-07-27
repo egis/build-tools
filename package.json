@@ -7,7 +7,7 @@
   "description": "## for MacOS users: ```shell # install 'native' (not Apple-supplied) Python to be able to install 'glue' tool: brew install python",
   "devDependencies": {
     "@egis/semantic-dependents-updates-github": "1.0.6",
-    "@semantic-release/commit-analyzer": "github:artemv/commit-analyzer#ceacb24e89ea696fb1b9e3452f0a8f386bf30619",
+    "@semantic-release/commit-analyzer": "github:egis/commit-analyzer#4675f1a9d5426dedd5c863181f350e14fde19343",
     "babel": "^6.3.26",
     "babel-core": "^6.11.4",
     "babel-plugin-__coverage__": "^11.0.0",
