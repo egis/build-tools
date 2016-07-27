@@ -39,6 +39,7 @@
     "browserify": "^13.0.0",
     "bulkify": "^1.1.1",
     "condition-circle": "^1.2.0",
+    "coveralls": "^2.11.11",
     "david": "^7.0.1",
     "del": "^2.2.0",
     "dont-break": "github:artemv/dont-break#24fce62",
