@@ -74,7 +74,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
     "gulp-rollup": "^1.9.0",
-    "gulp-pseudoconcat-js": "^1.2.0",
+    "gulp-pseudoconcat-js": "github:egis/gulp-pseudoconcat-js",
     "gulp-sass": "^2.1.1",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.1",
