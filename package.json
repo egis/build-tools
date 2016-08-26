@@ -129,7 +129,6 @@
   "license": "ISC",
   "main": "utils.js",
   "name": "@egis/build-tools",
-  "optionalDependencies": {},
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
