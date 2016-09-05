@@ -127,7 +127,7 @@
     "watchify": "^3.7.0"
   },
   "homepage": "https://github.com/egis/build-tools#readme",
-  "license": "ISC",
+  "license": "Commercial",
   "main": "utils.js",
   "name": "@egis/build-tools",
   "readmeFilename": "README.md",
