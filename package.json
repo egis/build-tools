@@ -7,7 +7,6 @@
   "description": "## for MacOS users: ```shell # install 'native' (not Apple-supplied) Python to be able to install 'glue' tool: brew install python",
   "devDependencies": {
     "@egis/semantic-dependents-updates-github": "1.0.6",
-    "@semantic-release/commit-analyzer": "github:egis/commit-analyzer#4675f1a9d5426dedd5c863181f350e14fde19343",
     "babel": "^6.3.26",
     "babel-core": "^6.11.4",
     "babel-plugin-__coverage__": "^11.0.0",
@@ -45,6 +44,7 @@
     "dont-break": "github:egis/dont-break",
     "exact-semver": "^1.2.0",
     "fakey": "egis/fakey.js#e612a7f4e08a1c052a2db4814551cb3c91767652",
+    "freeform-semantic-commit-analyzer": "^1.1.0",
     "glob": "^6.0.3",
     "graceful-fs": "^4.1.2",
     "gulp": "^3.9.0",
@@ -71,10 +71,10 @@
     "gulp-main-bower-files": "^1.3.0",
     "gulp-plumber": "^1.0.1",
     "gulp-print": "^2.0.1",
+    "gulp-pseudoconcat-js": "github:egis/gulp-pseudoconcat-js",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
     "gulp-rollup": "^1.9.0",
-    "gulp-pseudoconcat-js": "github:egis/gulp-pseudoconcat-js",
     "gulp-sass": "^2.1.1",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.1",
@@ -142,7 +142,7 @@
     "dont-break": "dont-break --timeout 600"
   },
   "release": {
-    "analyzeCommits": "./node_modules/@semantic-release/commit-analyzer/dist/index.js",
+    "analyzeCommits": "./node_modules/freeform-semantic-commit-analyzer/dist/index.js",
     "verifyConditions": "condition-circle"
   },
   "semantic-dependents-updates": {
