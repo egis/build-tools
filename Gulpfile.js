@@ -34,9 +34,13 @@ if (common.pkg.examples) devPackageTaskDeps.push('dev-bundle-examples');
 
 gulp.task('dev-package', devPackageTaskDeps, pack);
 
-gulp.task('dev-repackage', ['dev-package'], connect.reload);
-gulp.task('recompile-templates', ['templates'], connect.reload);
-gulp.task('recompile-styles', ['styles'], connect.reload);
+function reloadConnect() {
+    connect.reload()
+}
+
+gulp.task('dev-repackage', ['dev-package'], reloadConnect);
+gulp.task('recompile-templates', ['templates'], reloadConnect);
+gulp.task('recompile-styles', ['styles'], reloadConnect);
 
 gulp.task('watch', ['dev-package', 'dev-bundle-tests', 'webserver'], function() {
     _.each(common.bundleKinds, function(kind) {

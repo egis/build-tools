@@ -54,10 +54,10 @@ _.each(common.bundleKinds, function(kind) {
     });
 
     gulp.task('dist-' + kind + '-systemjs', function() {
-        var upToNodeModules = '../../..';
+        var systemjsDir = 'node_modules/systemjs';
         return gulp.src([
-                __dirname + '/' + upToNodeModules + '/systemjs/dist/system-polyfills.js',
-                __dirname + '/' + upToNodeModules + '/systemjs/dist/system.js'
+                systemjsDir + '/dist/system-polyfills.js',
+                systemjsDir + '/dist/system.js'
         ])
             .pipe(gulp.dest(common.dist[kind]))
     });
