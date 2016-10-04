@@ -42,7 +42,8 @@ if (pkg.plugin != null)
 else
 {
     deploy += "webapps";
-    bowerJson = JSON.parse(fs.readFileSync('./bower.json', 'utf8'));
+    var bPath = 'bower.json';
+    bowerJson = utils.exists(bPath) ? JSON.parse(fs.readFileSync(bPath, 'utf8')) : {};
 }
 
 bowerJson.excludes = bowerJson.excludes || [];

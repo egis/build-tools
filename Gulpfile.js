@@ -10,7 +10,6 @@ var pack = require('./gulp/package');
 var partials = require('./gulp/partials');
 var templates = require('./gulp/templates');
 var webserver = require('./gulp/webserver');
-var connect = require('gulp-connect');
 var _ = require('lodash');
 
 require('./gulp/styles');
@@ -18,6 +17,7 @@ require('./gulp/bundle');
 require('./gulp/dev-bundle');
 require('./gulp/rollup/tasks');
 require('./gulp/plugin');
+require('./gulp/browsersync');
 
 gulp.task('resources', resources);
 gulp.task('dependencies', ['resources'], bower);
@@ -34,20 +34,12 @@ if (common.pkg.examples) devPackageTaskDeps.push('dev-bundle-examples');
 
 gulp.task('dev-package', devPackageTaskDeps, pack);
 
-function reloadConnect() {
-    connect.reload()
-}
-
-gulp.task('dev-repackage', ['dev-package'], reloadConnect);
-gulp.task('recompile-templates', ['templates'], reloadConnect);
-gulp.task('recompile-styles', ['styles'], reloadConnect);
-
 gulp.task('watch', ['dev-package', 'dev-bundle-tests', 'webserver'], function() {
     _.each(common.bundleKinds, function(kind) {
         gulp.watch([common.srcDirs[kind] + '/**/*.js'], ['dev-recompile-' + kind]);
         gulp.watch([common.srcDirs[kind] + '/.lib-exports.js'], ['dev-recompile-' + kind, 'generate-systemjs-' + kind + '-index']);
     });
-    gulp.watch(['**/.dev-loader.js'], ['dev-repackage']);
-    gulp.watch('src/**/*.hbs', ['recompile-templates']);
-    gulp.watch('style/**/*.*', ['recompile-styles']);
+    gulp.watch(['**/.dev-loader.js'], ['dev-package']);
+    gulp.watch('src/**/*.hbs', ['templates']);
+    gulp.watch('style/**/*.*', ['styles']);
 });

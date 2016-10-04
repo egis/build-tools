@@ -11,7 +11,7 @@ module.exports = function (port)
         };
 
         return connect.server({
-            livereload: true,
+            livereload: false,
             root: process.cwd(),
             port: port,
             middleware: function () {
