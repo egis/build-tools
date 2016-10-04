@@ -11,7 +11,6 @@ var plumber = require('gulp-plumber');
 var _ = require('lodash');
 var gzip = require('gulp-gzip');
 var pseudoconcat = require('gulp-pseudoconcat-js');
-var connect = require('gulp-connect');
 
 _.each(common.bundleKinds, function(kind) {
     gulp.task('dev-recompile-' + kind, [], function () {
@@ -40,8 +39,7 @@ _.each(common.bundleKinds, function(kind) {
                 var res = t - (t0[fnKey] || 0);
                 var report = ['done ', filename, ' in ', res, 'ms'];
                 return report.join("");
-            }))
-            .pipe(connect.reload());
+            }));
     });
 
     gulp.task('generate-systemjs-' + kind + '-index', ['gen-stage2-wildcard-exports-' + kind, 'dev-recompile-' + kind], function() {

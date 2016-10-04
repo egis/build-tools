@@ -14,7 +14,6 @@ var less = require('gulp-less');
 var concat = require('gulp-concat');
 var replace = require('gulp-replace');
 var addsrc = require('gulp-add-src');
-var connect = require('gulp-connect');
 var os = require('os');
 var utils = require('../utils');
 var del = require('del');
@@ -22,11 +21,7 @@ var common = require('./common');
 
 var main = common.main;
 
-gulp.task('styles', ['less', 'sass', 'css'], function (done)
-{
-    connect.reload();
-    done();
-});
+gulp.task('styles', ['less', 'sass', 'css']);
 
 gulp.task('sass', function ()
 {

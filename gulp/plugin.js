@@ -10,7 +10,6 @@ var del = require('del');
 var sourcemaps = require('gulp-sourcemaps');
 var common = require('./common');
 var _ = require('lodash');
-var connect = require('gulp-connect');
 
 gulp.task('plugin_concat', ['compile-main', 'templates'], function() {
      return gulp.src([common.dist.main + "/**/*.js", common.dist.main + "/templates/*.js"])
@@ -49,16 +48,12 @@ gulp.task('plugin-dev-package', ['dev-bundle-main', 'styles', 'resources'], func
     return packagePlugin();
 });
 
-gulp.task('plugin-repackage', ['plugin-dev-package'], function() {
-    connect.reload();
-});
-
-gulp.task('plugin_watch', ['plugin-repackage', 'dev-bundle-tests', 'webserver'], function() {
+gulp.task('plugin_watch', ['plugin-dev-package', 'dev-bundle-tests', 'webserver'], function() {
     _.each(common.bundleKinds, function(kind) {
         gulp.watch([common.srcDirs[kind] + '/**/*.js'], ['dev-recompile-' + kind]);
         gulp.watch([common.srcDirs[kind] + '/.lib-exports.js'], ['dev-recompile-' + kind, 'generate-systemjs-' + kind + '-index']);
     });
-    gulp.watch(['**/.dev-loader.js'], ['plugin-repackage']);
-    gulp.watch('src/**/*.hbs', ['recompile-templates']);
-    gulp.watch('style/**/*.*', ['recompile-styles']);
+    gulp.watch(['**/.dev-loader.js'], ['plugin-dev-package']);
+    gulp.watch('src/**/*.hbs', ['templates']);
+    gulp.watch('style/**/*.*', ['styles']);
 });
