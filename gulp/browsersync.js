@@ -65,6 +65,7 @@ gulp.task('browsersync', () => {
         proxy: toProxy,
         startPath: "/web/portal",
         open: 'external',
+        ghostMode: false,
         tunnel: argv.tunnel
     };
 
