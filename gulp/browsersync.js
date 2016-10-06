@@ -66,9 +66,9 @@ gulp.task('browsersync', () => {
         startPath: "/web/portal",
         open: 'external',
         ghostMode: false,
-        tunnel: argv.tunnel
     };
 
+    if (argv.tunnel) config.tunnel = argv.tunnel;
     if (common.port) config.port = common.port;
 
     loadApps('..', config);

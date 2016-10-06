@@ -142,7 +142,7 @@
     "update-dependents": "semantic-dependents-updates-github",
     "semantic-release": "semantic-release pre && npm publish --access public && npm run update-dependents",
     "dont-break": "dont-break --timeout 600",
-    "browsersync": "gulp --cwd ./ browsersync"
+    "browsersync": "gulp --gulpfile gulp/browsersync.js --cwd ./ browsersync"
   },
   "release": {
     "analyzeCommits": "./node_modules/freeform-semantic-commit-analyzer/dist/index.js",
