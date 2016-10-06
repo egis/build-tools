@@ -59,7 +59,7 @@ function loadApps(rootDir, config) {
 }
 
 gulp.task('browsersync', () => {
-    let toProxy = common.host + ':8080';
+    let toProxy = (argv['proxied-host'] || 'localhost') + ':' + (argv['proxied-port'] || 8080);
 
     let config = {
         proxy: toProxy,
@@ -69,10 +69,9 @@ gulp.task('browsersync', () => {
         tunnel: argv.tunnel
     };
 
-    loadApps('..', config);
+    if (common.port) config.port = common.port;
 
-    console.log('serveStatic', config.serveStatic);
-    console.log('watched files', config.files);
+    loadApps('..', config);
 
     browserSync.init(config);
 });

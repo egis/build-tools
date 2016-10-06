@@ -97,7 +97,7 @@ module.exports = {
     bowerJson: bowerJson,
     watch: options.watch,
     host: argv.host || pkg.host || 'localhost',
-    port: pkg.port || '8101',
+    port: argv.port || pkg.port || '8101',
     prod: options.env === 'production',
     main: main,
     replaceAll: replaceAll,
