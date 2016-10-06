@@ -24,15 +24,7 @@ function packagePlugin() {
     var file = common.module.main + (common.pkg.plugin ? ".zip" : ".war");
     del.sync('tmp');
     utils.sh("mkdir -p tmp/System/plugins/" + common.pkg.plugin + "/");
-    utils.sh("mkdir -p tmp/PT-SCRIPTS");
-    utils.sh("rm -rf build/System || echo ok");
-    utils.sh("rm build/*.js.gz || echo ok");
-    utils.sh("rm build/*.js.map.gz || echo ok" );
-    if (!common.watch) {
-        utils.sh("cp install.groovy tmp/PT-SCRIPTS/ || echo ok");
-        utils.sh("cp -R resources/* tmp/ || echo ok");
-    }
-    utils.sh("cp -R build/* tmp/System/plugins/" + common.pkg.plugin + "/");
+    utils.sh("cp build/*.js tmp/System/plugins/" + common.pkg.plugin + "/");
     console.log('Deploying to ' + common.deploy + "/" + file);
     return gulp.src(["tmp/**/*"])
         .pipe(zip(file))
