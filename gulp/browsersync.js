@@ -35,7 +35,8 @@ function loadApps(rootDir, config) {
     let serveStaticMap = {};
     let watchedFiles = [];
 
-    glob.sync(rootDir + '/*').forEach(filePath => {
+    glob.sync(rootDir + '/*/').forEach(filePath => {
+        filePath = filePath.substring(0, filePath.length - 1);
         let jsonPath = filePath + '/portal-browser-sync.json';
         if (utils.exists(jsonPath)) {
             let pkg;
@@ -59,20 +60,19 @@ function loadApps(rootDir, config) {
 }
 
 gulp.task('browsersync', () => {
-    let toProxy = common.host + ':8080';
+    let toProxy = (argv['proxied-host'] || 'localhost') + ':' + (argv['proxied-port'] || 8080);
 
     let config = {
         proxy: toProxy,
         startPath: "/web/portal",
         open: 'external',
         ghostMode: false,
-        tunnel: argv.tunnel
     };
 
-    loadApps('..', config);
+    if (argv.tunnel) config.tunnel = argv.tunnel;
+    if (common.port) config.port = common.port;
 
-    console.log('serveStatic', config.serveStatic);
-    console.log('watched files', config.files);
+    loadApps('..', config);
 
     browserSync.init(config);
 });
