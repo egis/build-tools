@@ -35,7 +35,8 @@ function loadApps(rootDir, config) {
     let serveStaticMap = {};
     let watchedFiles = [];
 
-    glob.sync(rootDir + '/*').forEach(filePath => {
+    glob.sync(rootDir + '/*/').forEach(filePath => {
+        filePath = filePath.substring(0, filePath.length - 1);
         let jsonPath = filePath + '/portal-browser-sync.json';
         if (utils.exists(jsonPath)) {
             let pkg;
