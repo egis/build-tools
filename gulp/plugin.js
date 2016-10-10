@@ -45,7 +45,7 @@ gulp.task('plugin_watch', ['plugin-dev-package', 'dev-bundle-tests', 'webserver'
         gulp.watch([common.srcDirs[kind] + '/**/*.js'], ['dev-recompile-' + kind]);
         gulp.watch([common.srcDirs[kind] + '/.lib-exports.js'], ['dev-recompile-' + kind, 'generate-systemjs-' + kind + '-index']);
     });
-    gulp.watch(['**/.dev-loader.js'], ['plugin-dev-package']);
+    gulp.watch('src/.dev-loader.js', ['plugin-dev-package']);
     gulp.watch('src/**/*.hbs', ['templates']);
     gulp.watch('style/**/*.*', ['styles']);
 });
