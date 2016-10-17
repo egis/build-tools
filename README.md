@@ -40,14 +40,6 @@ npm install -g karma-cli
         <script type="text/javascript" src="/web/EgisUI/egis-ui.js?rel=498ca6a"></script>
         <link href="/web/EgisUI/dependencies.css?rel=498ca6a" rel="stylesheet"/>
 ```
-* To load sourcemaps for use in debugging, add the following entries to your web page:
-
-```
-        <script type="text/javascript" src="/web/EgisUI/dependencies.js.map"></script>
-        <script type="text/javascript" src="/web/EgisUI/egis-ui.js.map"></script>
-
-```
-
 * `EgisUI` currently uses `jQuery` version `2.1.4`. If your project or its direct or indirect dependencies already contain another version of `jQuery` it may conflict with `EgisUI`.
 * If you need to check what version of `jQuery` is being used in your project, type the following in the javascript console of your browser:
 ```
