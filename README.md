@@ -1,4 +1,27 @@
-# Gulp based builds.
+See [CODESTYLE](CODESTYLE.md)  
+
+## Naming Conventions / Directory Layout
+
+```
+build/ 		# compiled and concatenanted classes
+dist/ 		# compiled JS classes
+src/ 		#  ES6 and Handlebars templates
+style/ 		# LESS, SASS or, CSS
+resource/	# Copied as is to build directory
+lib-export.js	# the entrypoint ala index.js
+```
+
+## Build Pipeline
+
+* All bower dependencies are downloaded and concatenated into `build/dependencies.js` and `build/dependencies.css`
+* ES6 files are compiled and concatenanted into `build/app.js` where 'app.js' is the `mainFile` in `package.json`
+* CSS/LESS/SASS are compliled and concatened into 'build/app.css'
+* In production mode all source is minified and source maps generated.
+
+## Handlebars Templates
+
+A Handlebar template is any file ending in `.hbs` it is available in the `TEMPLATES` global without the extension.  
+A Handlebar partial is any file begining with '_' and ending in '.hbs' and is automatically registered  
 
 ## MacOSX: Installing glue:
 ```shell
@@ -21,40 +44,10 @@ npm install -g karma-cli
 * Run `npm run build` to build a package suitable for production
 * Run `npm run test` to run karma test suites
 
-## Build pipeline
-
-###stlye/*.less, *.sass, *.css
-	Run through SASS or LESS >  dist/ -> concat -> uglify -> gzip -> build/ 
-
-###src/*.js
-	Babel (ES6) > concat -> uglify -> gzip -> build/ 
-
-Concatenation order is specifed by the ES6 import declaration
-```javascript
-import assign from './utils/Utils.js'
-import Form from './Form.js'
-```	
-
-
-		
-###src/*.hbs
-	Handlebars -> concat into main JS, available in browser as TEMPLATES['name without extension']
-	
-###resources/*, *.html
-	Copied as is to build directory
-	
-###sprites/{set}/*.png|jpg|gif
-
-Compiles all images into a single sprite call {set}.png sprites can be used like:
-
-```html
-<span class="sprite-{set}-{filebase}"/>
-```
 
 ## Customizing builds using bower.json and package.json
 
-
-#### bower.json
+### bower.json
 All bower dependencies with main files are concatenanted together, this can be overriden in bower.json as follows:
 
 ```json 
