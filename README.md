@@ -15,26 +15,15 @@ lib-export.js	# the entrypoint ala index.js
 
 * All bower dependencies are downloaded and concatenated into `build/dependencies.js` and `build/dependencies.css`
 * ES6 files are compiled and concatenanted into `build/app.js` where 'app.js' is the `mainFile` in `package.json`
-* CSS/LESS/SASS are compliled and concatened into 'build/app.css'
+* CSS/LESS/SASS are compliled and concatened into `build/app.css`
 * In production mode all source is minified and source maps generated.
 
 ## Handlebars Templates
 
 A Handlebar template is any file ending in `.hbs` it is available in the `TEMPLATES` global without the extension.  
-A Handlebar partial is any file begining with '_' and ending in '.hbs' and is automatically registered  
+A Handlebar partial is any file begining with `_` and ending in `.hbs` and is automatically registered  
 
-## MacOSX: Installing glue:
-```shell
-# install 'native' (not Apple-supplied) Python to be able to install 'glue' tool:
-brew install python
 
-# install 'glue' tool needed by build:
-brew install jpeg
-pip install glue
-
-# install Karma globally for tests to start:
-npm install -g karma-cli
-```
 
 ## Build steps:
 * export your `NPM_TOKEN`
