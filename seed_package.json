@@ -16,7 +16,7 @@
     },
     "version": "0.0.1",
     "devDependencies": {
-        "build-tools": "egis/build-tools",
+        "@egis/build-tools": "^1.2.7",
         "gulp": "^3.9.0"
     }
 }
