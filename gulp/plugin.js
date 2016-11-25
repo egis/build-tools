@@ -6,10 +6,11 @@ var replace = require('gulp-replace');
 var zip = require('gulp-zip');
 var concat = require('gulp-concat');
 var exit = require('gulp-exit');
-var del = require('del');
 var sourcemaps = require('gulp-sourcemaps');
 var common = require('./common');
 var _ = require('lodash');
+var path = require('path');
+var shelljs = require('shelljs');
 
 gulp.task('plugin_concat', ['compile-main', 'templates'], function() {
      return gulp.src([common.dist.main + "/**/*.js", common.dist.main + "/templates/*.js"])
@@ -22,9 +23,10 @@ gulp.task('plugin_concat', ['compile-main', 'templates'], function() {
 
 function packagePlugin() {
     var file = common.module.main + (common.pkg.plugin ? ".zip" : ".war");
-    del.sync('tmp');
-    utils.sh("mkdir -p tmp/System/plugins/" + common.pkg.plugin + "/");
-    utils.sh("cp build/*.js tmp/System/plugins/" + common.pkg.plugin + "/");
+    shelljs.rm('-rf', 'tmp');
+    var pluginDir = path.join("tmp", "System", "plugins", common.pkg.plugin);
+    shelljs.mkdir("-p", pluginDir);
+    shelljs.cp("build/*.js", pluginDir);
     console.log('Deploying to ' + common.deploy + "/" + file);
     return gulp.src(["tmp/**/*"])
         .pipe(zip(file))
