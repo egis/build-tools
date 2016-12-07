@@ -23,11 +23,14 @@ gulp.task('plugin_concat', ['compile-main', 'templates'], function() {
 
 function packagePlugin() {
     var file = common.module.main + (common.pkg.plugin ? ".zip" : ".war");
-    shelljs.rm('-rf', 'tmp');
-    var pluginDir = path.join("tmp", "System", "plugins", common.pkg.plugin);
+    var distDir = 'tmp';
+    shelljs.rm('-rf', distDir);
+    var pluginDir = path.join(distDir, "System", "plugins", common.pkg.plugin);
     shelljs.mkdir("-p", pluginDir);
     shelljs.cp("build/*.js", pluginDir);
-    console.log('Deploying to ' + common.deploy + "/" + file);
+    var metaInfPluginDir = path.join(distDir, "META-INF");
+    shelljs.mkdir("-p", metaInfPluginDir);
+    shelljs.cp("package.json", metaInfPluginDir);
     return gulp.src(["tmp/**/*"])
         .pipe(zip(file))
         .pipe(gulp.dest(common.deploy))
