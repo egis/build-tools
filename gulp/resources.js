@@ -2,16 +2,26 @@
  * Created by Nikolay Glushchenko <nick@nickalie.com> on 08.09.2015.
  */
 
-var gulp = require('gulp');
-var replaceAll = require('./common').replaceAll;
+"use strict";
+const gulp = require('gulp');
+const replaceAll = require('./common').replaceAll;
+const common = require('./common');
 
-module.exports = function ()
-{
-    gulp.src('resources/**/*')
-        .pipe(gulp.dest("build"))
-        .pipe(replaceAll());
-
-    return gulp.src("*.html")
+const dest = 'build';
+gulp.task('resources-prod', () => {
+    return gulp.src(['resources/**/*', "*.html"])
         .pipe(replaceAll())
-        .pipe(gulp.dest("build"));
-};
+        .pipe(gulp.dest(dest));
+});
+
+gulp.task('resources-dev', ['bundle'], () => {
+    return gulp.src(['dist/**/*', 'examples/**/*'], {base: '.'})
+        .pipe(replaceAll())
+        .pipe(gulp.dest(dest));
+});
+
+let deps = ['resources-prod'];
+if (!common.prod) {
+    deps.push('resources-dev');
+}
+gulp.task('resources', deps);
