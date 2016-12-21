@@ -3,7 +3,6 @@
  */
 
 var gulp = require('gulp');
-var resources = require('./gulp/resources');
 var bower = require('./gulp/bower');
 var common = require('./gulp/common');
 var pack = require('./gulp/package');
@@ -12,6 +11,7 @@ var templates = require('./gulp/templates');
 var webserver = require('./gulp/webserver');
 var _ = require('lodash');
 
+require('./gulp/resources');
 require('./gulp/styles');
 require('./gulp/bundle');
 require('./gulp/dev-bundle');
@@ -19,7 +19,6 @@ require('./gulp/rollup/tasks');
 require('./gulp/plugin');
 require('./gulp/browsersync');
 
-gulp.task('resources', resources);
 gulp.task('dependencies', ['resources'], bower);
 gulp.task('package', ['all'], pack);
 gulp.task('all', ['bundle', 'styles', 'resources']);
