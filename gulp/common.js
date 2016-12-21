@@ -98,7 +98,7 @@ module.exports = {
     watch: options.watch,
     host: argv.host || pkg.host || 'localhost',
     port: argv.port || pkg.port || '8101',
-    prod: options.env === 'production',
+    prod: !process.env.DEV && options.env === 'production',
     main: main,
     replaceAll: replaceAll,
     build: {
