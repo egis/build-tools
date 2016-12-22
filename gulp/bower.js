@@ -19,8 +19,6 @@ var _ = require('underscore');
 var bowerJson = require('./common').bowerJson;
 var prod = require('./common').prod;
 
-prod = !process.env.DEV;
-
 console.log('prod mode=' + prod)
 module.exports = function(done) {
     var bower_excludes = bowerJson.excludes.map(function(it) {
