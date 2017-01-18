@@ -5,6 +5,7 @@ var argv = require('optimist').argv;
 var mkdirp = require('mkdirp');
 var child_process = require('child_process');
 var _ = require('lodash');
+var wdioConfig = require('./wdio.conf');
 
 function pathExists(path) {
     try {
@@ -179,5 +180,6 @@ module.exports = {
 
         });
         return ip;
-    }
+    },
+    defaultWdioConfig: wdioConfig
 };
