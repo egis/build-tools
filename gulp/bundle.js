@@ -27,16 +27,26 @@ gulp.task('fix-main-build-sourcemaps', ['do-bundle-main'], function() {
 });
 
 gulp.task('do-bundle-main', ['compile-main', 'templates', 'fix-main-sourcemaps'], function() {
-    return gulp.src([common.dist.main + '/templates/*.js', common.dist.main + '/' + common.bundles.main],
+    var prod = common.prod;
+    var res = gulp.src([common.dist.main + '/templates/*.js', common.dist.main + '/' + common.bundles.main],
         { base: common.dist.main })
         .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(common.replaceAll())
-        .pipe(uglify({mangle: false}))
-        .pipe(concat(common.bundles.main))
+        .pipe(common.replaceAll());
+
+    if (prod) {
+        res = res.pipe(uglify({mangle: false}));
+    }
+
+    res = res.pipe(concat(common.bundles.main))
         .pipe(sourcemaps.write('.', {includeContent: false, sourceRoot: '../' + common.srcDirs.main}))
-        .pipe(gulp.dest('build'))
-        .pipe(gzip())
         .pipe(gulp.dest('build'));
+
+    if (prod) {
+        res = res.pipe(gzip())
+            .pipe(gulp.dest('build'));
+    }
+
+    return res;
 });
 
 gulp.task('bundle-main', ['do-bundle-main', 'fix-main-build-sourcemaps']);
