@@ -20,7 +20,7 @@ module.exports = function(bundleKind) {
         .pipe(debug())
         .pipe(rollup(moduleName))
         .pipe(concat(bundleFilename));
-    if (common.module.main !== common.egisUiPkgName) {
+    if (common.dependsOnEgisUi()) {
         // Make client apps' rollup build code run after the EgisUI.loaded: this is needed to make sure client
         // app can work with EgisUI in dev mode. This is because in dev mode app code is loaded asynchronously
         // by SystemJS, and the code client app relies on may become available later.

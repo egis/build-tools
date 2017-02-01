@@ -1,6 +1,5 @@
 {
     "name": "CHANGEME",
-    "mainFile": "CHANGEME",
     "scripts": {
         "dev": "rm -rf dist && gulp --gulpfile node_modules/@egis/build-tools/Gulpfile.js --cwd ./ watch --watch",
         "setup": "npm install && npm run update && bower install --allow-root && rm -rf build && npm run sprites && npm run dependencies",
