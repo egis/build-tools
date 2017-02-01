@@ -7,10 +7,12 @@ var common = require('../common');
 module.exports = function(moduleName) {
     var globals = {};
     globals[common.egisUiModuleName] = common.egisUiModuleName;
-    globals[common.module.main] = common.module.main; //allows importing own module for tests
+    if (common.module.main) {
+        globals[common.module.main] = common.module.main; //allows importing own module for tests
+    }
     return rollup({
         // any option supported by rollup can be set here, including sourceMap
-        format: 'iife',
+        format: common.pkg.bundleFormat || 'iife',
         sourceMap: true,
         // useStrict: false,
         moduleName: moduleName,

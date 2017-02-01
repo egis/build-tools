@@ -14,6 +14,7 @@ console.log('');
 
 module.exports = function()
 {
+    if (!common.module.main) return;
     var file = common.module.main + (pkg.plugin ? ".zip" : ".war");
     del.sync('build/' + file);
     console.log('Deploying to ' + deploy + "/" + file);

@@ -14,7 +14,8 @@ lib-export.js	# the entrypoint ala index.js
 ## Build Pipeline
 
 * All bower dependencies are downloaded and concatenated into `build/dependencies.js` and `build/dependencies.css`
-* ES6 files are compiled and concatenanted into `build/app.js` where 'app.js' is the `mainFile` in `package.json`
+* ES6 files are compiled and concatenanted into `build/app.js` where 'app.js' is the `mainFile` in `package.json` 
+(inferred from package's name by default)
 * CSS/LESS/SASS are compliled and concatened into `build/app.css`
 * In production mode all source is minified and source maps generated.
 

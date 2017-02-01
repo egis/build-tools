@@ -32,7 +32,13 @@ else
 }
 
 var pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
-var main = '../build/' + pkg.mainFile;
+var mainFile = pkg.mainFile;
+if (!mainFile) {
+    var parts = pkg.name.split('/');
+    mainFile = parts[parts.length - 1];
+}
+
+var main = '../build/' + mainFile;
 var bowerJson = {};
 
 if (pkg.plugin != null)
@@ -72,19 +78,18 @@ var replaceAll = lazypipe()
 
 var distDir = 'dist';
 var bundles = {
-    main: pkg.mainFile + '.js',
+    main: mainFile + '.js',
     tests: 'tests-bundle.js',
     examples: 'examples-bundle.js'
 };
 
 var bundleKinds = ['main', 'tests'];
 if (pkg.examples) bundleKinds.push('examples');
-var egisUiPkgName = 'EgisUI';
 
 pkg = _.assign({build: {}}, pkg);
 pkg.build = _.assign({autoImportAll: true}, pkg.build); //so pkg.build.autoImportAll will be true by default
 
-module.exports = {
+var config = {
     deploy: deploy,
     pkg: pkg,
     bundleKinds: bundleKinds,
@@ -119,6 +124,13 @@ module.exports = {
         tests: 'Tests',
         examples: 'Examples'
     },
-    egisUiPkgName: egisUiPkgName,
-    egisUiModuleName: egisUiPkgName
+    egisUiPkgName: '@egis/egis-ui',
+    egisUiModuleName: 'EgisUI',
 };
+
+config.dependsOnEgisUi = function() {
+    return pkg.devDependencies && pkg.devDependencies[config.egisUiPkgName] ||
+        pkg.dependencies && pkg.dependencies[config.egisUiPkgName];
+};
+
+module.exports = config;
