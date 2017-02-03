@@ -14,7 +14,7 @@ module.exports = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './e2e/**/*Spec.js'
+        './e2e*/**/*Spec.js'
     ],
     // Patterns to exclude.
     exclude: [
