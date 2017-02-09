@@ -8,6 +8,7 @@
   "description": "## for MacOS users: ```shell # install 'native' (not Apple-supplied) Python to be able to install 'glue' tool: brew install python",
   "devDependencies": {
     "@egis/egis-ui-test-utils": "^1.0.4",
+    "@egis/fakey": "^0.1.0",
     "@egis/semantic-dependents-updates-github": "1.0.6",
     "babel": "^6.3.26",
     "babel-core": "^6.11.4",
@@ -49,7 +50,6 @@
     "del": "^2.2.0",
     "dont-break": "github:egis/dont-break",
     "exact-semver": "^1.2.0",
-    "fakey": "egis/fakey.js#e612a7f4e08a1c052a2db4814551cb3c91767652",
     "freeform-semantic-commit-analyzer": "^1.1.0",
     "glob": "^6.0.3",
     "graceful-fs": "^4.1.2",
