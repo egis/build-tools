@@ -2,6 +2,8 @@
 require('babel-polyfill');
 const argv = require('optimist').argv;
 
+const specDirs = argv.specDirs || 'e2e*';
+
 module.exports = {
     
     //
@@ -14,7 +16,7 @@ module.exports = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './e2e*/**/*Spec.js'
+        `./${specDirs}/**/*Spec.js`
     ],
     // Patterns to exclude.
     exclude: [
