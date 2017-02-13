@@ -18,6 +18,7 @@ require('./gulp/dev-bundle');
 require('./gulp/rollup/tasks');
 require('./gulp/plugin');
 require('./gulp/browsersync');
+require('./gulp/karma-testingbot');
 
 gulp.task('resources', resources);
 gulp.task('dependencies', ['resources'], bower);
