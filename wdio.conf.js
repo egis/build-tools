@@ -3,6 +3,7 @@ require('babel-polyfill');
 const argv = require('optimist').argv;
 
 const specDirs = argv.specDirs || 'e2e*';
+const specFiles = argv.specFiles || `./${specDirs}/**/*Spec.js`;
 
 module.exports = {
     
@@ -15,9 +16,7 @@ module.exports = {
     // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
-    specs: [
-        `./${specDirs}/**/*Spec.js`
-    ],
+    specs: [specFiles],
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
