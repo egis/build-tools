@@ -190,6 +190,9 @@ module.exports = {
     // possible to defer the end of the process using a promise.
     // onComplete: function(exitCode) {
     // }
+    onError: function(err) {
+        browser.err = err; //to be able to query its err.shotTaken later in afterEach hook
+    }
 };
 
 // Cause all of our Selenium scripts to get transpiled by Babel in real-time into full ES6,
