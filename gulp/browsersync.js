@@ -8,24 +8,32 @@ var glob = require('glob');
 var utils = require('../utils');
 var fs = require('fs');
 var argv = require('optimist').argv;
+var is = require('is_js');
 
-function loadAppConfig(pkg, dir, serveStaticMap, watchedFiles) {
+function loadAppConfig(pkg, pkgRootDir, serveStaticMap, watchedFiles) {
     if (pkg.routes) {
-        _.each(pkg.routes, route => {
+        _.each(pkg.routes, routeItem => {
+            let route, routeDir;
+            if (is.array(routeItem)) {
+                [route, routeDir] = routeItem;
+            } else {
+                route = routeItem;
+                routeDir = 'build'
+            }
             route = '/web/' + route;
             serveStaticMap[route] = serveStaticMap[route] || [];
 
             //serve css directly from app' build folder - this makes CSS injection work and persist on browser reload
-            let path = dir + '/build';
+            let path = pkgRootDir + '/' + routeDir;
             serveStaticMap[route].push(path);
-            console.log(dir + ' adds route:', route, path);
+            console.log(pkgRootDir + ' adds route:', `${route} => ${path}`);
         });
     }
 
     if (pkg.watchedFiles) {
         _.flatten([pkg.watchedFiles]).forEach(path => {
-            path = dir + '/' + path;
-            console.log(dir + ' adds watched path:', path);
+            path = pkgRootDir + '/' + path;
+            console.log(pkgRootDir + ' adds watched path:', path);
             watchedFiles.push(path);
         });
     }
