@@ -135,6 +135,7 @@
     "watchify": "^3.7.0",
     "wdio-mocha-framework": "^0.5.4",
     "wdio-spec-reporter": "0.0.3",
+    "wdio-testingbot-service": "^0.1.7",
     "webdriverio": "^4.4.0"
   },
   "homepage": "https://github.com/egis/build-tools#readme",
