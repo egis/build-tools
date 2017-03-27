@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * Please use Node 4.4.2+ to run this script
+ * Please use Node 7.0.0+ to run this script
  */
 
 var gulp = require('gulp');

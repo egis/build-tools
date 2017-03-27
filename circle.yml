@@ -10,10 +10,9 @@ test:
   override:
     - npm test
     - nvm use 4.2.6 && npm test
-    - nvm use 4.4.2 && npm install && && npm test
-    - nvm use 4.4.2 && npm run browsersync:
+    - nvm use 7.0.0 && npm install && && npm test
+    - nvm use 7.0.0 && npm run browsersync:
           background: true
-    - nvm use 7.0.0 && npm test
     - test $CIRCLE_BRANCH = master && (cp -f .npmrc ~) && (npm run dont-break) || true
     - test $CIRCLE_BRANCH = master && (rm ~/.npmrc) || true
 
