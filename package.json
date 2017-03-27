@@ -147,7 +147,7 @@
     "url": "https://github.com/egis/build-tools.git"
   },
   "scripts": {
-    "test": "true",
+    "test": "gulp test",
     "update-dependents": "semantic-dependents-updates-github",
     "semantic-release": "semantic-release pre && npm publish --access public && npm run update-dependents",
     "dont-break": "dont-break --timeout 600",

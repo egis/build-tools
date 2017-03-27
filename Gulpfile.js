@@ -17,7 +17,6 @@ require('./gulp/bundle');
 require('./gulp/dev-bundle');
 require('./gulp/rollup/tasks');
 require('./gulp/plugin');
-require('./gulp/browsersync');
 require('./gulp/karma-testingbot');
 
 gulp.task('resources', resources);
@@ -32,6 +31,8 @@ gulp.task('webserver', webserver(common.port));
 
 var devPackageTaskDeps = ['dev-bundle-main', 'styles', 'resources'];
 if (common.pkg.examples) devPackageTaskDeps.push('dev-bundle-examples');
+
+gulp.task('test', function() {});
 
 gulp.task('dev-package', devPackageTaskDeps, pack);
 

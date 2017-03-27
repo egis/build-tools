@@ -1,7 +1,3 @@
-machine:
-  node:
-    version: 4.4.2
-
 dependencies:
   pre:
     - test $CIRCLE_BRANCH != master && rm .npmrc || true
@@ -12,6 +8,11 @@ dependencies:
 
 test:
   override:
+    - npm test
+    - nvm use 4.2.6 && npm test
+    - nvm use 7.0.0 && npm install && npm test
+    - nvm use 7.0.0 && npm run browsersync:
+          background: true
     - test $CIRCLE_BRANCH = master && (cp -f .npmrc ~) && (npm run dont-break) || true
     - test $CIRCLE_BRANCH = master && (rm ~/.npmrc) || true
 
