@@ -1,9 +1,9 @@
 "use strict";
 require('babel-polyfill');
-const argv = require('optimist').argv;
+var argv = require('optimist').argv;
 
-const specDirs = argv.specDirs || 'e2e*';
-const specFiles = argv.specFiles || `./${specDirs}/**/*Spec.js`;
+var specDirs = argv.specDirs || 'e2e*';
+var specFiles = argv.specFiles || `./${specDirs}/**/*Spec.js`;
 
 module.exports = {
     
