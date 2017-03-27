@@ -33,6 +33,8 @@ gulp.task('webserver', webserver(common.port));
 var devPackageTaskDeps = ['dev-bundle-main', 'styles', 'resources'];
 if (common.pkg.examples) devPackageTaskDeps.push('dev-bundle-examples');
 
+gulp.task('test', function() {});
+
 gulp.task('dev-package', devPackageTaskDeps, pack);
 
 gulp.task('watch', ['dev-package', 'dev-bundle-tests', 'webserver'], function() {
