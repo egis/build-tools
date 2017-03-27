@@ -1,5 +1,9 @@
 "use strict";
 
+/**
+ * Please use Node 4.4.2+ to run this script
+ */
+
 var gulp = require('gulp');
 var browserSync = require('browser-sync').create();
 var common = require('./common');
