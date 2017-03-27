@@ -7,6 +7,9 @@ dependencies:
     - npm rebuild node-sass
     - nvm install v4.2.6
     - nvm install v7.0.0
+  post:
+    node --version
+    npm --version
 
 test:
   override:
