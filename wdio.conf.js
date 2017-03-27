@@ -3,7 +3,7 @@ require('babel-polyfill');
 var argv = require('optimist').argv;
 
 var specDirs = argv.specDirs || 'e2e*';
-var specFiles = argv.specFiles || `./${specDirs}/**/*Spec.js`;
+var specFiles = argv.specFiles || ['.', specDirs, '**/*Spec.js'].join('/');
 
 module.exports = {
     
