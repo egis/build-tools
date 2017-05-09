@@ -2,6 +2,8 @@ See [CODESTYLE](CODESTYLE.md)
 
 ## Naming Conventions / Directory Layout
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/egis/build-tools.svg)](https://greenkeeper.io/)
+
 ```
 build/ 		# compiled and concatenanted classes
 dist/ 		# compiled JS classes
