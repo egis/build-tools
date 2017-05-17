@@ -183,7 +183,7 @@ module.exports = {
     },
 
     extend: function(a, b) {
-        for (let key in b)
+        for (var key in b)
         {
             if (b.hasOwnProperty(key))
             {
