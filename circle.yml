@@ -8,16 +8,15 @@ dependencies:
   override:
     - gem install sass
     - npm rebuild node-sass
-    - nvm install v7.0.0 && npm rebuild node-sass
-    - npm install
+    - nvm install v7.0.0
   post:
     - node --version
     - npm --version
 
 test:
   override:
-    - npm test
-    - nvm use 7.0.0 && npm install && npm test
+    - npm install && npm test
+    - nvm use 7.0.0 && npm rebuild node-sass && npm install && npm test
     - nvm use 7.0.0 && npm run browsersync:
           background: true
     - test $CIRCLE_BRANCH = master && (cp -f .npmrc ~) && (npm run dont-break) || true
