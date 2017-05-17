@@ -9,7 +9,7 @@ dependencies:
     - gem install sass
     - npm rebuild node-sass
     - nvm install v7.0.0 && npm rebuild node-sass
-    - npm install -g gulp
+    - npm install
   post:
     - node --version
     - npm --version
