@@ -7,7 +7,7 @@ gulp.task('update-karma-testingbot', () => {
     let cmd = [
         'wget https://testingbot.com/downloads/testingbot-tunnel.zip -O testingbot-tunnel.zip',
         'unzip -o testingbot-tunnel.zip',
-        'cp -f ./testingbot-tunnel/testingbot-tunnel.jar ./node_modules/karma-testingbot-launcher/node_modules/testingbot-tunnel-launcher/'
+        'cp -f ./testingbot-tunnel/testingbot-tunnel.jar ./node_modules/testingbot-tunnel-launcher/'
     ];
     return child_process.exec(cmd.join("&&")).toString('utf8').trim();
 });
