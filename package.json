@@ -8,7 +8,7 @@
   "description": "## for MacOS users: ```shell # install 'native' (not Apple-supplied) Python to be able to install 'glue' tool: brew install python",
   "devDependencies": {
     "@egis/egis-ui-test-utils": "^1.0.4",
-    "@egis/fakey": "^0.1.0",
+    "@egis/fakey": "^0.1.1",
     "@egis/semantic-dependents-updates-github": "1.0.6",
     "babel": "^6.3.26",
     "babel-core": "^6.11.4",
