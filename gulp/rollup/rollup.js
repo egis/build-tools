@@ -1,23 +1,17 @@
 var gulp = require('gulp');
 
-var rollup = require('gulp-rollup');
+var rollup = require('gulp-better-rollup');
 var babel = require('rollup-plugin-babel');
 var common = require('../common');
 
-module.exports = function(moduleName) {
+module.exports = function (moduleName) {
     var globals = {};
     globals[common.egisUiModuleName] = common.egisUiModuleName;
     if (common.module.main) {
         globals[common.module.main] = common.module.main; //allows importing own module for tests
     }
     return rollup({
-        // any option supported by rollup can be set here, including sourceMap
-        format: common.pkg.bundleFormat || 'iife',
-        sourceMap: true,
-        // useStrict: false,
-        moduleName: moduleName,
-        globals: globals,
-        plugins: [ babel({
+        plugins: [babel({
             'plugins': [
                 [require("babel-plugin-transform-es2015-template-literals"), {loose: true}],
                 [require("babel-plugin-transform-es2015-literals"), {loose: true}],
@@ -38,9 +32,15 @@ module.exports = function(moduleName) {
                 [require("babel-plugin-transform-es2015-block-scoping"), {loose: true}],
                 [require("babel-plugin-transform-es2015-typeof-symbol"), {loose: true}],
                 [require("babel-plugin-external-helpers-2"), {loose: true}],
-                [require("babel-plugin-transform-regenerator"), { async: false, asyncGenerators: false }]
+                [require("babel-plugin-transform-regenerator"), {async: false, asyncGenerators: false}]
             ],
             'highlightCode': true
-        }) ]
+        })]
+    }, {
+        // any option supported by rollup can be set here, including sourceMap
+        format: common.pkg.bundleFormat || 'iife',
+        // useStrict: false,
+        moduleName: moduleName,
+        globals: globals
     })
 };
