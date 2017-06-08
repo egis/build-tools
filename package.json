@@ -9,7 +9,6 @@
   "devDependencies": {
     "@artemv/semantic-release": "^6.3.11",
     "@egis/egis-ui-test-utils": "^1.0.4",
-    "@egis/fakey": "^0.1.3",
     "@egis/semantic-dependents-updates-github": "1.0.6",
     "babel": "^6.3.26",
     "babel-core": "^6.11.4",
