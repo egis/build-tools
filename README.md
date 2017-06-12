@@ -2,7 +2,7 @@ See [CODESTYLE](CODESTYLE.md)
 
 ## Naming Conventions / Directory Layout
 
-```
+```shell
 build/ 		# compiled and concatenanted classes
 dist/ 		# compiled JS classes
 src/ 		#  ES6 and Handlebars templates
@@ -23,8 +23,6 @@ lib-export.js	# the entrypoint ala index.js
 
 A Handlebar template is any file ending in `.hbs` it is available in the `TEMPLATES` global without the extension.  
 A Handlebar partial is any file begining with `_` and ending in `.hbs` and is automatically registered  
-
-
 
 ## Build steps:
 * export your `NPM_TOKEN`
@@ -78,3 +76,25 @@ To create a plugin package:
 ```
 This will create a .zip instead of a .war and place all the compiled .js file in to a subdirectory *System/plugins/{plugin}*
 
+### Browsersync
+
+For frontend development env our browsersync integration may be helpful. It:
+* injects CSS changes immediately
+* auto-reloads page in browsers if JS files are changed - including your mobile device's browser 
+* supports running multiple modules in dev mode in parallel
+
+In each *build-tools* project:  
+```bash
+npm run dev
+```
+And then after 1 or more `npm run dev` servers are running:  
+```
+npm run browsersync
+```
+
+If your files are being served from anything other then **localhost** e.g. **192.168.0.10**: 
+
+```bash
+npm run dev -- --host=192.168.0.10
+npm run browsersync -- --proxied-host=192.168.99.10
+```
