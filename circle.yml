@@ -19,8 +19,9 @@ test:
     - nvm use 7.0.0 && npm rebuild node-sass && npm install && npm test
     - nvm use 7.0.0 && npm run browsersync:
           background: true
-    - test $CIRCLE_BRANCH = master && (cp -f .npmrc ~) && (npm run dont-break) || true
-    - test $CIRCLE_BRANCH = master && (rm ~/.npmrc) || true
+    - if [[ $CIRCLE_BRANCH = master ]]; then (cp -f .npmrc ~) && (npm run dont-break); fi
+  post:
+    - if [[ $CIRCLE_BRANCH = master ]]; then rm ~/.npmrc; fi
 
 deployment:
   semantic-release:
