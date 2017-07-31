@@ -18,7 +18,7 @@ dependencies:
 test:
   override:
     - yarn && npm test
-    - nvm use 7.0.0 && npm rebuild node-sass && npm install && npm test
+    - nvm use 7.0.0 && npm rebuild node-sass && yarn && npm test
     - nvm use 7.0.0 && npm run browsersync:
           background: true
     - if [[ $CIRCLE_BRANCH = master ]]; then (cp -f .npmrc ~) && (npm run dont-break); fi
