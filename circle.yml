@@ -17,7 +17,7 @@ dependencies:
 
 test:
   override:
-    - npm install && npm test
+    - yarn && npm test
     - nvm use 7.0.0 && npm rebuild node-sass && npm install && npm test
     - nvm use 7.0.0 && npm run browsersync:
           background: true
