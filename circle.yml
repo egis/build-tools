@@ -16,6 +16,7 @@ dependencies:
     - gem install sass
     - npm rebuild node-sass
     - nvm install v7.0.0
+    - (yarn --version) || npm install -g yarn
   post:
     - node --version
     - npm --version
