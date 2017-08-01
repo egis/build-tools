@@ -1,9 +1,5 @@
 {
   "author": "",
-  "bin": {
-    "merge-build-tools-deps": "merge-build-tools-deps.js",
-    "install-build-tools-deps": "install-build-tools-deps.sh"
-  },
   "bugs": {
     "url": "https://github.com/egis/build-tools/issues"
   },

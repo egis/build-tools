@@ -20,7 +20,7 @@ dependencies:
 
 test:
   override:
-    - yarn && npm test
+    - yarn --ignore-engines && npm test
     - nvm use 7.0.0 && npm rebuild node-sass && yarn && npm test
     - nvm use 7.0.0 && npm run browsersync:
           background: true
