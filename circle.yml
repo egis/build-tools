@@ -1,4 +1,6 @@
 machine:
+  pre:
+    - mkdir ~/.cache/yarn
   node:
     version: 4.2.6
   ruby:
