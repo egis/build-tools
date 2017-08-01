@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 
+console.log('hello from merge-build-tools-deps');
 let dst = fs.readFileSync('package.json');
 let dstJson = JSON.parse(dst);
 let srcPath = __dirname  + '/package.json';
