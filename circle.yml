@@ -3,8 +3,13 @@ machine:
     version: 4.2.6
   ruby:
     version: 2.4.1
+  environment:
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+
 
 dependencies:
+  cache_directories:
+    - ~/.cache/yarn
   pre:
     - test $CIRCLE_BRANCH != master && rm .npmrc || true
   override:
