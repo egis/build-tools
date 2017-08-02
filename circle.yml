@@ -23,6 +23,7 @@ dependencies:
 test:
   override:
     - yarn --ignore-engines && npm test
+    - node merge-build-tools-deps.js && git checkout -- package.json
     - nvm use 7.0.0 && npm rebuild node-sass && npm install -g yarn && yarn && npm test
     - nvm use 7.0.0 && npm run browsersync:
           background: true
