@@ -1,22 +1,30 @@
 machine:
+  pre:
+    - mkdir ~/.cache/yarn
   node:
     version: 4.2.6
+  ruby:
+    version: 2.4.1
 
 dependencies:
+  cache_directories:
+    - ~/.cache/yarn
   pre:
     - test $CIRCLE_BRANCH != master && rm .npmrc || true
   override:
     - gem install sass
     - npm rebuild node-sass
     - nvm install v7.0.0
+    - (yarn --version) || npm install -g yarn
   post:
     - node --version
     - npm --version
 
 test:
   override:
-    - npm install && npm test
-    - nvm use 7.0.0 && npm rebuild node-sass && npm install && npm test
+    - yarn --frozen-lockfile --ignore-engines && npm test
+    - node merge-build-tools-deps.js && git checkout -- package.json
+    - nvm use 7.0.0 && npm rebuild node-sass && npm install -g yarn && yarn --frozen-lockfile && npm test
     - nvm use 7.0.0 && npm run browsersync:
           background: true
     - if [[ $CIRCLE_BRANCH = master ]]; then (cp -f .npmrc ~) && (npm run dont-break); fi
