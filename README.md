@@ -32,6 +32,7 @@ A Handlebar partial is any file begining with `_` and ending in `.hbs` and is au
 * Run `yarn add --dev my-package` to add a dependency to build-tools.  
 * Run `yarn add --dev my-package && npm run update` to add/override a dependency in client project.  
 * Run `yarn upgrade my-package && npm run update` to upgrade a dependency in client project.  
+* Run `yarn upgrade my-package` to upgrade a dependency in build-tools. Then upgrade build-tools version in client project to use it (see above).
 * Run `npm run dev` to  build files suitable for wathcing and startup a watch server
 * Run `npm run build` to build a package suitable for production
 * Run `npm run test` to run karma test suites

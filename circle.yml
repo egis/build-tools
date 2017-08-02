@@ -22,15 +22,14 @@ dependencies:
 
 test:
   override:
-    - yarn --ignore-engines && npm test
+    - yarn --frozen-lockfile --ignore-engines && npm test
     - node merge-build-tools-deps.js && git checkout -- package.json
-    - nvm use 7.0.0 && npm rebuild node-sass && npm install -g yarn && yarn && npm test
+    - nvm use 7.0.0 && npm rebuild node-sass && npm install -g yarn && yarn --frozen-lockfile && npm test
     - nvm use 7.0.0 && npm run browsersync:
           background: true
     - if [[ $CIRCLE_BRANCH = master ]]; then (cp -f .npmrc ~) && (npm run dont-break); fi
   post:
     - if [[ $CIRCLE_BRANCH = master ]]; then rm ~/.npmrc; fi
-    - cp yarn.lock $CIRCLE_ARTIFACTS
 
 deployment:
   semantic-release:
