@@ -28,6 +28,10 @@ A Handlebar partial is any file begining with `_` and ending in `.hbs` and is au
 * export your `NPM_TOKEN`
 * Copy and rename the seed_package.json to package.json (only when bootstraping new projects)
 * Run `npm run setup` to install and build all required dependencies 
+* Run `yarn upgrade build-tools && npm run update` to upgrade build-tools version in client project to the latest one.  
+* Run `yarn add --dev my-package` to add a dependency to build-tools.  
+* Run `yarn add --dev my-package && npm run update` to add/override a dependency in client project.  
+* Run `yarn upgrade my-package && npm run update` to upgrade a dependency in client project.  
 * Run `npm run dev` to  build files suitable for wathcing and startup a watch server
 * Run `npm run build` to build a package suitable for production
 * Run `npm run test` to run karma test suites
