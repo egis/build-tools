@@ -1,1 +1,2 @@
-ls node_modules/@egis/build-tools/node_modules/|egrep -v "@egis"|xargs -I % mv node_modules/@egis/build-tools/node_modules/% node_modules/ && npm run build && npm run test:build && npm run test -- --browsers=Chrome --reporters=junit,html,verbose
+# note that this is executed from client project folder, after `npm install`
+npm run update && npm run build && npm run test:build && npm run test -- --browsers=Chrome --reporters=junit,html,verbose
