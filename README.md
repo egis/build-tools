@@ -27,7 +27,10 @@ A Handlebar partial is any file begining with `_` and ending in `.hbs` and is au
 ## Build steps:
 * export your `NPM_TOKEN`
 * Copy and rename the seed_package.json to package.json (only when bootstraping new projects)
-* Run `npm run setup` to install and build all required dependencies 
+* Run `npm install -g yarn` (if Yarn is not installed yet)
+* Run `npm run setup` to install and build all required dependencies
+
+## Dev lifecycle commands:
 * Run `yarn upgrade --pure-lockfile @egis/build-tools && npm run update` to upgrade build-tools version in client project to the latest one.  
 * Run `npm run update` to upgrade build-tools version in client project to the version you specified manually in package.json.  
 * Run `yarn add --dev my-package` to add a dependency to build-tools.  
