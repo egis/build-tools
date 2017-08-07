@@ -27,11 +27,15 @@ A Handlebar partial is any file begining with `_` and ending in `.hbs` and is au
 ## Build steps:
 * export your `NPM_TOKEN`
 * Copy and rename the seed_package.json to package.json (only when bootstraping new projects)
-* Run `npm run setup` to install and build all required dependencies 
-* Run `yarn upgrade build-tools && npm run update` to upgrade build-tools version in client project to the latest one.  
+* Run `npm install -g yarn` (if Yarn is not installed yet)
+* Run `npm run setup` to install and build all required dependencies
+
+## Dev lifecycle commands:
+* Run `yarn upgrade --pure-lockfile @egis/build-tools && npm run update` to upgrade build-tools version in client project to the latest one.  
+* Run `npm run update` to upgrade build-tools version in client project to the version you specified manually in package.json.  
 * Run `yarn add --dev my-package` to add a dependency to build-tools.  
 * Run `yarn add --dev my-package && npm run update` to add/override a dependency in client project.  
-* Run `yarn upgrade my-package && npm run update` to upgrade a dependency in client project.  
+* Run `yarn upgrade --pure-lockfile my-package && npm run update` to upgrade a dependency in client project.  
 * Run `yarn upgrade my-package` to upgrade a dependency in build-tools. Then upgrade build-tools version in client project to use it (see above).
 * Run `npm run dev` to  build files suitable for wathcing and startup a watch server
 * Run `npm run build` to build a package suitable for production
@@ -103,3 +107,4 @@ If your files are being served from anything other then **localhost** e.g. **192
 npm run dev -- --host=192.168.0.10
 npm run browsersync -- --proxied-host=192.168.99.10
 ```
+
