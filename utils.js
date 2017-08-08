@@ -115,6 +115,23 @@ module.exports = {
         var group_filename = function(base_fn, ext) {
             return _.compact([base_fn, argv.group]).join('-') + '.' + ext;
         };
+
+        if (argv.reporters.indexOf('testingbot') >= 0) {
+            config.set({
+                testingbot: {
+                    testName: (projectName || '') + ' Karma',
+                    recordVideo: true,
+                    recordScreenshots: true,
+                    connectOptions: {
+                        verbose: false,
+                        'se-port': 4445,
+                        logfile: 'test-output/' + group_filename('testingbot_tunnel', 'log')
+                    },
+                    build: testingBotBuildName
+                }
+            })
+        }
+
         config.set({
             junitReporter: {
                 outputDir: 'test-output/junit/' // results will be saved as $outputDir/$browserName.xml
@@ -134,17 +151,6 @@ module.exports = {
                 variableName: '__json__'
             },
             reporters: ['progress', 'html', 'junit', 'verbose'],
-            testingbot: {
-                testName: (projectName || '') + ' Karma',
-                recordVideo: true,
-                recordScreenshots: true,
-                connectOptions: {
-                    verbose: false,
-                    'se-port': 4445,
-                    logfile: 'test-output/' + group_filename('testingbot_tunnel', 'log')
-                },
-                build: testingBotBuildName
-            },
             browsers: browsers,
             browserDisconnectTimeout: 10*1000, // default is 2000
             browserDisconnectTolerance: 1, // default is 0
