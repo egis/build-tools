@@ -31,10 +31,11 @@ A Handlebar partial is any file begining with `_` and ending in `.hbs` and is au
 * Run `npm run setup` to install and build all required dependencies
 
 ## Dev lifecycle commands:
+* Run `yarn --pure-lockfile` to install dependencies of project's package.json if it's updated from upstream or if you update it  
+* Run `npm run update` to install dependencies from build-tools to current dir  
 * Run `yarn upgrade --pure-lockfile @egis/build-tools && npm run update` to upgrade build-tools version in client project to the latest one.  
-* Run `npm run update` to upgrade build-tools version in client project to the version you specified manually in package.json.  
-* Run `yarn add --dev my-package` to add a dependency to build-tools.  
 * Run `yarn add --dev my-package && npm run update` to add/override a dependency in client project.  
+* Run `yarn add --dev my-package` to add a dependency to build-tools.  
 * Run `yarn upgrade --pure-lockfile my-package && npm run update` to upgrade a dependency in client project.  
 * Run `yarn upgrade my-package` to upgrade a dependency in build-tools. Then upgrade build-tools version in client project to use it (see above).
 * Run `npm run dev` to  build files suitable for wathcing and startup a watch server
