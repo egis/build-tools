@@ -147,6 +147,7 @@
   },
   "scripts": {
     "test": "gulp test",
+    "setup": "yarn",
     "update-dependents": "semantic-dependents-updates-github",
     "install-build-tools-deps": "install-build-tools-deps",
     "semantic-release": "semantic-release pre && npm publish --access public && npm run update-dependents",
