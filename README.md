@@ -109,3 +109,37 @@ npm run dev -- --host=192.168.0.10
 npm run browsersync -- --proxied-host=192.168.99.10
 ```
 
+### E2E tests
+We use [Webdriver.io](http://webdriver.io/) with [Mocha](https://mochajs.org/) for e2e tests.
+ 
+#### Results at CI
+If the e2e tests are failing you can check their output for 'failing' substring to see which specs are failing. Also 
+build artifacts can give a hint on it - the failing tests will usually have screenshot for 6 retries like 
+[here](docs/failing-e2e-artifacts.png). Note that EgisUI runs its main dependencies' (Portal, eSign, etc) e2e specs at 
+CI, to make sure the EgisUI changes doesn't break them. This can be seen in  e2e tests output like 
+[here](docs/egisui-dependency-e2e-specs.png).
+
+#### Running locally
+The best way to run e2e tests locally is via Docker container for PT, see its installation steps 
+[here](http://developer.papertrail.co.za/Reference/Dev-Environment.html#Docker). This will make sure you have the same 
+PT configuration as CI does. After installing and running docker container for PT start webdriver-manager:
+```
+npm install -g webdriver-manager # needed once
+# in a separate terminal window/tab
+webdriver-manager update # this is needed at first installation and later after browsers update their versions
+webdriver-manager start
+```
+Then load project's e2e fixtures and update the container apps:
+```
+cd MY_EGIS_DIR/eSign # or EgisUI, etc
+export PT_API="http://192.168.99.100:8080" # put your docker's host and port here
+cd e2e && ./fixtures.sh && cd ..
+docker cp eSign.war my-pt:/opt/Papertrail/webapps # correct war filename for different project
+docker cp ../EgisUI/EgisUI.war my-pt:/opt/Papertrail/webapps # if you want to test the project with your latest EgisUI build
+```
+
+Run the tests:
+```
+# Put your docker's host and port here, spec file(s) mask and the spec name(s) substring.
+npm run test:e2e -- --baseUrl="http://192.168.99.100:8080" --specFiles="./e2e/**/Guide*Spec.js" --mochaOpts.grep="too early" --maxBrowserInstances=1 --mochaOpts.retries=1 
+```
