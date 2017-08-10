@@ -48,7 +48,7 @@
     "condition-circle": "^1.2.0",
     "david": "^7.0.1",
     "del": "^2.2.0",
-    "dont-break": "github:egis/dont-break#90acabd1108b3a0a191ffd8fb2360bb150a04d19",
+    "dont-break": "github:egis/dont-break",
     "exact-semver": "^1.2.0",
     "freeform-semantic-commit-analyzer": "^1.1.0",
     "glob": "^6.0.3",
