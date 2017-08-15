@@ -48,7 +48,7 @@
     "condition-circle": "^1.2.0",
     "david": "^7.0.1",
     "del": "^2.2.0",
-    "dont-break": "^1.7.0",
+    "dont-break": "^1.8.0",
     "exact-semver": "^1.2.0",
     "freeform-semantic-commit-analyzer": "^1.1.0",
     "glob": "^6.0.3",
