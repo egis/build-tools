@@ -30,6 +30,11 @@ test:
     - if [[ $CIRCLE_BRANCH = master ]]; then (cp -f .npmrc ~) && (npm run dont-break); fi
   post:
     - if [[ $CIRCLE_BRANCH = master ]]; then rm ~/.npmrc; fi
+    - grep "version\"\:" node_modules/*/*/package.json > $CIRCLE_ARTIFACTS/npm_versions.txt
+    - grep "version\"\:" node_modules/*/package.json >> $CIRCLE_ARTIFACTS/npm_versions.txt
+    - grep "version\"\:" node_modules/*/*/*/package.json >> $CIRCLE_ARTIFACTS/npm_versions.txt
+    - grep "version\"\:" bower_components/*/.bower.json > $CIRCLE_ARTIFACTS/bower_versions.txt
+    - cp yarn.lock $CIRCLE_ARTIFACTS
 
 deployment:
   semantic-release:
