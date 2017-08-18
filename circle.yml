@@ -33,7 +33,6 @@ test:
     - grep "version\"\:" node_modules/*/*/package.json > $CIRCLE_ARTIFACTS/npm_versions.txt
     - grep "version\"\:" node_modules/*/package.json >> $CIRCLE_ARTIFACTS/npm_versions.txt
     - grep "version\"\:" node_modules/*/*/*/package.json >> $CIRCLE_ARTIFACTS/npm_versions.txt
-    - grep "version\"\:" bower_components/*/.bower.json > $CIRCLE_ARTIFACTS/bower_versions.txt
     - cp yarn.lock $CIRCLE_ARTIFACTS
 
 deployment:
