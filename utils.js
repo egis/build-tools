@@ -116,7 +116,7 @@ module.exports = {
             return _.compact([base_fn, argv.group]).join('-') + '.' + ext;
         };
 
-        if (argv.reporters.indexOf('testingbot') >= 0) {
+        if ((argv.reporters || []).indexOf('testingbot') >= 0) {
             config.set({
                 testingbot: {
                     testName: (projectName || '') + ' Karma',
