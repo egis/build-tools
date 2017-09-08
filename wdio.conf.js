@@ -5,6 +5,9 @@ var argv = require('optimist').argv;
 var specDirs = argv.specDirs || 'e2e*';
 var specFiles = argv.specFiles || ['.', specDirs, '**/*Spec.js'].join('/');
 
+// Level of logging verbosity: silent | verbose | command | data | result | error
+var logLevel = argv.logLevel || 'error';
+
 module.exports = {
     
     //
@@ -62,8 +65,7 @@ module.exports = {
     // e.g. using promises you can set the sync option to false.
     sync: true,
     //
-    // Level of logging verbosity: silent | verbose | command | data | result | error
-    logLevel: 'result',
+    logLevel: logLevel,
     //
     // Enables colors for log output.
     coloredLogs: true,
