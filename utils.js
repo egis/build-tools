@@ -97,7 +97,13 @@ module.exports = {
             'REMOTE-Safari': {
                 base: launchersBase,
                 browserName: 'safari',
-                platform: 'CAPITAN'
+                version: '10',
+                platform: 'SIERRA'
+            },
+            'REMOTE-Safari9': {
+                base: launchersBase,
+                browserName: 'safari',
+                version: '9'
             },
             'REMOTE-Chrome': {
                 base: launchersBase,
