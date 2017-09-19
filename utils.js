@@ -144,7 +144,7 @@ module.exports = {
                 //outputFile: undefined // if included, results will be saved as $outputDir/$browserName/$outputFile
                 //suite: ''
             },
-            hostname: hostname.split(' ').join(''),
+            hostname: config.hostname || hostname.split(' ').join(''),
             basePath: '',
             frameworks: ['jasmine-jquery', 'jasmine', 'fixture'],
             exclude: [],
@@ -169,7 +169,6 @@ module.exports = {
             logLevel: config.LOG_INFO,
             autoWatch: true,
             singleRun: false,
-            hostname: config.hostname.split(' ').join('')
         });
     },
 
