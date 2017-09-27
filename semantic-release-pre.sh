@@ -1,3 +1,3 @@
 #!/bin/bash
 
-node_modules/.bin/semantic-release pre
+(node_modules/.bin/semantic-release pre) || true
