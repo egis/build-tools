@@ -6,7 +6,6 @@
   "port": 3001,
   "description": "## for MacOS users: ```shell # install 'native' (not Apple-supplied) Python to be able to install 'glue' tool: brew install python",
   "devDependencies": {
-    "@artemv/semantic-release": "^6.3.11",
     "@egis/egis-ui-test-utils": "^1.0.4",
     "@egis/semantic-dependents-updates-github": "1.0.6",
     "babel": "^6.3.26",
@@ -122,6 +121,7 @@
     "rollup": "^0.41.6",
     "rollup-plugin-babel": "^2.7.1",
     "sanitize-filename": "^1.6.1",
+    "semantic-release": "^7.0.2",
     "semver": "^5.1.0",
     "shelljs": "^0.7.5",
     "socket.io": "^1.4.4",
