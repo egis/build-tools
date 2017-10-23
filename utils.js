@@ -6,6 +6,7 @@ var mkdirp = require('mkdirp');
 var child_process = require('child_process');
 var _ = require('lodash');
 var wdioConfig = require('./wdio.conf');
+var log = require('loglevel');
 
 function pathExists(path) {
     try {
@@ -29,6 +30,11 @@ function findEgisUi() {
 }
 
 var EGISUI = findEgisUi();
+
+// Level of logging verbosity: trace | debug | info | warn | error | silent
+var logLevel = argv.logLevel || 'warn';
+log.setLevel(logLevel);
+console.log('build tools: log level', log.getLevel());
 
 module.exports = {
 
@@ -205,5 +211,6 @@ module.exports = {
         return a;
     },
 
-    defaultWdioConfig: wdioConfig
+    defaultWdioConfig: wdioConfig,
+    log: log
 };
