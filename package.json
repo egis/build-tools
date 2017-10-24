@@ -47,7 +47,7 @@
     "condition-circle": "^1.2.0",
     "david": "^7.0.1",
     "del": "^2.2.0",
-    "dont-break": "github:bahmutov/dont-break#f6b189bdd3a227a0e0fd97d036867df4e7236926",
+    "dont-break": "github:artemv/dont-break#440c4ba3f831b44408601bedb850b61ed7948960",
     "exact-semver": "^1.2.0",
     "freeform-semantic-commit-analyzer": "^1.1.0",
     "glob": "^6.0.3",
