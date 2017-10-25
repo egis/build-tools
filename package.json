@@ -50,7 +50,7 @@
     "condition-circle": "^1.2.0",
     "david": "^7.0.1",
     "del": "^2.2.0",
-    "dont-break": "^1.9.0",
+    "dont-break": "github:artemv/dont-break#8f40078ee0cce3c50b7cd2308b9e03cad0d4b8c1",
     "exact-semver": "^1.2.0",
     "freeform-semantic-commit-analyzer": "^1.1.0",
     "glob": "^6.0.3",
