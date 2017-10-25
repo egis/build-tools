@@ -15,13 +15,14 @@ dependencies:
     - gem install sass
     - npm rebuild node-sass
     - (yarn --version) || npm install -g yarn
+    - yarn --ignore-engines
   post:
     - node --version
     - npm --version
 
 test:
   override:
-    - yarn --ignore-engines && npm test
+    - npm test
     - node merge-build-tools-deps.js && git checkout -- package.json
     - if [[ $CIRCLE_BRANCH = master ]]; then (cp -f .npmrc ~) && (npm run dont-break); fi
   post:
