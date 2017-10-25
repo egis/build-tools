@@ -34,6 +34,7 @@ test:
 deployment:
   semantic-release:
     branch: master
+    owner: egis
     commands:
       - npm run semantic-release || true
 
