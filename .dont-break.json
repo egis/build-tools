@@ -1,26 +1,22 @@
 [
   {
     "name": "@egis/egis-ui",
-    "postinstall": "npm run update",
-    "pretest": false,
+    "pretest": "npm run update",
     "test": "./node_modules/@egis/build-tools/dont-break-tests.sh"
   },
   {
     "name": "@egis/esign",
-    "postinstall": "npm run update",
-    "pretest": false,
+    "pretest": "npm run update",
     "test": "./node_modules/@egis/build-tools/dont-break-tests.sh"
   },
   {
     "name": "@egis/portal-app",
-    "postinstall": "npm run update",
-    "pretest": false,
+    "pretest": "npm run update",
     "test": "./node_modules/@egis/build-tools/dont-break-tests.sh"
   },
   {
     "name": "@egis/bulk-capture",
-    "postinstall": "npm run update",
-    "pretest": false,
+    "pretest": "npm run update",
     "test": "./node_modules/@egis/build-tools/dont-break-tests.sh"
   }
 ]
