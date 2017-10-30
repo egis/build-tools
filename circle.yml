@@ -14,8 +14,7 @@ dependencies:
   override:
     - gem install sass
     - npm rebuild node-sass
-    - (yarn --version) || npm install -g yarn
-    - yarn --ignore-engines
+    - npm uninstall -g yarn && npm install -g yarn@0.27.5 && yarn --ignore-engines
   post:
     - node --version
     - npm --version
