@@ -158,7 +158,7 @@
     "browsersync": "gulp --gulpfile gulp/browsersync.js --cwd ./ browsersync"
   },
   "release": {
-    "analyzeCommits": "./node_modules/freeform-semantic-commit-analyzer/dist/index.js",
+    "analyzeCommits": "freeform-semantic-commit-analyzer",
     "verifyConditions": "condition-circle"
   },
   "semantic-dependents-updates": {
