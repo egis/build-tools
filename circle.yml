@@ -10,7 +10,7 @@ dependencies:
   cache_directories:
     - ~/.cache/yarn
   pre:
-    - npm install "yarn@^0.27.5"
+    - npm install yarn@0.27.5
     - node_modules/.bin/yarn config set cache-folder ~/.cache/yarn
     - if [ "${CIRCLE_BRANCH}" != "master" ]; then rm .npmrc; fi
   override:
