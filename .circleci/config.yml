@@ -1,0 +1,39 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/build-tools
+    docker:
+      - image: egis/build-slave
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install-deps
+          command: |
+            if [[ $CIRCLE_BRANCH != master ]]; then rm .npmrc; fi
+            yarn --ignore-engines
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+            - ~/.cache/yarn
+      - run:
+          name: test
+          command: |
+            npm test
+            node merge-build-tools-deps.js && git checkout -- package.json
+            if [[ $CIRCLE_BRANCH = master ]]; then (cp -f .npmrc ~) && (npm run dont-break); fi
+      - run:
+          name: post-test
+          command: |
+            grep "version\"\:" node_modules/*/*/package.json > $CIRCLE_ARTIFACTS/npm_versions.txt
+            grep "version\"\:" node_modules/*/package.json >> $CIRCLE_ARTIFACTS/npm_versions.txt
+            grep "version\"\:" node_modules/*/*/*/package.json >> $CIRCLE_ARTIFACTS/npm_versions.txt
+            cp yarn.lock $CIRCLE_ARTIFACTS
+      - run:
+          name: deploy
+          command: |
+          if [ "${CIRCLE_BRANCH}" == "master"  && "${CIRCLE_USERNAME}" == "egis" ]; then
+            npm run semantic-release || true
+          fi
