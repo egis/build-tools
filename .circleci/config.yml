@@ -26,12 +26,13 @@ jobs:
       - run:
           name: post-deps
           command: |
-            grep "version\"\:" node_modules/*/*/package.json > test-report/npm_versions.txt
-            grep "version\"\:" node_modules/*/package.json >> test-report/npm_versions.txt
-            grep "version\"\:" node_modules/*/*/*/package.json >> test-report/npm_versions.txt
-            cp yarn.lock test-report/
+            mkdir ci-artifacts
+            grep "version\"\:" node_modules/*/*/package.json > ci-artifacts/npm_versions.txt
+            grep "version\"\:" node_modules/*/package.json >> ci-artifacts/npm_versions.txt
+            grep "version\"\:" node_modules/*/*/*/package.json >> ci-artifacts/npm_versions.txt
+            cp yarn.lock ci-artifacts/
       - store_test_results:
-          path: test-report/
+          path: ci-artifacts/
       - run:
           name: test
           command: |
