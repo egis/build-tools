@@ -19,7 +19,11 @@ jobs:
           name: install-deps
           command: |
             yarn --ignore-engines
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then yarn global add dont-break@1.10.0; fi
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              yarn global add dont-break@1.10.0
+              yarn add @egis/egis-ui-test-utils
+              node_modules/@egis/egis-ui-test-utils/scripts/update-chrome-ci.sh
+            fi
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
