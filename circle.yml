@@ -10,7 +10,8 @@ dependencies:
   cache_directories:
     - ~/.cache/yarn
   pre:
-    - test $CIRCLE_BRANCH != master && rm .npmrc || true
+    - yarn config set cache-folder ~/.cache/yarn
+    - if [ "${CIRCLE_BRANCH}" != "master" ]; then rm .npmrc; fi
   override:
     - gem install sass
     - npm rebuild node-sass
@@ -23,9 +24,9 @@ test:
   override:
     - npm test
     - node merge-build-tools-deps.js && git checkout -- package.json
-    - if [[ $CIRCLE_BRANCH = master ]]; then (cp -f .npmrc ~) && (npm run dont-break); fi
+    - if [ "${CIRCLE_BRANCH}" == "master" ]; then (cp -f .npmrc ~) && (npm run dont-break); fi
   post:
-    - if [[ $CIRCLE_BRANCH = master ]]; then rm ~/.npmrc; fi
+    - if [ "${CIRCLE_BRANCH}" == "master" ]; then rm ~/.npmrc; fi
     - grep "version\"\:" node_modules/*/*/package.json > $CIRCLE_ARTIFACTS/npm_versions.txt
     - grep "version\"\:" node_modules/*/package.json >> $CIRCLE_ARTIFACTS/npm_versions.txt
     - grep "version\"\:" node_modules/*/*/*/package.json >> $CIRCLE_ARTIFACTS/npm_versions.txt
