@@ -9,6 +9,11 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
+          name: pre-deps
+          command: |
+            node --version
+            npm --version
+      - run:
           name: install-deps
           command: |
             if [ "${CIRCLE_BRANCH}" != "master" ]; then rm .npmrc; fi
@@ -18,11 +23,6 @@ jobs:
           paths:
             - ./node_modules
             - ~/.cache/yarn
-      - run:
-          name: post-deps
-          command: |
-            node --version
-            npm --version
       - run:
           name: test
           command: |
