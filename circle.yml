@@ -5,6 +5,8 @@ machine:
     version: 8.9.4
   ruby:
     version: 2.4.1
+  npm:
+    version: 3.10.10
 
 dependencies:
   cache_directories:
