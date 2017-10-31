@@ -13,10 +13,11 @@ jobs:
           command: |
             node --version
             npm --version
+            yarn config set cache-folder ~/.cache/yarn
+            if [ "${CIRCLE_BRANCH}" != "master" ]; then rm .npmrc; fi
       - run:
           name: install-deps
           command: |
-            if [ "${CIRCLE_BRANCH}" != "master" ]; then rm .npmrc; fi
             yarn --ignore-engines
             if [ "${CIRCLE_BRANCH}" == "master" ]; then yarn global add dont-break@1.10.0; fi
       - save_cache:
