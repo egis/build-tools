@@ -26,10 +26,12 @@ jobs:
       - run:
           name: post-deps
           command: |
-            grep "version\"\:" node_modules/*/*/package.json > $CIRCLE_ARTIFACTS/npm_versions.txt
-            grep "version\"\:" node_modules/*/package.json >> $CIRCLE_ARTIFACTS/npm_versions.txt
-            grep "version\"\:" node_modules/*/*/*/package.json >> $CIRCLE_ARTIFACTS/npm_versions.txt
-            cp yarn.lock $CIRCLE_ARTIFACTS
+            grep "version\"\:" node_modules/*/*/package.json > test-report/npm_versions.txt
+            grep "version\"\:" node_modules/*/package.json >> test-report/npm_versions.txt
+            grep "version\"\:" node_modules/*/*/*/package.json >> test-report/npm_versions.txt
+            cp yarn.lock test-report/
+      - store_test_results:
+          path: test-report/
       - run:
           name: test
           command: |
