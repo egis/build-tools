@@ -19,6 +19,11 @@ jobs:
             - ./node_modules
             - ~/.cache/yarn
       - run:
+          name: post-deps
+          command: |
+            node --version
+            npm --version
+      - run:
           name: test
           command: |
             npm test
