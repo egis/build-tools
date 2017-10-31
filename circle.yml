@@ -15,7 +15,7 @@ dependencies:
     - if [ "${CIRCLE_BRANCH}" != "master" ]; then rm .npmrc; fi
   override:
     - node_modules/.bin/yarn --ignore-engines
-    - if [ "${CIRCLE_BRANCH}" == "master" ]; then node_modules/.bin/yarn global add dont-break@1.10.0; fi
+    - if [ "${CIRCLE_BRANCH}" == "master" ]; then node_modules/.bin/yarn global add --ignore-engines dont-break@1.10.0; fi
   post:
     - node --version
     - npm --version
