@@ -48,10 +48,7 @@
     "chalk": "^2.1.0",
     "codacy-coverage": "^2.0.1",
     "condition-circle": "^1.2.0",
-    "david": "^7.0.1",
     "del": "^2.2.0",
-    "dont-break": "^1.10.0",
-    "exact-semver": "^1.2.0",
     "freeform-semantic-commit-analyzer": "^1.1.0",
     "glob": "^6.0.3",
     "graceful-fs": "^4.1.2",
@@ -155,7 +152,6 @@
     "update-dependents": "semantic-dependents-updates-github",
     "install-build-tools-deps": "install-build-tools-deps",
     "semantic-release": "semantic-release pre && npm publish --access public && npm run update-dependents",
-    "dont-break": "dont-break --timeout 600",
     "browsersync": "gulp --gulpfile gulp/browsersync.js --cwd ./ browsersync"
   },
   "release": {

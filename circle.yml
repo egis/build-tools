@@ -2,7 +2,7 @@ machine:
   pre:
     - mkdir ~/.cache/yarn
   node:
-    version: 4.2.6
+    version: 7.0.0
   ruby:
     version: 2.4.1
 
@@ -10,11 +10,11 @@ dependencies:
   cache_directories:
     - ~/.cache/yarn
   pre:
-    - test $CIRCLE_BRANCH != master && rm .npmrc || true
+    - npm install yarn@0.27.5
+    - if [ "${CIRCLE_BRANCH}" != "master" ]; then rm .npmrc; fi
   override:
-    - gem install sass
-    - npm rebuild node-sass
-    - npm install "yarn@^0.27.5" && node_modules/.bin/yarn --ignore-engines
+    - node_modules/.bin/yarn
+    - if [ "${CIRCLE_BRANCH}" == "master" ]; then node_modules/.bin/yarn global add dont-break@1.10.0; fi
   post:
     - node --version
     - npm --version
@@ -23,9 +23,9 @@ test:
   override:
     - npm test
     - node merge-build-tools-deps.js && git checkout -- package.json
-    - if [[ $CIRCLE_BRANCH = master ]]; then (cp -f .npmrc ~) && (npm run dont-break); fi
+    - if [ "${CIRCLE_BRANCH}" == "master" ]; then (cp -f .npmrc ~) && (dont-break --timeout 600); fi
   post:
-    - if [[ $CIRCLE_BRANCH = master ]]; then rm ~/.npmrc; fi
+    - if [ "${CIRCLE_BRANCH}" == "master" ]; then rm ~/.npmrc; fi
     - grep "version\"\:" node_modules/*/*/package.json > $CIRCLE_ARTIFACTS/npm_versions.txt
     - grep "version\"\:" node_modules/*/package.json >> $CIRCLE_ARTIFACTS/npm_versions.txt
     - grep "version\"\:" node_modules/*/*/*/package.json >> $CIRCLE_ARTIFACTS/npm_versions.txt
