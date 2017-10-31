@@ -14,8 +14,8 @@ dependencies:
     - node_modules/.bin/yarn config set cache-folder ~/.cache/yarn
     - if [ "${CIRCLE_BRANCH}" != "master" ]; then rm .npmrc; fi
   override:
-    - node_modules/.bin/yarn --ignore-engines
-    - if [ "${CIRCLE_BRANCH}" == "master" ]; then node_modules/.bin/yarn global add --ignore-engines dont-break@1.10.0; fi
+    - node_modules/.bin/yarn
+    - if [ "${CIRCLE_BRANCH}" == "master" ]; then node_modules/.bin/yarn global add dont-break@1.10.0; fi
   post:
     - node --version
     - npm --version
