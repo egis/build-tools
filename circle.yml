@@ -11,7 +11,7 @@ dependencies:
     - ~/.cache/yarn
   pre:
     - if [ "${CIRCLE_BRANCH}" != "master" ]; then rm .npmrc; fi
-    - npm install yarn@1.2.1
+    - npm install yarn@0.27.5
   override:
     - node_modules/.bin/yarn
     - if [ "${CIRCLE_BRANCH}" == "master" ]; then node_modules/.bin/yarn global add dont-break@1.10.0; fi
