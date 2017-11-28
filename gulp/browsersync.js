@@ -24,7 +24,7 @@ function loadAppConfig(pkg, pkgRootDir, serveStaticMap, watchedFiles) {
                 route = routeItem;
                 routeDir = 'build'
             }
-            route = '/web/' + route;
+            if (!route.startsWith('/')) route = '/web/' + route;
             serveStaticMap[route] = serveStaticMap[route] || [];
 
             //serve css directly from app' build folder - this makes CSS injection work and persist on browser reload
