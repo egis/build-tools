@@ -5,7 +5,7 @@ var specDirs = argv.specDirs || 'e2e*';
 var specFiles = argv.specFiles || ['.', specDirs, '**/*Spec.js'].join('/');
 
 // Level of Webdriver logging verbosity: silent | verbose | command | data | result | error
-var logLevel = argv.wdioLogLevel || 'error';
+var logLevel = argv.logLevel || 'error';
 
 module.exports = {
     
@@ -128,7 +128,8 @@ module.exports = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 5 * 60 * 1000
+        timeout: 5 * 60 * 1000,
+        retries: argv.mochaOpts.retries || 0
     },
     //
     // =====
