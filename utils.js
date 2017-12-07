@@ -31,7 +31,7 @@ function findEgisUi() {
 var EGISUI = findEgisUi();
 
 // Level of logging verbosity: trace | debug | info | warn | error | silent
-var logLevel = argv.logLevel || 'warn';
+var logLevel = argv.egisLogLevel || 'warn';
 log.setLevel(logLevel);
 console.log('build tools: log level', log.getLevel());
 
