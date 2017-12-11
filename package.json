@@ -47,7 +47,7 @@
     "chai": "^3.5.0",
     "chalk": "^2.1.0",
     "codacy-coverage": "^2.0.1",
-    "condition-circle": "^1.2.0",
+    "condition-circle": "1.5.0",
     "del": "^2.2.0",
     "freeform-semantic-commit-analyzer": "^1.1.0",
     "glob": "^6.0.3",
