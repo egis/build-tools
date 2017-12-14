@@ -103,12 +103,29 @@ And then after 1 or more `npm run dev` servers are running:
 npm run browsersync
 ```
 
-If your files are being served from anything other then **localhost** e.g. **192.168.0.10**: 
+If your files are being served from anything other then **localhost** e.g. **192.168.99.100**: 
 
 ```bash
-npm run dev -- --host=192.168.0.10
-npm run browsersync -- --proxied-host=192.168.99.10
+cd /path/to/EgisUI
+npm run dev
+
+# in another terminal window/tab
+cd /path/to/build-tools
+npm run browsersync -- --proxied-host=192.168.99.100
 ```
+
+This also allows to run a library (EgisUI, eSign, etc) or Portal plugin locally in dev mode in context of remote host, e.g. UAT:
+```bash
+cd /path/to/MyPlugin
+npm run dev
+
+# in another terminal window/tab
+cd /path/to/build-tools
+npm run browsersync -- --proxied-host=sandbox.some.com --proxied-port=80 --plugin=MyPlugin
+```
+
+Note the `--plugin` parameter above - you need to specify it by its directory name to make browsersync handle it. This 
+is because we only want one plugin to work at any given time. 
 
 ### E2E tests
 We use [Webdriver.io](http://webdriver.io/) with [Mocha](https://mochajs.org/) for e2e tests.

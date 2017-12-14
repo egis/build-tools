@@ -28,7 +28,7 @@ function loadAppConfig(pkg, pkgRootDir, serveStaticMap, watchedFiles) {
             serveStaticMap[route] = serveStaticMap[route] || [];
 
             //serve css directly from app' build folder - this makes CSS injection work and persist on browser reload
-            let path = pkgRootDir + '/' + routeDir;
+            let path = '../' + pkgRootDir + '/' + routeDir;
             serveStaticMap[route].push(path);
             console.log(pkgRootDir + ' adds route:', `${route} => ${path}`);
         });
@@ -43,22 +43,35 @@ function loadAppConfig(pkg, pkgRootDir, serveStaticMap, watchedFiles) {
     }
 }
 
+let loadJsonConfig = function (fileName, filePath) {
+    let cfg;
+    fileName = filePath + '/' + fileName;
+    if (utils.exists(fileName)) {
+        try {
+            cfg = JSON.parse(fs.readFileSync(fileName, 'utf8'));
+        } catch (e) {
+            console.error('Failed parsing config file' + fileName + ':', e);
+        }
+    }
+    return cfg;
+};
+
 function loadApps(rootDir, config) {
     let serveStaticMap = {};
     let watchedFiles = [];
 
     glob.sync(rootDir + '/*/').forEach(filePath => {
         filePath = filePath.substring(0, filePath.length - 1);
-        let jsonPath = filePath + '/portal-browser-sync.json';
-        if (utils.exists(jsonPath)) {
-            let pkg;
-            try {
-                pkg = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
-            } catch (e) {
-                console.error('Failed parsing config file' + jsonPath + ':', e);
-            }
-            loadAppConfig(pkg, filePath, serveStaticMap, watchedFiles);
+        let pkg = loadJsonConfig('package.json', filePath);
+        if (!pkg) return;
+        let pkgDir = filePath.split('/');
+        pkgDir = pkgDir[pkgDir.length - 1];
+        if (pkg.plugin && pkgDir !== argv.plugin) {
+            console.log(`ignoring plugin ${pkgDir} because it's not the requested one`);
+            return
         }
+        let cfg = loadJsonConfig('portal-browser-sync.json', filePath);
+        if (cfg) loadAppConfig(cfg, pkgDir, serveStaticMap, watchedFiles);
     });
 
     let serveStatic = [];
