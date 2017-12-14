@@ -36,7 +36,7 @@ function loadAppConfig(pkg, pkgRootDir, serveStaticMap, watchedFiles) {
 
     if (pkg.watchedFiles) {
         _.flatten([pkg.watchedFiles]).forEach(path => {
-            path = pkgRootDir + '/' + path;
+            path = '../' + pkgRootDir + '/' + path;
             console.log(pkgRootDir + ' adds watched path:', path);
             watchedFiles.push(path);
         });
