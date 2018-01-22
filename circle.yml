@@ -13,8 +13,8 @@ dependencies:
     - if [ "${CIRCLE_BRANCH}" != "master" ]; then rm .npmrc; fi
     - npm install yarn@0.27.5
   override:
-    - node_modules/.bin/yarn
-    - if [ "${CIRCLE_BRANCH}" == "master" ]; then node_modules/.bin/yarn global add @artemv/dont-break@1.11.0-pre.2; fi
+    - node_modules/.bin/yarn --ignore-engines
+    - if [ "${CIRCLE_BRANCH}" == "master" ]; then node_modules/.bin/yarn global add --ignore-engines @artemv/dont-break@1.11.0-pre.2; fi
   post:
     - node --version
     - npm --version
