@@ -92,6 +92,7 @@ gulp.task('browsersync', () => {
         startPath: "/web/portal",
         open: 'external',
         ghostMode: false,
+        reloadDebounce: 500
     };
 
     if (argv.tunnel) config.tunnel = argv.tunnel;
