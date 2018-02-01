@@ -136,7 +136,7 @@ module.exports = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 5 * 60 * 1000,
+        timeout: argv.mochaOpts.timeout || 5 * 60 * 1000,
         retries: argv.mochaOpts.retries || 0
     },
     //
