@@ -172,6 +172,16 @@ module.exports = {
             htmlReporter: {
                 outputFile: outputDir + '/' + group_filename('unit', 'html')
             },
+            coverageReporter: {
+                reporters: [
+                    {
+                        type : 'html'
+                    }, {
+                        type : 'lcov',
+                        subdir : 'lcov'
+                    }
+                ]
+            },
             colors: true,
             logLevel: config.LOG_INFO,
             autoWatch: true,
