@@ -38,7 +38,7 @@ if (argv.ff === 'true') {
 }
 
 module.exports = {
-    
+
     //
     // ==================
     // Specify Test Files
@@ -145,7 +145,7 @@ module.exports = {
     // The only one supported by default is 'dot'
     // see also: http://webdriver.io/guide/testrunner/reporters.html
     reporters: ['spec'],
-    
+
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
@@ -216,7 +216,7 @@ module.exports = {
     // onComplete: function(exitCode) {
     // }
     onError: function(err) {
-        browser.err = err; //to be able to query its err.shotTaken later in afterEach hook
+        browser.err = err; // to be able to query its err.shotTaken later in afterEach hook
     }
 };
 
