@@ -73,6 +73,8 @@ module.exports = {
     },
     defaultKarma: function (config)
     {
+        var outputDir = argv.outDir || 'test-output';
+
         var hostname = argv.host || process.env['IP'] || this.ip();
 
         var launchersBase = 'TestingBot';
@@ -145,7 +147,7 @@ module.exports = {
 
         config.set({
             junitReporter: {
-                outputDir: 'test-output/junit/' // results will be saved as $outputDir/$browserName.xml
+                outputDir: outputDir + '/junit/' // results will be saved as $outputDir/$browserName.xml
                 //outputFile: undefined // if included, results will be saved as $outputDir/$browserName/$outputFile
                 //suite: ''
             },
@@ -168,7 +170,17 @@ module.exports = {
             browserNoActivityTimeout: 4*60*1000, // default is 10*1000
             captureTimeout: 2*60*1000, // default is 60*1000
             htmlReporter: {
-                outputFile: 'test-output/' + group_filename('unit', 'html')
+                outputFile: outputDir + '/' + group_filename('unit', 'html')
+            },
+            coverageReporter: {
+                reporters: [
+                    {
+                        type : 'html'
+                    }, {
+                        type : 'lcov',
+                        subdir : 'lcov'
+                    }
+                ]
             },
             colors: true,
             logLevel: config.LOG_INFO,
