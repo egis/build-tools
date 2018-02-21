@@ -1,5 +1,6 @@
 {
   "pretest": false,
+  "install": "npm-install-retry --wait 500 --attempts 10 -- ",
   "postinstall": "$CURRENT_MODULE_DIR/update-build-tools-deps1.sh",
   "test": "./node_modules/@egis/build-tools/dont-break-tests.sh",
   "currentModuleInstall": "yarn-link",
