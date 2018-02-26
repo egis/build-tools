@@ -126,6 +126,11 @@ npm run browsersync -- --proxied-host=sandbox.some.com --proxied-port=80 --plugi
 Note the `--plugin` parameter above - you need to specify it by its directory name to make browsersync handle it. This 
 is because we only want one plugin to work at any given time. 
 
+For SSL mode, just specify https protocol:
+```
+npm run browsersync -- --proxied-host=https://testbox.papertrail.co.za
+```
+
 ### E2E tests
 We use [Webdriver.io](http://webdriver.io/) with [Mocha](https://mochajs.org/) for e2e tests.
  

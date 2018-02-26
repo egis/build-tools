@@ -85,7 +85,10 @@ function loadApps(rootDir, config) {
 }
 
 gulp.task('browsersync', () => {
-    let toProxy = (argv['proxied-host'] || 'localhost') + ':' + (argv['proxied-port'] || 8080);
+    let toProxy = (argv['proxied-host'] || 'localhost');
+    if (!toProxy.startsWith('https')) {
+        toProxy = toProxy + ':' + (argv['proxied-port'] || 8080);
+    }
 
     let config = {
         proxy: toProxy,
