@@ -135,7 +135,7 @@
     "wdio-mocha-framework": "^0.5.4",
     "wdio-spec-reporter": "0.0.3",
     "webdriverio": "^4.10.1",
-    "yarn": "^1.4.0"
+    "yarn": "^1.5.1"
   },
   "homepage": "https://github.com/egis/build-tools#readme",
   "license": "Commercial",
