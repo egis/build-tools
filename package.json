@@ -9,7 +9,7 @@
     "loglevel": "^1.5.1"
   },
   "devDependencies": {
-    "@egis/egis-ui-test-utils": "^1.0.4",
+    "@egis/egis-ui-test-utils": "^2.23.0",
     "@egis/semantic-dependents-updates-github": "1.0.6",
     "babel": "^6.3.26",
     "babel-core": "^6.11.4",
