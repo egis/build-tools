@@ -1,6 +1,6 @@
 {
   "pretest": false,
-  "postinstall": "npm run update",
+  "postinstall": "npm run install-all",
   "test": "./node_modules/@egis/build-tools/dont-break-tests.sh",
   "currentModuleInstall": "npm-link",
   "projects": ["@egis/egis-ui", "@egis/esign", "@egis/portal-app", "@egis/bulk-capture"]
