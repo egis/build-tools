@@ -1,8 +1,9 @@
 #!/bin/bash
 
-npm install yarn && yarn
 cp package.json package.json.bak
 BASEDIR=$(dirname "$0")
 node $BASEDIR/merge-build-tools-deps.js
-yarn --ignore-engines
-mv package.json.bak package.json
+npm install yarn && yarn --ignore-engines
+if [[ "$KEEP_MODIFIED_PACKAGE" != 'true' ]]; then
+    mv package.json.bak package.json
+fi
