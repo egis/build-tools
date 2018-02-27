@@ -126,6 +126,16 @@ npm run browsersync -- --proxied-host=sandbox.some.com --proxied-port=80 --plugi
 Note the `--plugin` parameter above - you need to specify it by its directory name to make browsersync handle it. This 
 is because we only want one plugin to work at any given time. 
 
+For SSL mode, just specify https protocol:
+```
+npm run browsersync -- --proxied-host=https://testbox.papertrail.co.za
+```
+
+#### Caveats
+ * URLs with default pages other than index.html, e.g. `http://papertrail.lvh.me:3001/web/eSign/?3760` don't work, so 
+ you'll get "page not found" if you try to use Sign action. Specify `http://papertrail.lvh.me:3001/web/eSign/sign.html?3760` 
+ manually then, that will work.
+ 
 ### E2E tests
 We use [Webdriver.io](http://webdriver.io/) with [Mocha](https://mochajs.org/) for e2e tests.
  
