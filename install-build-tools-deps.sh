@@ -1,5 +1,6 @@
 #!/bin/bash
 
+npm install yarn && yarn
 cp package.json package.json.bak
 BASEDIR=$(dirname "$0")
 node $BASEDIR/merge-build-tools-deps.js
