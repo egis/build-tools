@@ -14,7 +14,7 @@ dependencies:
     - npm install yarn@1.5.1
   override:
     - node_modules/.bin/yarn --ignore-engines
-    - if [ "${NPM_TOKEN}" != "" ]; then node_modules/.bin/yarn global add --ignore-engines dont-break@1.12.1; fi
+    - if [ "${NPM_TOKEN}" != "" ]; then ./install-dont-break.sh; fi
   post:
     - node --version
     - npm --version
