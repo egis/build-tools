@@ -1,7 +1,8 @@
 {
   "pretest": false,
+  "install": "yarn",
   "postinstall": "sh node_modules/@egis/build-tools/install-build-tools-deps.sh",
   "test": "./node_modules/@egis/build-tools/dont-break-tests.sh",
-  "currentModuleInstall": "npm-link",
+  "currentModuleInstall": "yarn-link",
   "projects": ["@egis/egis-ui", "@egis/esign", "@egis/portal-app", "@egis/bulk-capture"]
 }
