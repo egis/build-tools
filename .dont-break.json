@@ -1,6 +1,6 @@
 {
   "pretest": false,
-  "postinstall": "sh {{CURRENT_MODULE_DIR}}/install-build-tools-deps.sh",
+  "postinstall": "$CURRENT_MODULE_DIR/install-build-tools-deps1.sh",
   "test": "./node_modules/@egis/build-tools/dont-break-tests.sh",
   "currentModuleInstall": "yarn-link",
   "projects": ["@egis/egis-ui", "@egis/esign", "@egis/portal-app", "@egis/bulk-capture"]
