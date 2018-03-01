@@ -27,7 +27,7 @@ A Handlebar partial is any file begining with `_` and ending in `.hbs` and is au
 ## Build steps:
 * export your `NPM_TOKEN`
 * Copy and rename the seed_package.json to package.json (only when bootstraping new projects)
-* Run `npm install -g yarn@1.4.0`. 
+* Run `npm install -g yarn@1.5.1`. 
 * Run `npm run setup` to install and build all required dependencies
 
 ## Dev lifecycle commands:

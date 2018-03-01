@@ -3,7 +3,12 @@
 cp package.json package.json.bak
 BASEDIR=$(dirname "$0")
 node $BASEDIR/merge-build-tools-deps.js
-node_modules/.bin/yarn --ignore-engines
+if [[ "$YARN_LOCATION" == "" ]]; then
+    YARN_LOCATION=node_modules/.bin
+fi
+$YARN_LOCATION/yarn --ignore-engines
 rc=$?
-mv package.json.bak package.json
+if [[ "$KEEP_MODIFIED_PACKAGE" != 'true' ]]; then
+    mv package.json.bak package.json
+fi
 exit $rc
