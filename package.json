@@ -10,7 +10,7 @@
     "yarn": "^1.5.1"
   },
   "devDependencies": {
-    "@artemv/npm-install-retry": "^1.2.1",
+    "@artemv/npm-install-retry": "^1.2.2",
     "@egis/egis-ui-test-utils": "^2.23.0",
     "@egis/semantic-dependents-updates-github": "1.0.6",
     "babel": "^6.3.26",
