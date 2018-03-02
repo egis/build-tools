@@ -14,8 +14,8 @@ dependencies:
     - npm install yarn@1.5.1
   override:
     - npm run setup
-    - ./install-npm-retry.sh
-    - if [ "${NPM_TOKEN}" != "" ]; then ./install-dont-break.sh; fi
+    - ./scripts/install-npm-retry.sh
+    - if [ "${NPM_TOKEN}" != "" ]; then ./scripts/install-dont-break.sh; fi
   post:
     - node --version
     - npm --version
@@ -23,7 +23,7 @@ dependencies:
 test:
   override:
     - npm test
-    - node merge-build-tools-deps.js && git checkout -- package.json
+    - scripts/merge-build-tools-deps.js && git checkout -- package.json
     - if [ "${NPM_TOKEN}" != "" ]; then (cp -f .npmrc ~) && (dont-break --timeout 600); fi
   post:
     - grep "version\"\:" node_modules/*/*/package.json > $CIRCLE_ARTIFACTS/npm_versions.txt
