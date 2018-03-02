@@ -1,3 +1,5 @@
+#!/usr/bin/env python2
+
 import os, sys
 import glob
 import xml.etree.ElementTree

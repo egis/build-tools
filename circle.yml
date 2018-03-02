@@ -13,7 +13,7 @@ dependencies:
     - if [ "${NPM_TOKEN}" == "" ]; then rm .npmrc; fi
     - npm install yarn@1.5.1
   override:
-    - node_modules/.bin/yarn --ignore-engines
+    - npm run setup
     - ./install-npm-retry.sh
     - if [ "${NPM_TOKEN}" != "" ]; then ./install-dont-break.sh; fi
   post:
