@@ -6,10 +6,11 @@
   "port": 3001,
   "description": "## for MacOS users: ```shell # install 'native' (not Apple-supplied) Python to be able to install 'glue' tool: brew install python",
   "dependencies": {
-    "loglevel": "^1.5.1"
+    "loglevel": "^1.5.1",
+    "yarn": "^1.5.1"
   },
   "devDependencies": {
-    "@egis/egis-ui-test-utils": "^1.0.4",
+    "@egis/egis-ui-test-utils": "^2.23.0",
     "@egis/semantic-dependents-updates-github": "1.0.6",
     "babel": "^6.3.26",
     "babel-core": "^6.11.4",
@@ -134,8 +135,7 @@
     "watchify": "^3.7.0",
     "wdio-mocha-framework": "^0.5.4",
     "wdio-spec-reporter": "0.0.3",
-    "webdriverio": "^4.10.1",
-    "yarn": "^1.4.0"
+    "webdriverio": "^4.10.1"
   },
   "homepage": "https://github.com/egis/build-tools#readme",
   "license": "Commercial",
