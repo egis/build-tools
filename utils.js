@@ -79,6 +79,10 @@ module.exports = {
 
         var launchersBase = 'TestingBot';
         var customLaunchers = {
+            'ChromeNoSandbox': {
+                base: 'Chrome',
+                flags: ['--no-sandbox']
+            },
             'REMOTE-IE10': {
                 base: launchersBase,
                 browserName: 'internet explorer',
