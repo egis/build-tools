@@ -13,16 +13,17 @@ jobs:
           command: |
             node --version
             npm --version
-            yarn config set cache-folder ~/.cache/yarn
-            if [ "${CIRCLE_BRANCH}" != "master" ]; then rm .npmrc; fi
+            npm install yarn@1.5.1
+            ./node_modules/.bin/yarn config set cache-folder ~/.cache/yarn
+            if [ "${NPM_TOKEN}" == "" ]; then rm .npmrc; fi
+            ./scripts/install-npm-retry.sh
       - run:
           name: install-deps
           command: |
-            yarn --ignore-engines
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              yarn global add dont-break@1.10.0
-              yarn add @egis/egis-ui-test-utils
-              node_modules/@egis/egis-ui-test-utils/scripts/update-chrome-ci.sh
+            npm run setup
+            if [ "${NPM_TOKEN}" != "" ]; then
+              ./scripts/install-dont-break.sh
+              ./node_modules/@egis/egis-ui-test-utils/scripts/update-chrome-ci.sh
             fi
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
@@ -44,14 +45,14 @@ jobs:
           name: test
           command: |
             npm test
-            node merge-build-tools-deps.js && git checkout -- package.json
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            ./scripts/merge-build-tools-deps.js && git checkout -- package.json
+            if [ "${NPM_TOKEN}" != "" ]; then
               cp -f .npmrc ~
               dont-break --timeout 600
             fi
       - run:
           name: deploy
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ] && [ "${CIRCLE_USERNAME}" == "egis" ]; then
+            if [ "${CIRCLE_USERNAME}" == "egis" ] && [ "${CIRCLE_BRANCH}" == "master" ]; then
               npm run semantic-release || true
             fi
