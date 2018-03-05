@@ -47,7 +47,7 @@ jobs:
             npm test
             ./scripts/merge-build-tools-deps.js && git checkout -- package.json
             if [ "${NPM_TOKEN}" != "" ]; then
-              docker exec grid wait_all_done 30s
+              wget --retry-connrefused --no-check-certificate -T 30  http://localhost:4444/grid/console -O /dev/null
               cp -f .npmrc ~
               dont-break --timeout 600
             fi
