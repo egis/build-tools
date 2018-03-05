@@ -77,11 +77,22 @@ module.exports = {
 
         var hostname = argv.host || process.env['IP'] || this.ip() || '';
 
+        var webDriverConfig = {
+            desiredCapabilities: {
+                browserName: 'chrome'
+            },
+            host: 'localhost',
+            port: 4444,
+            path: '/wd/hub'
+        };
+
         var launchersBase = 'TestingBot';
         var customLaunchers = {
-            'ChromeNoSandbox': {
-                base: 'Chrome',
-                flags: ['--no-sandbox']
+            'SeleniumChrome': {
+                base: 'Selenium',
+                config: webDriverConfig,
+                name: 'Karma Test',
+                browserName: 'chrome'
             },
             'REMOTE-IE10': {
                 base: launchersBase,

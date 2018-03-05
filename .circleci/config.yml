@@ -4,6 +4,7 @@ jobs:
     working_directory: ~/build-tools
     docker:
       - image: egis/build-slave
+      - image: elgalu/selenium
     steps:
       - checkout
       - restore_cache:
@@ -23,7 +24,6 @@ jobs:
             npm run setup
             if [ "${NPM_TOKEN}" != "" ]; then
               ./scripts/install-dont-break.sh
-              ./node_modules/@egis/egis-ui-test-utils/scripts/update-chrome.sh
             fi
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
@@ -47,6 +47,7 @@ jobs:
             npm test
             ./scripts/merge-build-tools-deps.js && git checkout -- package.json
             if [ "${NPM_TOKEN}" != "" ]; then
+              docker exec grid wait_all_done 30s
               cp -f .npmrc ~
               dont-break --timeout 600
             fi
