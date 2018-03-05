@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/build-tools
     docker:
       - image: egis/build-slave
-      - image: elgalu/selenium
+      - image: selenium/standalone-chrome:3.10.0
     steps:
       - checkout
       - restore_cache:
