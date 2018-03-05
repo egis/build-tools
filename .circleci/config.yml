@@ -23,7 +23,7 @@ jobs:
             npm run setup
             if [ "${NPM_TOKEN}" != "" ]; then
               ./scripts/install-dont-break.sh
-              ./node_modules/@egis/egis-ui-test-utils/scripts/update-chrome-ci.sh
+              ./node_modules/@egis/egis-ui-test-utils/scripts/update-chrome.sh
             fi
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
