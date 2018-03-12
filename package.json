@@ -103,7 +103,6 @@
     "karma-jasmine-jquery": "^0.1.1",
     "karma-json-fixtures-preprocessor": "0.0.5",
     "karma-junit-reporter": "^1.2.0",
-    "karma-selenium-launcher": "^1.0.1",
     "karma-sourcemap-loader": "^0.3.6",
     "karma-systemjs": "github:rolaveric/karma-systemjs#28b94c979516cd6eb4514b128d40f3517bb3903b",
     "karma-testingbot-launcher": "^1.0.1",
