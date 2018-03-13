@@ -26,7 +26,6 @@ jobs:
             node --version
             npm --version
             npm install -g yarn@1.5.1
-            npm install yarn@1.5.1
             sudo chmod -R a+w /usr/local
             yarn config set cache-folder ~/.cache/yarn
             if [ "${NPM_TOKEN}" == "" ]; then rm .npmrc; fi
