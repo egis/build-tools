@@ -42,8 +42,8 @@ jobs:
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
-            - .cache/yarn
             - node_modules
+            - .cache/yarn
             - yarn.lock
       - run:
           name: post-deps
