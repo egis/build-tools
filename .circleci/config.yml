@@ -30,15 +30,15 @@ jobs:
             sudo chmod -R a+w /usr/local
             ./node_modules/.bin/yarn config set cache-folder ~/.cache/yarn
             if [ "${NPM_TOKEN}" == "" ]; then rm .npmrc; fi
-            if [ "${NPM_TOKEN}" != "" ]; then
-              ./scripts/install-dont-break.sh
-              node_modules/@egis/egis-ui-test-utils/scripts/update-chrome.sh
-            fi
             ./scripts/install-npm-retry.sh
       - run:
           name: install-deps
           command: |
             npm run setup
+            if [ "${NPM_TOKEN}" != "" ]; then
+              ./scripts/install-dont-break.sh
+              node_modules/@egis/egis-ui-test-utils/scripts/update-chrome.sh
+            fi
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
