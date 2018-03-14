@@ -23,8 +23,6 @@ jobs:
       - run:
           name: pre-deps
           command: |
-            node --version
-            npm --version
             npm install -g yarn@1.5.1
             sudo chmod -R a+w /usr/local
             yarn config set cache-folder ~/.cache/yarn
