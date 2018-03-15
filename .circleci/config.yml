@@ -50,6 +50,7 @@ jobs:
             grep "version\"\:" node_modules/*/package.json >> ci-artifacts/npm_versions.txt
             grep "version\"\:" node_modules/*/*/*/package.json >> ci-artifacts/npm_versions.txt
             cp yarn.lock ci-artifacts/
+          when: always
       - store_artifacts:
           path: ci-artifacts/
       - run:
