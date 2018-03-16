@@ -75,7 +75,7 @@ module.exports = {
     {
         var outputDir = argv.outDir || 'test-output';
 
-        var hostname = argv.host || process.env['IP'] || this.ip();
+        var hostname = argv.host || process.env['IP'] || this.ip() || '';
 
         var launchersBase = 'TestingBot';
         var customLaunchers = {

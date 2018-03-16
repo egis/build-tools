@@ -10,7 +10,7 @@
     "yarn": "^1.5.1"
   },
   "devDependencies": {
-    "@egis/egis-ui-test-utils": "^2.23.0",
+    "@egis/egis-ui-test-utils": "^2.25.0",
     "@egis/semantic-dependents-updates-github": "1.0.6",
     "babel": "^6.3.26",
     "babel-core": "^6.11.4",
@@ -134,7 +134,7 @@
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0",
     "wdio-mocha-framework": "^0.5.4",
-    "wdio-spec-reporter": "0.0.3",
+    "wdio-spec-reporter": "^0.1.4",
     "webdriverio": "^4.10.1"
   },
   "homepage": "https://github.com/egis/build-tools#readme",

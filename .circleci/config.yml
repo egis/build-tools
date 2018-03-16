@@ -1,0 +1,67 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    working_directory: ~/build-tools
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install node@8.10.0
+          command: |
+            set +e
+            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.5/install.sh | bash
+            export NVM_DIR="/opt/circleci/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm install v8.10.0
+            nvm alias default v8.10.0
+
+            # Each step uses the same `$BASH_ENV`, so need to modify it
+            echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
+            echo "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"" >> $BASH_ENV
+      - run:
+          name: pre-deps
+          command: |
+            npm install -g yarn@1.5.1
+            sudo chmod -R a+w /usr/local
+            yarn config set cache-folder ~/.cache/yarn
+            if [ "${NPM_TOKEN}" == "" ]; then rm .npmrc; fi
+            ./scripts/install-npm-retry.sh
+      - run:
+          name: install-deps
+          command: |
+            npm run setup
+            if [ "${NPM_TOKEN}" != "" ]; then
+              ./scripts/install-dont-break.sh
+              node_modules/@egis/egis-ui-test-utils/scripts/update-chrome.sh
+            fi
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+            - ~/.cache/yarn
+            - yarn.lock
+      - run:
+          name: post-deps
+          command: |
+            mkdir ci-artifacts
+            grep "version\"\:" node_modules/*/*/package.json > ci-artifacts/npm_versions.txt
+            grep "version\"\:" node_modules/*/package.json >> ci-artifacts/npm_versions.txt
+            grep "version\"\:" node_modules/*/*/*/package.json >> ci-artifacts/npm_versions.txt
+            cp yarn.lock ci-artifacts/
+          when: always
+      - store_artifacts:
+          path: ci-artifacts/
+      - run:
+          name: test
+          command: |
+            npm test
+            ./scripts/merge-build-tools-deps.js && git checkout -- package.json
+            if [ "${NPM_TOKEN}" != "" ]; then
+              cp -f .npmrc ~
+              dont-break --timeout 600
+            fi
+      - run:
+          name: deploy
+          command: ./scripts/semantic-release.sh
