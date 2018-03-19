@@ -10,7 +10,7 @@ var logLevel = argv.logLevel || 'error';
 // maxInstances can get overwritten per capability. So if you have an in-house Selenium
 // grid with only 5 firefox instances available you can make sure that not more than
 // 5 instances get started at a time.
-var maxInstances = argv.maxBrowserInstances || 5;
+var maxInstances = argv.maxBrowserInstances || process.env.E2E_BROWSER_INSTANCES || 5;
 
 var chromeConfig = {
     maxInstances: maxInstances,
