@@ -1,7 +1,7 @@
 {
   "pretest": false,
   "install": "$CURRENT_MODULE_DIR/scripts/install-if-not-there.sh",
-  "postinstall": "update-build-tools-deps",
+  "postinstall": "$CURRENT_MODULE_DIR/scripts/update-build-tools-deps.sh",
   "test": "./node_modules/@egis/build-tools/scripts/dont-break-tests.sh",
   "currentModuleInstall": "yarn-link",
   "projects": ["@egis/egis-ui", "@egis/esign", "@egis/portal-app", "@egis/bulk-capture"]
