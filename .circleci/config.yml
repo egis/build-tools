@@ -38,8 +38,8 @@ jobs:
               ./scripts/install-dont-break.sh
               npm install -g .
               cp -f .npmrc ~
-              npm install -g @egis/egis-ui-test-utils
-              # update-chrome.sh
+              npm install -g @egis/egis-ui-test-utils@2.27.2-pre.1
+              update-chrome
             fi
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
