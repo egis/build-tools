@@ -1,9 +1,5 @@
 #!/bin/bash
 
-if [ "$KEEP_MODIFIED_PACKAGE" != 'false' ] && [ "$CI" == 'true' ]; then
-  KEEP_MODIFIED_PACKAGE=true
-fi
-
 if [ "$KEEP_MODIFIED_PACKAGE" != 'true' ]; then
     cp package.json package.json.bak
 fi
