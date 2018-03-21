@@ -35,6 +35,7 @@ jobs:
             if [ "${NPM_TOKEN}" != "" ]; then
               ./scripts/install-dont-break.sh
               npm install -g .
+              cp -f .npmrc ~
               npm install -g @egis/egis-ui-test-utils
               # update-chrome.sh
             fi
@@ -61,7 +62,6 @@ jobs:
             npm test
             merge-build-tools-deps && git checkout -- package.json
             if [ "${NPM_TOKEN}" != "" ]; then
-              cp -f .npmrc ~
               dont-break --timeout 600
             fi
       - run:
