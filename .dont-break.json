@@ -1,6 +1,6 @@
 {
   "pretest": false,
-  "install": "yarn add",
+  "install": "$CURRENT_MODULE_DIR/scripts/install-if-not-there.sh",
   "postinstall": "update-build-tools-deps",
   "test": "./node_modules/@egis/build-tools/scripts/dont-break-tests.sh",
   "currentModuleInstall": "yarn-link",
