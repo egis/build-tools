@@ -34,7 +34,9 @@ jobs:
             npm run setup
             if [ "${NPM_TOKEN}" != "" ]; then
               ./scripts/install-dont-break.sh
-              node_modules/@egis/egis-ui-test-utils/scripts/update-chrome.sh
+              npm install -g .
+              npm install -g @egis/egis-ui-test-utils
+              # update-chrome.sh
             fi
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
@@ -57,7 +59,7 @@ jobs:
           name: test
           command: |
             npm test
-            ./scripts/merge-build-tools-deps.js && git checkout -- package.json
+            merge-build-tools-deps && git checkout -- package.json
             if [ "${NPM_TOKEN}" != "" ]; then
               cp -f .npmrc ~
               dont-break --timeout 600

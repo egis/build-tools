@@ -1,8 +1,9 @@
 #!/bin/bash
 
-cp package.json package.json.bak
-BASEDIR=$(dirname "$0")
-node $BASEDIR/merge-build-tools-deps.js
+if [[ "$KEEP_MODIFIED_PACKAGE" != 'true' ]]; then
+    cp package.json package.json.bak
+fi
+merge-build-tools-deps
 yarn --ignore-engines
 rc=$?
 if [[ "$KEEP_MODIFIED_PACKAGE" != 'true' ]]; then

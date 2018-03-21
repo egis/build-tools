@@ -8,8 +8,11 @@
   "dependencies": {
     "loglevel": "^1.5.1"
   },
+  "bin": {
+    "update-build-tools-deps": "./scripts/update-build-tools-deps.sh",
+    "merge-build-tools-deps": "./scripts/merge-build-tools-deps.js"
+  },
   "devDependencies": {
-    "@egis/egis-ui-test-utils": "^2.25.0",
     "@egis/semantic-dependents-updates-github": "1.0.6",
     "babel": "^6.3.26",
     "babel-core": "^6.11.4",

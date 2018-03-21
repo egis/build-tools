@@ -1,7 +1,7 @@
 {
   "pretest": false,
   "install": "npm-install-retry --wait 500 --attempts 10 --",
-  "postinstall": "$CURRENT_MODULE_DIR/scripts/update-build-tools-deps.sh",
+  "postinstall": "update-build-tools-deps",
   "test": "./node_modules/@egis/build-tools/scripts/dont-break-tests.sh",
   "currentModuleInstall": "yarn-link",
   "projects": ["@egis/egis-ui", "@egis/esign", "@egis/portal-app", "@egis/bulk-capture"]
