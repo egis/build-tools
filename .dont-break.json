@@ -1,6 +1,6 @@
 {
   "pretest": false,
-  "install": "npm-install-retry --wait 500 --attempts 10 --",
+  "install": "yarn add",
   "postinstall": "update-build-tools-deps",
   "test": "./node_modules/@egis/build-tools/scripts/dont-break-tests.sh",
   "currentModuleInstall": "yarn-link",
