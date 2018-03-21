@@ -9,6 +9,8 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
       - restore_cache:
           key: yarn-cache-{{ checksum "package.json" }}
+      - restore_cache:
+          key: dont-break-cache
       - run:
           name: Install node@8.10.0
           command: |
@@ -58,6 +60,8 @@ jobs:
           path: ci-artifacts/
       - run:
           name: test
+          environment:
+            KEEP_MODIFIED_PACKAGE: true
           command: |
             npm test
             merge-build-tools-deps && git checkout -- package.json
@@ -68,6 +72,13 @@ jobs:
           key: yarn-cache-{{ checksum "package.json" }}
           paths:
             - ~/.cache/yarn
+      - save_cache:
+          key: dont-break-cache
+          paths:
+            - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-egis-ui
+            - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-esign
+            - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-portal-app
+            - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-bulk-capture
       - run:
           name: deploy
           command: ./scripts/semantic-release.sh
