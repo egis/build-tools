@@ -29,7 +29,6 @@ jobs:
             sudo chmod -R a+w /usr/local
             yarn config set cache-folder ~/.cache/yarn
             if [ "${NPM_TOKEN}" == "" ]; then rm .npmrc; fi
-            ./scripts/install-npm-retry.sh
       - run:
           name: install-deps
           command: |
@@ -38,7 +37,7 @@ jobs:
               ./scripts/install-dont-break.sh
               npm install -g .
               cp -f .npmrc ~
-              npm install -g @egis/egis-ui-test-utils@2.27.2-pre.1
+              yarn global add "@egis/egis-ui-test-utils@^2.27.2-pre.1"
               update-chrome
             fi
       - save_cache:
@@ -57,10 +56,6 @@ jobs:
           when: always
       - store_artifacts:
           path: ci-artifacts/
-      - save_cache:
-          key: yarn-cache-{{ checksum "package.json" }}
-          paths:
-            - ~/.cache/yarn
       - run:
           name: test
           command: |
@@ -69,6 +64,10 @@ jobs:
             if [ "${NPM_TOKEN}" != "" ]; then
               dont-break --timeout 600
             fi
+      - save_cache:
+          key: yarn-cache-{{ checksum "package.json" }}
+          paths:
+            - ~/.cache/yarn
       - run:
           name: deploy
           command: ./scripts/semantic-release.sh
