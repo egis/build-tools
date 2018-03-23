@@ -186,10 +186,14 @@ module.exports = {
             logLevel: config.LOG_INFO,
             autoWatch: true,
             singleRun: false,
-            client: {
-                args: ['--grep', config.grep]
-            }
         });
+        if (argv.grep) {
+            config.set({
+                client: {
+                    args: ['--grep', argv.grep]
+                }
+            });
+        }
     },
 
     ip: function ()
