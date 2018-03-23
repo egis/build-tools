@@ -186,6 +186,9 @@ module.exports = {
             logLevel: config.LOG_INFO,
             autoWatch: true,
             singleRun: false,
+            client: {
+                args: ['--grep', config.grep]
+            }
         });
     },
 
