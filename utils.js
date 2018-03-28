@@ -187,6 +187,13 @@ module.exports = {
             autoWatch: true,
             singleRun: false,
         });
+        if (argv.grep) {
+            config.set({
+                client: {
+                    args: ['--grep', argv.grep]
+                }
+            });
+        }
     },
 
     ip: function ()
