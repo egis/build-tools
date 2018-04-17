@@ -1,12 +1,9 @@
-var utils = require('../utils');
 var gulp = require('gulp');
 var debug = require('gulp-debug');
 var gulpif = require('gulp-if');
 var replace = require('gulp-replace');
 var zip = require('gulp-zip');
 var concat = require('gulp-concat');
-var exit = require('gulp-exit');
-var sourcemaps = require('gulp-sourcemaps');
 var common = require('./common');
 var _ = require('lodash');
 var path = require('path');
@@ -31,6 +28,7 @@ function packagePlugin() {
     var metaInfPluginDir = path.join(distDir, "META-INF");
     shelljs.mkdir("-p", metaInfPluginDir);
     shelljs.cp("package.json", metaInfPluginDir);
+    console.log('Deploying to ' + common.deploy + "/" + file);
     return gulp.src(["tmp/**/*"])
         .pipe(zip(file))
         .pipe(gulp.dest(common.deploy))
