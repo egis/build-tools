@@ -26,10 +26,6 @@ if (deploy != null)
 {
     deploy += '/work/';
 }
-else
-{
-    deploy = 'build/';
-}
 
 var pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 var mainFile = pkg.mainFile;
@@ -43,11 +39,15 @@ var bowerJson = {};
 
 if (pkg.plugin != null)
 {
+    deploy = deploy || "build/";
     deploy += "plugins";
 }
 else
 {
-    deploy += "webapps";
+    if (deploy != null)
+    {
+        deploy += "webapps";
+    }
     var bPath = 'bower.json';
     bowerJson = utils.exists(bPath) ? JSON.parse(fs.readFileSync(bPath, 'utf8')) : {};
 }
