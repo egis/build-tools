@@ -12,10 +12,13 @@ jobs:
       - restore_cache:
           key: dont-break-cache
       - run:
-          name: pre-deps
+          name: initial-steps
           command: |
             ./scripts/upgrade-node.sh
             ./scripts/upgrade-yarn.sh
+      - run:
+          name: pre-deps
+          command: |
             sudo chmod -R a+w /usr/local
             yarn config set cache-folder ~/.cache/yarn
             if [ "${NPM_TOKEN}" == "" ]; then rm .npmrc; fi
