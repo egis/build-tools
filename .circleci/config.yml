@@ -12,22 +12,10 @@ jobs:
       - restore_cache:
           key: dont-break-cache
       - run:
-          name: Install node@8.10.0
-          command: |
-            set +e
-            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.5/install.sh | bash
-            export NVM_DIR="/opt/circleci/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            nvm install v8.10.0
-            nvm alias default v8.10.0
-
-            # Each step uses the same `$BASH_ENV`, so need to modify it
-            echo 'export NVM_DIR="/opt/circleci/.nvm"' >> $BASH_ENV
-            echo "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"" >> $BASH_ENV
-      - run:
           name: pre-deps
           command: |
-            npm install -g yarn@1.5.1
+            ./scripts/upgrade-node.sh
+            ./scripts/upgrade-yarn.sh
             sudo chmod -R a+w /usr/local
             yarn config set cache-folder ~/.cache/yarn
             if [ "${NPM_TOKEN}" == "" ]; then rm .npmrc; fi

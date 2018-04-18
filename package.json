@@ -10,7 +10,9 @@
   },
   "bin": {
     "update-build-tools-deps": "./scripts/update-build-tools-deps.sh",
-    "merge-build-tools-deps": "./scripts/merge-build-tools-deps.js"
+    "merge-build-tools-deps": "./scripts/merge-build-tools-deps.js",
+    "build-tools-upgrade-node": "./scripts/upgrade-node.sh",
+    "build-tools-upgrade-yarn": "./scripts/upgrade-yarn.sh"
   },
   "devDependencies": {
     "@egis/semantic-dependents-updates-github": "1.0.6",
