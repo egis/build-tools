@@ -12,6 +12,7 @@
     "update-build-tools-deps": "./scripts/update-build-tools-deps.sh",
     "merge-build-tools-deps": "./scripts/merge-build-tools-deps.js",
     "build-tools-ci-install-gradle": "./scripts/ci/install-gradle.sh",
+    "build-tools-ci-install-pt-cli": "./scripts/ci/install-pt-cli.sh",
     "build-tools-ci-upgrade-node": "./scripts/ci/upgrade-node.sh",
     "build-tools-ci-upgrade-yarn": "./scripts/ci/upgrade-yarn.sh"
   },
