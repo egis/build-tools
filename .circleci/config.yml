@@ -42,9 +42,7 @@ jobs:
           name: post-deps
           command: |
             mkdir ci-artifacts
-            grep "version\"\:" node_modules/*/*/package.json > ci-artifacts/npm_versions.txt
-            grep "version\"\:" node_modules/*/package.json >> ci-artifacts/npm_versions.txt
-            grep "version\"\:" node_modules/*/*/*/package.json >> ci-artifacts/npm_versions.txt
+            OUT_DIR=ci-artifacts scripts/ci/collect-deps-versions.sh
             cp yarn.lock ci-artifacts/
           when: always
       - store_artifacts:
