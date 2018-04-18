@@ -14,8 +14,8 @@ jobs:
       - run:
           name: initial-steps
           command: |
-            ./scripts/upgrade-node.sh
-            ./scripts/upgrade-yarn.sh
+            ./scripts/ci/upgrade-node.sh
+            ./scripts/ci/upgrade-yarn.sh
       - run:
           name: pre-deps
           command: |

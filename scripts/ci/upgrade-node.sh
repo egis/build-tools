@@ -1,4 +1,5 @@
 #!/bin/bash
+
 set +e
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.5/install.sh | bash
 export NVM_DIR="/opt/circleci/.nvm"
