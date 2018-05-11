@@ -28,7 +28,6 @@ jobs:
             npm run setup
             if [ "${NPM_TOKEN}" != "" ]; then
               ./scripts/install-dont-break.sh
-              npm install -g .
               cp -f .npmrc ~
               yarn global add "@egis/egis-ui-test-utils@^2.28.1-pre.1"
               update-chrome
