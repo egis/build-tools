@@ -10,7 +10,7 @@ jobs:
       - restore_cache:
           key: yarn-cache-{{ checksum "package.json" }}
       - restore_cache:
-          key: dont-break-cache
+          key: dont-break-cache-v1
       - run:
           name: initial-steps
           command: |
@@ -62,7 +62,7 @@ jobs:
           paths:
             - ~/.cache/yarn
       - save_cache:
-          key: dont-break-cache
+          key: dont-break-cache-v1
           paths:
             - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-egis-ui
             - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-esign
