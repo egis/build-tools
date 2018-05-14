@@ -3,13 +3,17 @@ common: &common
   working_directory: ~/build-tools
   steps:
     - checkout
-    - run: echo "node ${NODE_VERSION}"
+    - run:
+        name: set-node-keys
+        command: |
+          echo "node ${NODE_VERSION}"
+          echo ${NODE_VERSION} > .node-version
     - restore_cache:
-        key: dependency-cache-{{ checksum "package.json" }}-{{ .Environment.NODE_VERSION }}
+        key: dependency-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
     - restore_cache:
-        key: yarn-cache-{{ checksum "package.json" }}-{{ .Environment.NODE_VERSION }}
+        key: yarn-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
     - restore_cache:
-        key: dont-break-cache-v1-{{ .Environment.NODE_VERSION }}
+        key: dont-break-cache-v1-{{ checksum ".node-version" }}
     - run:
         name: initial-steps
         command: |
@@ -28,11 +32,11 @@ common: &common
           if [ "${NPM_TOKEN}" != "" ]; then
             ./scripts/install-dont-break.sh
             cp -f .npmrc ~
-            yarn global add "@egis/egis-ui-test-utils@^2.28.1-pre.1"
+            yarn global add --ignore-engines "@egis/egis-ui-test-utils@^2.28.1-pre.1"
             update-chrome
           fi
     - save_cache:
-        key: dependency-cache-{{ checksum "package.json" }}-{{ .Environment.NODE_VERSION }}
+        key: dependency-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
         paths:
           - node_modules
           - yarn.lock
@@ -63,11 +67,11 @@ common: &common
           merge-build-tools-deps && echo > .success && git checkout -- package.json
           if [ ! -e .success ]; then exit 1; fi
     - save_cache:
-        key: yarn-cache-{{ checksum "package.json" }}-{{ .Environment.NODE_VERSION }}
+        key: yarn-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
         paths:
           - ~/.cache/yarn
     - save_cache:
-        key: dont-break-cache-v1-{{ .Environment.NODE_VERSION }}
+        key: dont-break-cache-v1-{{ checksum ".node-version" }}
         paths:
           - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-egis-ui
           - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-esign
