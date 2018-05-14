@@ -1,16 +1,22 @@
+common: &common
+  machine: true
+  working_directory: ~/build-tools
+
+common_initial_steps: &common_initial_steps
+  - checkout
+  - restore_cache:
+      key: dependency-cache-{{ checksum "package.json" }}
+  - restore_cache:
+      key: yarn-cache-{{ checksum "package.json" }}
+  - restore_cache:
+      key: dont-break-cache-v1
+
 version: 2
 jobs:
-  build:
-    machine: true
-    working_directory: ~/build-tools
+  test8:
+    <<: *common
     steps:
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - restore_cache:
-          key: yarn-cache-{{ checksum "package.json" }}
-      - restore_cache:
-          key: dont-break-cache-v1
+      <<: *common_initial_steps
       - run:
           name: initial-steps
           command: |
@@ -80,3 +86,8 @@ jobs:
             ./scripts/semantic-release.sh
             node_modules/.bin/semantic-dependents-updates-github || true
 
+workflows:
+  version: 2
+  main:
+    jobs:
+      - test8
