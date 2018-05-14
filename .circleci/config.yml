@@ -1,93 +1,99 @@
 common: &common
   machine: true
   working_directory: ~/build-tools
-
-common_initial_steps: &common_initial_steps
-  - checkout
-  - restore_cache:
-      key: dependency-cache-{{ checksum "package.json" }}
-  - restore_cache:
-      key: yarn-cache-{{ checksum "package.json" }}
-  - restore_cache:
-      key: dont-break-cache-v1
+  steps:
+    - checkout
+    - run: echo "node ${NODE_VERSION}"
+    - restore_cache:
+        key: dependency-cache-{{ checksum "package.json" }}-{{ .Environment.NODE_VERSION }}
+    - restore_cache:
+        key: yarn-cache-{{ checksum "package.json" }}-{{ .Environment.NODE_VERSION }}
+    - restore_cache:
+        key: dont-break-cache-v1-{{ .Environment.NODE_VERSION }}
+    - run:
+        name: initial-steps
+        command: |
+          ./scripts/ci/upgrade-node.sh
+          ./scripts/ci/upgrade-yarn.sh
+    - run:
+        name: pre-deps
+        command: |
+          sudo chmod -R a+w /usr/local
+          yarn config set cache-folder ~/.cache/yarn
+          if [ "${NPM_TOKEN}" == "" ]; then rm .npmrc; fi
+    - run:
+        name: install-deps
+        command: |
+          npm run setup
+          if [ "${NPM_TOKEN}" != "" ]; then
+            ./scripts/install-dont-break.sh
+            cp -f .npmrc ~
+            yarn global add "@egis/egis-ui-test-utils@^2.28.1-pre.1"
+            update-chrome
+          fi
+    - save_cache:
+        key: dependency-cache-{{ checksum "package.json" }}-{{ .Environment.NODE_VERSION }}
+        paths:
+          - node_modules
+          - yarn.lock
+    - run:
+        name: post-deps
+        command: |
+          mkdir ci-artifacts
+          OUT_DIR=ci-artifacts ./scripts/ci/collect-deps-versions.sh
+          cp yarn.lock ci-artifacts/
+        when: always
+    - store_artifacts:
+        path: ci-artifacts/
+    - run:
+        name: test
+        environment:
+          KEEP_MODIFIED_PACKAGE: true
+        command: |
+          npm test
+          ./scripts/merge-build-tools-deps.js && git checkout -- package.json
+          if [ "${NPM_TOKEN}" != "" ]; then
+            dont-break --timeout 600
+          fi
+    - run:
+        name: test-global-scripts
+        command: |
+          npm rm --global @egis/build-tools || true
+          npm install -g .
+          merge-build-tools-deps && echo > .success && git checkout -- package.json
+          if [ ! -e .success ]; then exit 1; fi
+    - save_cache:
+        key: yarn-cache-{{ checksum "package.json" }}-{{ .Environment.NODE_VERSION }}
+        paths:
+          - ~/.cache/yarn
+    - save_cache:
+        key: dont-break-cache-v1-{{ .Environment.NODE_VERSION }}
+        paths:
+          - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-egis-ui
+          - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-esign
+          - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-portal-app
+          - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-bulk-capture
+    - run:
+        name: publish
+        command: |
+          if [ "${NODE_VERSION}" == "8.10.0" ]; then
+            SEMANTIC_DEPENDENTS_UPDATES=true ./scripts/semantic-release.sh
+          fi
 
 version: 2
 jobs:
   test8:
+    environment:
+      NODE_VERSION: 8.10.0
     <<: *common
-    steps:
-      <<: *common_initial_steps
-      - run:
-          name: initial-steps
-          command: |
-            ./scripts/ci/upgrade-node.sh
-            ./scripts/ci/upgrade-yarn.sh
-      - run:
-          name: pre-deps
-          command: |
-            sudo chmod -R a+w /usr/local
-            yarn config set cache-folder ~/.cache/yarn
-            if [ "${NPM_TOKEN}" == "" ]; then rm .npmrc; fi
-      - run:
-          name: install-deps
-          command: |
-            npm run setup
-            if [ "${NPM_TOKEN}" != "" ]; then
-              ./scripts/install-dont-break.sh
-              cp -f .npmrc ~
-              yarn global add "@egis/egis-ui-test-utils@^2.28.1-pre.1"
-              update-chrome
-            fi
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-            - yarn.lock
-      - run:
-          name: post-deps
-          command: |
-            mkdir ci-artifacts
-            OUT_DIR=ci-artifacts ./scripts/ci/collect-deps-versions.sh
-            cp yarn.lock ci-artifacts/
-          when: always
-      - store_artifacts:
-          path: ci-artifacts/
-      - run:
-          name: test
-          environment:
-            KEEP_MODIFIED_PACKAGE: true
-          command: |
-            npm test
-            ./scripts/merge-build-tools-deps.js && git checkout -- package.json
-            if [ "${NPM_TOKEN}" != "" ]; then
-              dont-break --timeout 600
-            fi
-      - run:
-          name: test-global-scripts
-          command: |
-            npm rm --global @egis/build-tools || true
-            npm install -g .
-            merge-build-tools-deps && echo > .success && git checkout -- package.json
-            if [ ! -e .success ]; then exit 1; fi
-      - save_cache:
-          key: yarn-cache-{{ checksum "package.json" }}
-          paths:
-            - ~/.cache/yarn
-      - save_cache:
-          key: dont-break-cache-v1
-          paths:
-            - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-egis-ui
-            - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-esign
-            - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-portal-app
-            - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-bulk-capture
-      - run:
-          name: deploy
-          command: |
-            ./scripts/semantic-release.sh
-            node_modules/.bin/semantic-dependents-updates-github || true
+  test6:
+    environment:
+      NODE_VERSION: 6.0.0
+    <<: *common
 
 workflows:
   version: 2
   main:
     jobs:
       - test8
+      - test6
