@@ -96,6 +96,14 @@ jobs:
     environment:
       NODE_VERSION: 8.10.0
     steps:
+      - checkout
+      - run:
+          name: set-node-keys
+          command: echo ${NODE_VERSION} > .node-version
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
+      - restore_cache:
+          key: yarn-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
       - run:
           name: initialize
           command: |
@@ -103,7 +111,7 @@ jobs:
             build-tools-ci-upgrade-node
       - run:
           name: publish
-          command: SEMANTIC_DEPENDENTS_UPDATES=true ./node_modules/@egis/build-tools/scripts/semantic-release.sh
+          command: SEMANTIC_DEPENDENTS_UPDATES=true ./scripts/semantic-release.sh
 
 
 workflows:
