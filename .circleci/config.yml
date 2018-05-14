@@ -1,6 +1,9 @@
 common: &common
   machine: true
   working_directory: ~/build-tools
+
+test_steps: &test_steps
+  <<: *common
   steps:
     - checkout
     - run:
@@ -77,23 +80,31 @@ common: &common
           - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-esign
           - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-portal-app
           - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-bulk-capture
-    - run:
-        name: publish
-        command: |
-          if [ "${NODE_VERSION}" == "8.10.0" ]; then
-            SEMANTIC_DEPENDENTS_UPDATES=true ./scripts/semantic-release.sh
-          fi
 
 version: 2
 jobs:
   test8:
     environment:
       NODE_VERSION: 8.10.0
-    <<: *common
+    <<: *test_steps
   test6:
     environment:
       NODE_VERSION: 6.0.0
+    <<: *test_steps
+  publish:
     <<: *common
+    environment:
+      NODE_VERSION: 8.10.0
+    steps:
+      - run:
+          name: initialize
+          command: |
+            npm run basic-install
+            build-tools-ci-upgrade-node
+      - run:
+          name: publish
+          command: SEMANTIC_DEPENDENTS_UPDATES=true ./node_modules/@egis/build-tools/scripts/semantic-release.sh
+
 
 workflows:
   version: 2
@@ -101,3 +112,7 @@ workflows:
     jobs:
       - test8
       - test6
+      - publish:
+          requires:
+            - test6
+            - test8
