@@ -69,4 +69,7 @@ jobs:
             - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-bulk-capture
       - run:
           name: deploy
-          command: ./scripts/semantic-release.sh
+          command: |
+            ./scripts/semantic-release.sh
+            node_modules/.bin/semantic-dependents-updates-github || true
+
