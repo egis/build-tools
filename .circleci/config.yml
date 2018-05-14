@@ -52,7 +52,7 @@ jobs:
             KEEP_MODIFIED_PACKAGE: true
           command: |
             npm test
-            merge-build-tools-deps && git checkout -- package.json
+            ./scripts/merge-build-tools-deps.js && git checkout -- package.json
             if [ "${NPM_TOKEN}" != "" ]; then
               dont-break --timeout 600
             fi
@@ -69,4 +69,7 @@ jobs:
             - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-bulk-capture
       - run:
           name: deploy
-          command: ./scripts/semantic-release.sh
+          command: |
+            ./scripts/semantic-release.sh
+            node_modules/.bin/semantic-dependents-updates-github || true
+
