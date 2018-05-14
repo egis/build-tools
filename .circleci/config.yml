@@ -56,6 +56,13 @@ jobs:
             if [ "${NPM_TOKEN}" != "" ]; then
               dont-break --timeout 600
             fi
+      - run:
+          name: test-global-scripts
+          command: |
+            npm rm --global @egis/build-tools || true
+            npm install -g .
+            merge-build-tools-deps && echo > .success && git checkout -- package.json
+            if [ ! -e .success ]; then exit 1; fi
       - save_cache:
           key: yarn-cache-{{ checksum "package.json" }}
           paths:
