@@ -3,7 +3,8 @@
 if [ "$KEEP_MODIFIED_PACKAGE" != 'true' ]; then
     cp package.json package.json.bak
 fi
-merge-build-tools-deps
+BASEDIR=$(dirname "$0")
+node $BASEDIR/merge-build-tools-deps.js
 yarn --ignore-engines
 rc=$?
 

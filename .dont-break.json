@@ -4,5 +4,13 @@
   "postinstall": "$CURRENT_MODULE_DIR/scripts/update-build-tools-deps.sh",
   "test": "./node_modules/@egis/build-tools/scripts/dont-break-tests.sh",
   "currentModuleInstall": "yarn-link",
-  "projects": ["@egis/egis-ui", "@egis/esign", "@egis/portal-app", "@egis/bulk-capture"]
+  "projects": [
+    {
+      "name": "https://${GH_TOKEN}@github.com/egis/EgisUI",
+      "install": "npm run setup"
+    },
+    "@egis/esign",
+    "@egis/portal-app",
+    "@egis/bulk-capture"
+  ]
 }

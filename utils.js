@@ -1,6 +1,5 @@
 var os = require('os');
 var fs = require('fs');
-var path = require('path');
 var argv = require('optimist').argv;
 var mkdirp = require('mkdirp');
 var child_process = require('child_process');
@@ -20,12 +19,7 @@ function pathExists(path) {
 }
 
 function findEgisUi() {
-    var egisUiPath = path.normalize('../EgisUI/build/');
-
-    if (!pathExists(egisUiPath)) {
-        egisUiPath = './node_modules/@egis/egis-ui/build'
-    }
-    return egisUiPath;
+    return './node_modules/@egis/egis-ui/build';
 }
 
 var EGISUI = findEgisUi();

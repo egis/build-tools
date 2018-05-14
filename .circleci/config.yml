@@ -10,7 +10,7 @@ jobs:
       - restore_cache:
           key: yarn-cache-{{ checksum "package.json" }}
       - restore_cache:
-          key: dont-break-cache
+          key: dont-break-cache-v1
       - run:
           name: initial-steps
           command: |
@@ -28,7 +28,6 @@ jobs:
             npm run setup
             if [ "${NPM_TOKEN}" != "" ]; then
               ./scripts/install-dont-break.sh
-              npm install -g .
               cp -f .npmrc ~
               yarn global add "@egis/egis-ui-test-utils@^2.28.1-pre.1"
               update-chrome
@@ -62,7 +61,7 @@ jobs:
           paths:
             - ~/.cache/yarn
       - save_cache:
-          key: dont-break-cache
+          key: dont-break-cache-v1
           paths:
             - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-egis-ui
             - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-esign
