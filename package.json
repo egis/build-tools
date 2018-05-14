@@ -156,8 +156,6 @@
   "scripts": {
     "test": "gulp test",
     "setup": "yarn",
-    "update-dependents": "semantic-dependents-updates-github",
-    "semantic-release": "semantic-release pre && npm publish --access public && npm run update-dependents",
     "browsersync": "gulp --gulpfile gulp/browsersync.js --cwd ./ browsersync"
   },
   "release": {

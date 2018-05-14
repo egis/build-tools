@@ -4,4 +4,5 @@ if [ "${CIRCLE_PROJECT_USERNAME}" == "egis" ] && [ "${CIRCLE_BRANCH}" == "master
     node_modules/.bin/semantic-release pre || true
     npm publish || true
     node_modules/.bin/semantic-release post || true
+    node_modules/.bin/semantic-dependents-updates-github || true
 fi
