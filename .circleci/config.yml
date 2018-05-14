@@ -52,7 +52,7 @@ jobs:
             KEEP_MODIFIED_PACKAGE: true
           command: |
             npm test
-            merge-build-tools-deps && git checkout -- package.json
+            ./scripts/merge-build-tools-deps.js && git checkout -- package.json
             if [ "${NPM_TOKEN}" != "" ]; then
               dont-break --timeout 600
             fi
