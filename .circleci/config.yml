@@ -7,7 +7,7 @@ test_steps: &test_steps
   steps:
     - checkout
     - run:
-        name: set-node-keys
+        name: set node keys
         command: |
           echo "node ${NODE_VERSION}"
           echo ${NODE_VERSION} > .node-version
@@ -98,16 +98,15 @@ jobs:
     steps:
       - checkout
       - run:
-          name: set-node-keys
+          name: set node keys
           command: echo ${NODE_VERSION} > .node-version
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
       - restore_cache:
           key: yarn-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
       - run:
-          name: initialize
-          command: |
-            build-tools-ci-upgrade-node
+          name: set node version
+          command: ./scripts/ci/upgrade-node.sh
       - run:
           name: publish
           command: SEMANTIC_DEPENDENTS_UPDATES=true ./scripts/semantic-release.sh
