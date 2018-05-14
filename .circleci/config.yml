@@ -119,6 +119,9 @@ workflows:
       - test8
       - test6
       - publish:
+          filters:
+            branches:
+              only: master
           requires:
             - test6
             - test8
