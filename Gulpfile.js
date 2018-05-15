@@ -40,7 +40,10 @@ gulp.task('dev-package', devPackageTaskDeps, pack);
 gulp.task('watch', ['dev-package', 'dev-bundle-tests', 'webserver'], function() {
     _.each(common.bundleKinds, function(kind) {
         gulp.watch(path.join(common.srcDirs[kind], '**', '*.js'), ['dev-recompile-' + kind]);
-        gulp.watch(path.join(common.srcDirs[kind], '.lib-exports.js'), ['dev-recompile-' + kind, 'generate-systemjs-' + kind + '-index']);
+        gulp.watch(path.join(common.srcDirs[kind], '.lib-exports.js'), [
+            'dev-recompile-' + kind,
+            'generate-systemjs-' + kind + '-index'
+        ]);
     });
     gulp.watch(path.join(common.srcDirs.main, '.dev-loader.js'), ['dev-package']);
     gulp.watch(path.join(common.srcDirs.main, '**', '*.hbs'), ['templates']);
