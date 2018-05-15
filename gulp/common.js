@@ -89,13 +89,15 @@ if (pkg.examples) bundleKinds.push('examples');
 pkg = _.assign({build: {}}, pkg);
 pkg.build = _.assign({autoImportAll: true}, pkg.build); //so pkg.build.autoImportAll will be true by default
 
+var mainSrc = options.srcDir || 'src';
+
 var config = {
     deploy: deploy,
     pkg: pkg,
     bundleKinds: bundleKinds,
     bundles: bundles,
     srcDirs: {
-        main: 'src',
+        main: mainSrc,
         tests: 'test',
         examples: 'examples'
     },
