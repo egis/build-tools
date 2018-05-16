@@ -9,7 +9,6 @@ var uglify = require('gulp-uglify');
 var gzip = require('gulp-gzip');
 var common = require('./common');
 var fixSourcemaps = require('./rollup/fix-sourcemaps');
-var debug = require('gulp-debug');
 var _ = require('lodash');
 
 _.each(common.bundleKinds, function(kind) {

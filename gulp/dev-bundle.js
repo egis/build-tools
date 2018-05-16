@@ -24,6 +24,7 @@ _.each(common.bundleKinds, function(kind) {
                 var fnKey = filename.replace(srcDir, '');
                 t0[fnKey] = t;
             }))
+            .pipe(common.replaceAll())
             .pipe(sourcemaps.init())
             .pipe(plumber())
             .pipe(debug())

@@ -11,6 +11,7 @@ var shelljs = require('shelljs');
 
 gulp.task('plugin_concat', ['compile-main', 'templates'], function() {
      return gulp.src([common.dist.main + "/**/*.js", common.dist.main + "/templates/*.js"])
+        .pipe(common.replaceAll())
         .pipe(concat( common.bundles.main ))
         .pipe(gulpif(common.watch, replace('/dist/', '/')))
         .pipe(gulpif(common.watch, replace('http://localhost:' +  common.port  + '/../', 'http://localhost:' +  common.port  + '/')))
