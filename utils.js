@@ -72,7 +72,7 @@ module.exports = {
         var hostname = argv.host || process.env['IP'] || this.ip() || '';
 
         var launchersBase = 'TestingBot';
-        var seleniumVersion = '3.4.0';
+        var seleniumVersion = '3.11.0';
         var customLaunchers = {
             'REMOTE-IE10': {
                 base: launchersBase,
