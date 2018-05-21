@@ -117,7 +117,10 @@ module.exports = {
 
         var projectName = argv.projectName;
         var testingBotBuildName = process.env.CIRCLE_BUILD_NUM;
-        if (testingBotBuildName) testingBotBuildName = '' + projectName + '/' + testingBotBuildName;
+        if (testingBotBuildName) {
+            testingBotBuildName = '' + projectName + '/' + testingBotBuildName;
+            projectName = testingBotBuildName;
+        }
 
         var group_filename = function(base_fn, ext) {
             return _.compact([base_fn, argv.group]).join('-') + '.' + ext;
