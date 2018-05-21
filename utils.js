@@ -99,7 +99,7 @@ module.exports = {
             'REMOTE-Safari': {
                 base: launchersBase,
                 browserName: 'safari',
-                version: '10'
+                version: '11'
             },
             'REMOTE-Safari9': {
                 base: launchersBase,
