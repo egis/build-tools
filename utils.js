@@ -72,6 +72,7 @@ module.exports = {
         var hostname = argv.host || process.env['IP'] || this.ip() || '';
 
         var launchersBase = 'TestingBot';
+        var seleniumVersion = '3.11.0';
         var customLaunchers = {
             'REMOTE-IE10': {
                 base: launchersBase,
@@ -98,8 +99,7 @@ module.exports = {
             'REMOTE-Safari': {
                 base: launchersBase,
                 browserName: 'safari',
-                version: '10',
-                platform: 'SIERRA'
+                version: '11'
             },
             'REMOTE-Safari9': {
                 base: launchersBase,
@@ -117,25 +117,33 @@ module.exports = {
 
         var projectName = argv.projectName;
         var testingBotBuildName = process.env.CIRCLE_BUILD_NUM;
-        if (testingBotBuildName) testingBotBuildName = '' + projectName + '/' + testingBotBuildName;
+        if (testingBotBuildName) {
+            testingBotBuildName = '' + projectName + '/' + testingBotBuildName;
+            projectName = testingBotBuildName;
+        }
 
         var group_filename = function(base_fn, ext) {
             return _.compact([base_fn, argv.group]).join('-') + '.' + ext;
         };
 
         if ((argv.reporters || []).indexOf('testingbot') >= 0) {
+            var tbConfig = {
+                testName: (projectName || '') + ' Karma',
+                recordVideo: true,
+                recordScreenshots: true,
+                connectOptions: {
+                    verbose: false,
+                    'se-port': 4445,
+                    logfile: 'test-output/' + group_filename('testingbot_tunnel', 'log')
+                },
+                build: testingBotBuildName
+            };
+            Object.keys(customLaunchers).forEach(function (key) {
+                customLaunchers[key]['selenium-version'] = seleniumVersion;
+            });
+
             config.set({
-                testingbot: {
-                    testName: (projectName || '') + ' Karma',
-                    recordVideo: true,
-                    recordScreenshots: true,
-                    connectOptions: {
-                        verbose: false,
-                        'se-port': 4445,
-                        logfile: 'test-output/' + group_filename('testingbot_tunnel', 'log')
-                    },
-                    build: testingBotBuildName
-                }
+                testingbot: tbConfig
             })
         }
 
