@@ -9,5 +9,8 @@ gulp.task('update-karma-testingbot', () => {
         'unzip -o testingbot-tunnel.zip',
         'cp -f ./testingbot-tunnel/testingbot-tunnel.jar ./node_modules/testingbot-tunnel-launcher/'
     ];
-    return child_process.exec(cmd.join("&&")).toString('utf8').trim();
+    cmd = [
+        'cp -f node_modules/@egis/build-tools/.circleci/testingbot-tunnel/testingbot-tunnel.jar ./node_modules/testingbot-tunnel-launcher/'
+    ];
+    return child_process.execSync(cmd.join("&&")).toString('utf8').trim();
 });
