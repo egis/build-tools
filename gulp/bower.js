@@ -18,6 +18,7 @@ var merge = require('merge-stream');
 var _ = require('underscore');
 var bowerJson = require('./common').bowerJson;
 var prod = require('./common').prod;
+var rename = require('gulp-rename');
 
 console.log('prod mode=' + prod)
 module.exports = function(done) {
@@ -34,10 +35,21 @@ module.exports = function(done) {
     }
 
     _.each(bowerJson.directories, function(dirs, dep) {
-        console.log('coping ' + dirs + " for " + dep);
+        console.log('coping ' + JSON.stringify(dirs) + " for " + dep);
 
         dirs.forEach(function(dir) {
             var base = "bower_components/" + dep;
+            if (dir.from) {
+                gulp.src(base + "/" + dir.from, {
+                    base: base
+                })
+                    .pipe(rename(function(file) {
+                        file.dirname = dir.to;
+                    }))
+                    .pipe(gulp.dest('build/'));
+                return;
+            }
+
             gulp.src(base + "/" + dir, {
                 base: base
             }).pipe(gulp.dest('build/'));
