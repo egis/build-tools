@@ -20,6 +20,7 @@ test_steps: &test_steps
     - run:
         name: initial-steps
         command: |
+          if [ "${NPM_TOKEN}" == "" ]; then rm .npmrc; fi
           ./scripts/ci/upgrade-node.sh
           ./scripts/ci/upgrade-yarn.sh
     - run:
@@ -27,7 +28,6 @@ test_steps: &test_steps
         command: |
           sudo chmod -R a+w /usr/local
           yarn config set cache-folder ~/.cache/yarn
-          if [ "${NPM_TOKEN}" == "" ]; then rm .npmrc; fi
     - run:
         name: install-deps
         command: |
