@@ -116,7 +116,7 @@
     "karma-verbose-reporter": "^0.0.3",
     "karma-webdriver-launcher": "^1.0.4",
     "lazypipe": "^1.0.1",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.10",
     "merge-stream": "^1.0.0",
     "minimatch": "^3.0.0",
     "minimist": "^1.2.0",
