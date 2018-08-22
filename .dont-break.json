@@ -11,6 +11,10 @@
     },
     "@egis/esign",
     "@egis/portal-app",
-    "@egis/bulk-capture"
+    "@egis/bulk-capture",
+    {
+      "name": "@egis/egis-ui-test-utils",
+      "test": "npm run build"
+    }
   ]
 }
