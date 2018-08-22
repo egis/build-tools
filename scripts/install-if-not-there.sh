@@ -2,5 +2,5 @@
 
 package=$1
 if [ ! -d node_modules/$package ]; then
-  yarn add $package
+  yarn add --ignore-engines $package
 fi
