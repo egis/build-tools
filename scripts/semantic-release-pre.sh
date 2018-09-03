@@ -1,3 +1,3 @@
 #!/bin/bash
 
-(node_modules/.bin/semantic-release pre) || true
+timeout 20 ./node_modules/.bin/semantic-release pre || true
