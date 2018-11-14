@@ -1,3 +1,3 @@
 #!/bin/bash
 
-npm install -g yarn@1.9.4
+npm install -g yarn@1.12.3
