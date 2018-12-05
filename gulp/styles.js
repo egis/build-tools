@@ -33,7 +33,7 @@ gulp.task('sass', function ()
 
 gulp.task('less-default', function ()
 {
-    return gulp.src('style/theme-default.less')
+    return gulp.src('style/theme.less')
         .pipe(plumber())
         .pipe(debug())
         .pipe(sourcemaps.init())
