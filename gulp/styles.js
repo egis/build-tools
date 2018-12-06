@@ -23,16 +23,14 @@ var main = common.main;
 
 gulp.task('styles', ['less-default', 'less-small', 'less-large', 'sass', 'css']);
 
-gulp.task('sass', function ()
-{
+gulp.task('sass', function () {
     return gulp.src(['style/*.sass', 'style/*.scss'])
         .pipe(plumber())
         .pipe(sass.sync())
         .pipe(gulp.dest(common.dist.main))
 });
 
-gulp.task('less-default', function ()
-{
+gulp.task('less-default', function () {
     return gulp.src('style/theme.less')
         .pipe(plumber())
         .pipe(debug())
@@ -45,8 +43,7 @@ gulp.task('less-default', function ()
         .pipe(gulp.dest('build'));
 });
 
-gulp.task('less-small', function ()
-{
+gulp.task('less-small', function () {
     return gulp.src('style/theme-small.less')
         .pipe(plumber())
         .pipe(debug())
@@ -59,8 +56,7 @@ gulp.task('less-small', function ()
         .pipe(gulp.dest('build'));
 });
 
-gulp.task('less-large', function ()
-{
+gulp.task('less-large', function () {
     return gulp.src('style/theme-large.less')
         .pipe(plumber())
         .pipe(debug())
@@ -73,8 +69,7 @@ gulp.task('less-large', function ()
         .pipe(gulp.dest('build'));
 });
 
-gulp.task('css', ['less-default', 'less-small', 'less-large', 'sass'], function ()
-{
+gulp.task('css', ['less-default', 'less-small', 'less-large', 'sass'], function () {
     return gulp.src([common.dist.main + '/*.css', 'sprites/build/*.css', 'style/*.css'])
         .pipe(debug())
         .pipe(concat(main + ".css"))
@@ -86,11 +81,9 @@ gulp.task('css', ['less-default', 'less-small', 'less-large', 'sass'], function 
 });
 
 gulp.task('sprites', function (cb) {
-
-    //TODO sprites task hangs on windows
-    //need to find workaround
-    if (os.platform().indexOf('win') === 0)
-    {
+    // TODO sprites task hangs on windows
+    // need to find workaround
+    if (os.platform().indexOf('win') === 0) {
         cb();
     }
 
