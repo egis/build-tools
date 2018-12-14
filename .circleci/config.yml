@@ -31,7 +31,7 @@ test_steps: &test_steps
     - run:
         name: install-deps
         command: |
-          npm run setup
+          yarn --frozen-lockfile
           if [ "${NPM_TOKEN}" != "" ]; then
             ./scripts/install-dont-break.sh
             cp -f .npmrc ~
