@@ -34,9 +34,7 @@ test_steps: &test_steps
           yarn --frozen-lockfile
           if [ "${NPM_TOKEN}" != "" ]; then
             ./scripts/install-dont-break.sh
-            cp -f .circleci/.npmrc ~
-            yarn global add --ignore-engines "@egis/egis-ui-test-utils@^2.28.1-pre.1"
-            update-chrome
+            yarn update-chrome
           fi
     - save_cache:
         key: dependency-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
@@ -59,14 +57,9 @@ test_steps: &test_steps
         command: |
           npm test
           if [ "${NPM_TOKEN}" != "" ]; then
+            cp -f .circleci/.npmrc ~
             dont-break --timeout 600
           fi
-    - run:
-        name: test-global-scripts
-        command: |
-          npm rm --global @egis/build-tools || true
-          npm install -g .
-          if [ ! -e .success ]; then exit 1; fi
     - save_cache:
         key: yarn-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
         paths:
