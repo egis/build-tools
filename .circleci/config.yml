@@ -118,9 +118,13 @@ workflows:
   version: 2
   main:
     jobs:
+      - test6:
+          context: org-global
       - test8:
           context: org-global
-      - test6:
+      - test10:
+          context: org-global
+      - test11:
           context: org-global
       - publish:
           filters:
