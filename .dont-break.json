@@ -1,12 +1,12 @@
 {
   "pretest": false,
   "install": "$CURRENT_MODULE_DIR/scripts/install-if-not-there.sh",
-  "postinstall": "$CURRENT_MODULE_DIR/scripts/update-build-tools-deps.sh",
+  "postinstall": "yarn",
   "test": "./node_modules/@egis/build-tools/scripts/dont-break-tests.sh",
   "currentModuleInstall": "yarn-link",
   "projects": [
     {
-      "name": "https://${GH_TOKEN}@github.com/egis/EgisUI",
+      "name": "https://${GH_TOKEN}@github.com/egis/EgisUI#0fe880f",
       "install": "npm run setup"
     },
     "@egis/esign",
