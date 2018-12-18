@@ -21,6 +21,11 @@
     tryit "^1.0.1"
     vinyl-bufferstream "^1.0.1"
 
+"@egis/ci-tools@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@egis/ci-tools/-/ci-tools-1.0.0.tgz#211b7d2e772892df4e454eec7a1fd8ed4125500b"
+  integrity sha512-M0wNNDPcMqGiQkePxY9BV1NYC9gp0OTlx80VQve/i+ztH6yuvAl2a6RkGqu3JrKGEQMEdwV6tYcCbXn7dIV6LQ==
+
 "@egis/semantic-dependents-updates-github@1.0.6":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@egis/semantic-dependents-updates-github/-/semantic-dependents-updates-github-1.0.6.tgz#af1cbae9d0d6470ddd7d3e2bd2fdcbc7f4a0bd00"

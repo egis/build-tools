@@ -6,13 +6,13 @@
   "port": 3001,
   "description": "## for MacOS users: ```shell # install 'native' (not Apple-supplied) Python to be able to install 'glue' tool: brew install python",
   "bin": {
-    "build-tools-ci-collect-deps-versions": "./scripts/ci/collect-deps-versions.sh",
     "build-tools-ci-install-gradle": "./scripts/ci/install-gradle.sh",
     "build-tools-ci-install-pt-cli": "./scripts/ci/install-pt-cli.sh",
-    "build-tools-ci-upgrade-node": "./scripts/ci/upgrade-node.sh",
-    "build-tools-ci-upgrade-yarn": "./scripts/ci/upgrade-yarn.sh"
+    "build-tools-semantic-release-pre": "./scripts/semantic-release-pre.sh",
+    "build-tools-semantic-release": "./scripts/semantic-release.sh"
   },
   "dependencies": {
+    "@egis/ci-tools": "^1.0.0",
     "@egis/semantic-dependents-updates-github": "1.0.6",
     "babel": "^6.3.26",
     "babel-core": "^6.11.4",
@@ -151,6 +151,7 @@
     "url": "https://github.com/egis/build-tools.git"
   },
   "scripts": {
+    "install-ci-tools": "npm install -g @egis/ci-tools",
     "test": "gulp test",
     "setup": "yarn",
     "browsersync": "gulp --gulpfile gulp/browsersync.js --cwd ./ browsersync"

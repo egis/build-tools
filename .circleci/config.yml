@@ -20,9 +20,9 @@ test_steps: &test_steps
     - run:
         name: initial-steps
         command: |
-          if [ "${NPM_TOKEN}" == "" ]; then rm .npmrc; fi
-          ./scripts/ci/upgrade-node.sh
-          ./scripts/ci/upgrade-yarn.sh
+          npm run install-ci-tools
+          ci-tools-upgrade-node
+          ci-tools-upgrade-yarn
     - run:
         name: pre-deps
         command: |
@@ -34,7 +34,7 @@ test_steps: &test_steps
           yarn --frozen-lockfile
           if [ "${NPM_TOKEN}" != "" ]; then
             ./scripts/install-dont-break.sh
-            cp -f .npmrc ~
+            cp -f .circleci/.npmrc ~
             yarn global add --ignore-engines "@egis/egis-ui-test-utils@^2.28.1-pre.1"
             update-chrome
           fi
@@ -47,7 +47,7 @@ test_steps: &test_steps
         name: post-deps
         command: |
           mkdir ci-artifacts
-          OUT_DIR=ci-artifacts ./scripts/ci/collect-deps-versions.sh
+          OUT_DIR=ci-artifacts yarn ci-tools-collect-deps-versions
           cp yarn.lock ci-artifacts/
         when: always
     - store_artifacts:
@@ -89,6 +89,10 @@ jobs:
     environment:
       NODE_VERSION: 6.0.0
     <<: *test_steps
+  test10:
+    environment:
+      NODE_VERSION: 10.14.2
+    <<: *test_steps
   publish:
     <<: *common
     environment:
@@ -104,10 +108,13 @@ jobs:
           key: yarn-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
       - run:
           name: set node version
-          command: ./scripts/ci/upgrade-node.sh
+          command: |
+            npm run install-ci-tools
+            ci-tools-upgrade-node
       - run:
           name: publish
-          command: SEMANTIC_DEPENDENTS_UPDATES=true ./scripts/semantic-release.sh
+          command: |
+            SEMANTIC_DEPENDENTS_UPDATES=true ./scripts/semantic-release.sh
 
 
 workflows:
@@ -125,4 +132,5 @@ workflows:
           requires:
             - test6
             - test8
+            - test10
           context: org-global
