@@ -124,10 +124,6 @@ workflows:
           context: org-global
       - test8:
           context: org-global
-      - test10:
-          context: org-global
-      - test11:
-          context: org-global
       - publish:
           filters:
             branches:
@@ -135,6 +131,4 @@ workflows:
           requires:
             - test6
             - test8
-            - test10
-            - test11
           context: org-global
