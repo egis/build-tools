@@ -34,7 +34,9 @@ test_steps: &test_steps
           yarn --frozen-lockfile
           if [ "${NPM_TOKEN}" != "" ]; then
             ./scripts/install-dont-break.sh
-            yarn update-chrome
+            cp -f .circleci/.npmrc ~
+            yarn global add --ignore-engines "@egis/egis-ui-test-utils@^2.41.2"
+            update-chrome
           fi
     - save_cache:
         key: dependency-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
