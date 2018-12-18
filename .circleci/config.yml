@@ -93,6 +93,10 @@ jobs:
     environment:
       NODE_VERSION: 10.14.2
     <<: *test_steps
+  test11:
+    environment:
+      NODE_VERSION: 11.4.0
+    <<: *test_steps
   publish:
     <<: *common
     environment:
@@ -133,4 +137,5 @@ workflows:
             - test6
             - test8
             - test10
+            - test11
           context: org-global
