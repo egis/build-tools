@@ -54,10 +54,8 @@ test_steps: &test_steps
         path: ci-artifacts/
     - run:
         name: test
-        environment:
-          KEEP_MODIFIED_PACKAGE: true
         command: |
-          npm test
+          yarn test
           if [ "${NPM_TOKEN}" != "" ]; then
             cp -f .circleci/.npmrc ~
             dont-break --timeout 600
