@@ -1,7 +1,7 @@
 {
   "pretest": false,
   "install": "$CURRENT_MODULE_DIR/scripts/install-if-not-there.sh",
-  "postinstall": "yarn",
+  "postinstall": "yarn --ignore-engines",
   "test": "./node_modules/@egis/build-tools/scripts/dont-break-tests.sh",
   "currentModuleInstall": "yarn-link",
   "projects": [
