@@ -8,7 +8,7 @@
     "@egis/egis-ui@^4.70.5-pre.1",
     "@egis/esign@^2.20.2-pre.1",
     "@egis/portal-app@^1.17.1-pre.1",
-    "@egis/bulk-capture",
+    "@egis/bulk-capture@^1.2.6-pre.1",
     {
       "name": "@egis/egis-ui-test-utils",
       "test": "npm run build"
