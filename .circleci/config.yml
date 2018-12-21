@@ -16,7 +16,7 @@ test_steps: &test_steps
     - restore_cache:
         key: yarn-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
     - restore_cache:
-        key: dont-break-cache-v1-{{ checksum ".node-version" }}
+        key: dont-break-cache-{{ checksum ".node-version" }}-{{ checksum ".dont-break.json" }}
     - run:
         name: initial-steps
         command: |
@@ -65,7 +65,7 @@ test_steps: &test_steps
         paths:
           - ~/.cache/yarn
     - save_cache:
-        key: dont-break-cache-v1-{{ checksum ".node-version" }}
+        key: dont-break-cache-{{ checksum ".node-version" }}-{{ checksum ".dont-break.json" }}
         paths:
           - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-egis-ui
           - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-esign
