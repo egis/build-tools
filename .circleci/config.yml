@@ -14,7 +14,7 @@ test_steps: &test_steps
     - restore_cache:
         key: dependency-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
     - restore_cache:
-        key: yarn-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
+        key: yarn-cache-v2-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
     - restore_cache:
         key: dont-break-cache-{{ checksum ".node-version" }}-{{ checksum ".dont-break.json" }}
     - run:
@@ -61,7 +61,7 @@ test_steps: &test_steps
             dont-break --timeout 600
           fi
     - save_cache:
-        key: yarn-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
+        key: yarn-cache-v2-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
         paths:
           - ~/.cache/yarn
     - save_cache:
