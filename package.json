@@ -6,8 +6,6 @@
   "port": 3001,
   "description": "## for MacOS users: ```shell # install 'native' (not Apple-supplied) Python to be able to install 'glue' tool: brew install python",
   "bin": {
-    "build-tools-ci-install-gradle": "./scripts/ci/install-gradle.sh",
-    "build-tools-ci-install-pt-cli": "./scripts/ci/install-pt-cli.sh",
     "build-tools-semantic-release-pre": "./scripts/semantic-release-pre.sh",
     "build-tools-semantic-release": "./scripts/semantic-release.sh"
   },
