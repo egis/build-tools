@@ -52,7 +52,6 @@ else
     dependenciesJson = {dependencies: pkg.dependencies};
     if (utils.exists(dPath)) {
         _.assign(dependenciesJson, JSON.parse(fs.readFileSync(dPath, 'utf8')));
-        console.log('dependenciesJson', dependenciesJson);
     }
 }
 

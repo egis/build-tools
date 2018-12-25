@@ -3,7 +3,6 @@
  */
 
 var gulp = require('gulp');
-var mainDepsFiles = require('./gulp-main-bower-files');
 var gutil = require('gulp-util');
 var filter = require('gulp-filter');
 var uglify = require('gulp-uglify');
@@ -16,23 +15,25 @@ var gzip = require('gulp-gzip');
 var flatten = require('gulp-flatten');
 var merge = require('merge-stream');
 var _ = require('underscore');
+var rename = require('gulp-rename');
+
+var mainDepsFiles = require('./gulp-main-bower-files');
 var dependenciesJson = require('./common').dependenciesJson;
 var prod = require('./common').prod;
-var rename = require('gulp-rename');
 var jsonTransform = require('gulp-json-transform');
 
-console.log('prod mode=' + prod)
+console.log('prod mode=' + prod);
 module.exports = function(done) {
-    var bower_excludes = dependenciesJson.excludes.map(function(it) {
+    var depsExcludes = dependenciesJson.excludes.map(function(it) {
         return "**/" + it + "/**/*";
     });
 
-    var bower_standalone = dependenciesJson.standalone.map(function(it) {
+    var depsStandalone = dependenciesJson.standalone.map(function(it) {
         return "**/" + it + "/**/*";
     });
 
     for (var i = 0; i < dependenciesJson.standalone.length; i++) {
-        bowerConcat(filter('**/' + dependenciesJson.standalone[i] + "/**/*"), dependenciesJson.standalone[i], false);
+        depsConcat(filter('**/' + dependenciesJson.standalone[i] + "/**/*"), dependenciesJson.standalone[i], false);
     }
 
     _.each(dependenciesJson.directories, function(dirs, dep) {
@@ -59,14 +60,14 @@ module.exports = function(done) {
     });
 
     if (dependenciesJson.excludes.length > 0 || dependenciesJson.standalone.length > 0) {
-        bowerConcat(ignore.exclude(_.union(bower_excludes, bower_standalone)), 'dependencies', prod, done);
+        depsConcat(ignore.exclude(_.union(depsExcludes, depsStandalone)), 'dependencies', prod, done);
     } else {
-        bowerConcat(gutil.noop(), 'dependencies', prod, done)
+        depsConcat(gutil.noop(), 'dependencies', prod, done)
     }
 };
 
-function bowerConcat(expr, name, _uglify) {
-    var js = bower()
+function depsConcat(expr, name, _uglify) {
+    var js = depsFiles()
         .pipe(expr)
         .pipe(filter('**/*.js'))
         .pipe(debug())
@@ -80,7 +81,7 @@ function bowerConcat(expr, name, _uglify) {
         .pipe(gzip())
         .pipe(gulp.dest('build'));
 
-    var css = bower()
+    var css = depsFiles()
         .pipe(expr)
         .pipe(filter('**/*.css'))
         .pipe(concat(name + '.css'))
@@ -88,7 +89,7 @@ function bowerConcat(expr, name, _uglify) {
         .pipe(gzip())
         .pipe(gulp.dest('build'));
 
-    var other = bower()
+    var other = depsFiles()
         .pipe(expr)
         .pipe(filter(['**/*', '!**/*.css', '!**/*.js', '!**/*.less']))
         .pipe(flatten())
@@ -97,7 +98,7 @@ function bowerConcat(expr, name, _uglify) {
     return merge(js, css, other)
 }
 
-function bower() {
+function depsFiles() {
     src = gulp.src('./dependencies.json')
         .pipe(jsonTransform(function() {
             var res = JSON.stringify(dependenciesJson);

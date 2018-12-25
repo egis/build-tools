@@ -13,7 +13,7 @@ lib-export.js	# the entrypoint ala index.js
 
 ## Build Pipeline
 
-* All bower dependencies are downloaded and concatenated into `build/dependencies.js` and `build/dependencies.css`
+* All web dependencies are downloaded and concatenated into `build/dependencies.js` and `build/dependencies.css`
 * ES6 files are compiled and concatenanted into `build/app.js` where 'app.js' is the `mainFile` in `package.json` 
 (inferred from package's name by default)
 * CSS/LESS/SASS are compliled and concatened into `build/app.css`
@@ -26,7 +26,6 @@ A Handlebar partial is any file begining with `_` and ending in `.hbs` and is au
 
 ## Build steps:
 * export your `NPM_TOKEN`
-* Copy and rename the seed_package.json to package.json (only when bootstraping new projects)
 * Run `npm install -g "yarn@^1.5.1"` 
 * Run `yarn setup` to install and build all required dependencies
 

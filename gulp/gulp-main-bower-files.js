@@ -7,7 +7,7 @@ var mainBowerFiles = require('main-bower-files');
 var fs = require('fs');
 var path = require('path');
 
-function getBowerFolder(base) {
+function getBowerFolder() {
     return 'node_modules/';
 }
 
@@ -23,7 +23,7 @@ module.exports = function(filter, opts, callback) {
         }
 
         if (file.isBuffer()) {
-            var bowerFolder = getBowerFolder(file.base);
+            var bowerFolder = getBowerFolder();
 
             if (typeof filter === 'function') {
                 callback = filter;
