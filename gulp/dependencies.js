@@ -3,7 +3,7 @@
  */
 
 var gulp = require('gulp');
-var mainBowerFiles = require('gulp-main-bower-files');
+var mainDepsFiles = require('./gulp-main-bower-files');
 var gutil = require('gulp-util');
 var filter = require('gulp-filter');
 var uglify = require('gulp-uglify');
@@ -16,29 +16,30 @@ var gzip = require('gulp-gzip');
 var flatten = require('gulp-flatten');
 var merge = require('merge-stream');
 var _ = require('underscore');
-var bowerJson = require('./common').bowerJson;
+var dependenciesJson = require('./common').dependenciesJson;
 var prod = require('./common').prod;
 var rename = require('gulp-rename');
+var jsonTransform = require('gulp-json-transform');
 
 console.log('prod mode=' + prod)
 module.exports = function(done) {
-    var bower_excludes = bowerJson.excludes.map(function(it) {
+    var bower_excludes = dependenciesJson.excludes.map(function(it) {
         return "**/" + it + "/**/*";
     });
 
-    var bower_standalone = bowerJson.standalone.map(function(it) {
+    var bower_standalone = dependenciesJson.standalone.map(function(it) {
         return "**/" + it + "/**/*";
     });
 
-    for (var i = 0; i < bowerJson.standalone.length; i++) {
-        bowerConcat(filter('**/' + bowerJson.standalone[i] + "/**/*"), bowerJson.standalone[i], false);
+    for (var i = 0; i < dependenciesJson.standalone.length; i++) {
+        bowerConcat(filter('**/' + dependenciesJson.standalone[i] + "/**/*"), dependenciesJson.standalone[i], false);
     }
 
-    _.each(bowerJson.directories, function(dirs, dep) {
+    _.each(dependenciesJson.directories, function(dirs, dep) {
         console.log('coping ' + JSON.stringify(dirs) + " for " + dep);
 
         dirs.forEach(function(dir) {
-            var base = "bower_components/" + dep;
+            var base = "node_modules/" + dep;
             if (dir.from) {
                 gulp.src(base + "/" + dir.from, {
                     base: base
@@ -57,7 +58,7 @@ module.exports = function(done) {
 
     });
 
-    if (bowerJson.excludes.length > 0 || bowerJson.standalone.length > 0) {
+    if (dependenciesJson.excludes.length > 0 || dependenciesJson.standalone.length > 0) {
         bowerConcat(ignore.exclude(_.union(bower_excludes, bower_standalone)), 'dependencies', prod, done);
     } else {
         bowerConcat(gutil.noop(), 'dependencies', prod, done)
@@ -97,11 +98,17 @@ function bowerConcat(expr, name, _uglify) {
 }
 
 function bower() {
-    if (bowerJson.overrides.length > 0) {
-        return gulp.src('./bower.json').pipe(mainBowerFiles({
-            overrides: bowerJson.overrides
+    src = gulp.src('./dependencies.json')
+        .pipe(jsonTransform(function() {
+            var res = JSON.stringify(dependenciesJson);
+            // console.log('res', res);
+            return res;
         }))
-    } else {
-        return gulp.src('./bower.json').pipe(mainBowerFiles())
+        .pipe(rename("bower.json"))
+        .pipe(gulp.dest("."));
+    var options = {};
+    if (dependenciesJson.overrides.length > 0) {
+        options.overrides = dependenciesJson.overrides;
     }
+    return src.pipe(mainDepsFiles(options));
 }

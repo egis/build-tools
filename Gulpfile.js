@@ -4,7 +4,7 @@
 
 var gulp = require('gulp');
 var resources = require('./gulp/resources');
-var bower = require('./gulp/bower');
+var dependencies = require('./gulp/dependencies');
 var common = require('./gulp/common');
 var pack = require('./gulp/package');
 var partials = require('./gulp/partials');
@@ -21,7 +21,7 @@ require('./gulp/plugin');
 require('./gulp/karma-testingbot');
 
 gulp.task('resources', resources);
-gulp.task('dependencies', ['resources'], bower);
+gulp.task('dependencies', ['resources'], dependencies);
 gulp.task('package', ['all'], pack);
 gulp.task('all', ['bundle', 'styles', 'resources']);
 gulp.task('templates', ['partials'], templates);
