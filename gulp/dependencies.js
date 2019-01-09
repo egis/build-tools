@@ -2,6 +2,7 @@
  * Created by Nikolay Glushchenko <nick@nickalie.com> on 08.09.2015.
  */
 
+var path = require('path');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var filter = require('gulp-filter');
@@ -21,6 +22,7 @@ var mainDepsFiles = require('./gulp-main-bower-files');
 var dependenciesJson = require('./common').dependenciesJson;
 var prod = require('./common').prod;
 var jsonTransform = require('gulp-json-transform');
+const NM = "node_modules";
 
 console.log('prod mode=' + prod);
 module.exports = function(done) {
@@ -40,7 +42,7 @@ module.exports = function(done) {
         console.log('coping ' + JSON.stringify(dirs) + " for " + dep);
 
         dirs.forEach(function(dir) {
-            var base = "node_modules/" + dep;
+            var base = path.join(NM, dep);
             if (dir.from) {
                 gulp.src(base + "/" + dir.from, {
                     base: base
@@ -99,6 +101,9 @@ function depsConcat(expr, name, _uglify) {
 }
 
 function depsFiles() {
+    var depIds = _.keys(dependenciesJson.dependencies).map(function(name) {
+        return path.join(NM, name);
+    });
     src = gulp.src('./dependencies.json')
         .pipe(jsonTransform(function() {
             var res = JSON.stringify(dependenciesJson);
@@ -107,8 +112,14 @@ function depsFiles() {
         }))
         .pipe(rename("bower.json"))
         .pipe(gulp.dest("."));
-    var options = {};
-    if (dependenciesJson.overrides.length > 0) {
+    var options = {filter: function(filePath) {
+        let res = depIds.some(function(depId) {
+            return filePath.indexOf(depId) >= 0;
+        });
+        // console.log('filter', res, filePath);
+        return res ? filePath : null;
+    }};
+    if (dependenciesJson.overrides) {
         options.overrides = dependenciesJson.overrides;
     }
     return src.pipe(mainDepsFiles(options));

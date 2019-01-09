@@ -1,5 +1,7 @@
 'use strict';
 
+// gulp-main-bower-files package code inlined and modified
+
 var through = require('through2');
 var gutil = require('gulp-util');
 var PluginError = gutil.PluginError;
@@ -44,7 +46,7 @@ module.exports = function(filter, opts, callback) {
             }
 
             opts = opts || {};
-            opts.filter = filter;
+            opts.filter = opts.filter || filter;
             opts.paths = opts.path || {};
             opts.paths.bowerJson = file.path;
             opts.paths.bowerDirectory = file.base = path.join(file.base, bowerFolder);
