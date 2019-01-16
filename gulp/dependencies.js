@@ -39,7 +39,7 @@ module.exports = function(done) {
     }
 
     _.each(dependenciesJson.directories, function(dirs, dep) {
-        console.log('coping ' + JSON.stringify(dirs) + " for " + dep);
+        console.log('copying ' + JSON.stringify(dirs) + " for " + dep);
 
         dirs.forEach(function(dir) {
             var base = path.join(NM, dep);
@@ -50,13 +50,16 @@ module.exports = function(done) {
                     .pipe(rename(function(file) {
                         file.dirname = dir.to;
                     }))
+                    .pipe(debug())
                     .pipe(gulp.dest('build/'));
                 return;
             }
 
             gulp.src(base + "/" + dir, {
                 base: base
-            }).pipe(gulp.dest('build/'));
+            })
+                .pipe(debug())
+                .pipe(gulp.dest('build/'));
         });
 
     });
@@ -104,7 +107,7 @@ function depsFiles() {
     var depIds = _.keys(dependenciesJson.dependencies).map(function(name) {
         return path.join(NM, name);
     });
-    src = gulp.src('./dependencies.json')
+    var src = gulp.src('./dependencies.json')
         .pipe(jsonTransform(function() {
             var res = JSON.stringify(dependenciesJson);
             // console.log('res', res);
