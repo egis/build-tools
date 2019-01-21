@@ -61,7 +61,6 @@ module.exports = function(done) {
                 .pipe(debug())
                 .pipe(gulp.dest('build/'));
         });
-
     });
 
     if (dependenciesJson.excludes.length > 0 || dependenciesJson.standalone.length > 0) {
