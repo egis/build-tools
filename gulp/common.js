@@ -35,7 +35,7 @@ if (!mainFile) {
 }
 
 var main = '../build/' + mainFile;
-var bowerJson = {};
+var dependenciesJson = {};
 
 if (pkg.plugin != null)
 {
@@ -48,14 +48,17 @@ else
     {
         deploy += "webapps";
     }
-    var bPath = 'bower.json';
-    bowerJson = utils.exists(bPath) ? JSON.parse(fs.readFileSync(bPath, 'utf8')) : {};
+    var dPath = 'dependencies.json';
+    dependenciesJson = {dependencies: pkg.dependencies};
+    if (utils.exists(dPath)) {
+        _.assign(dependenciesJson, JSON.parse(fs.readFileSync(dPath, 'utf8')));
+    }
 }
 
-bowerJson.excludes = bowerJson.excludes || [];
-bowerJson.standalone = bowerJson.standalone || [];
-bowerJson.directories = bowerJson.directories || {};
-bowerJson.overrides = bowerJson.overrides || {};
+dependenciesJson.excludes = dependenciesJson.excludes || [];
+dependenciesJson.standalone = dependenciesJson.standalone || [];
+dependenciesJson.directories = dependenciesJson.directories || {};
+dependenciesJson.overrides = dependenciesJson.overrides || {};
 var gitHash = (utils.exists('.git/') ? utils.sh('git rev-parse --short HEAD') : 'current');
 var timestamp = utils.dateFormat(new Date(), '%Y-%m-%d %H:%M:%S')
 var replaceAll = lazypipe()
@@ -101,7 +104,7 @@ var config = {
         tests: 'test',
         examples: 'examples'
     },
-    bowerJson: bowerJson,
+    dependenciesJson: dependenciesJson,
     watch: options.watch,
     host: argv.host || pkg.host || 'localhost',
     port: argv.port || pkg.port || '8101',

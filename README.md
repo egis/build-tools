@@ -13,7 +13,7 @@ lib-export.js	# the entrypoint ala index.js
 
 ## Build Pipeline
 
-* All bower dependencies are downloaded and concatenated into `build/dependencies.js` and `build/dependencies.css`
+* All web dependencies are downloaded and concatenated into `build/dependencies.js` and `build/dependencies.css`
 * ES6 files are compiled and concatenanted into `build/app.js` where 'app.js' is the `mainFile` in `package.json` 
 (inferred from package's name by default)
 * CSS/LESS/SASS are compliled and concatened into `build/app.css`
@@ -26,27 +26,25 @@ A Handlebar partial is any file begining with `_` and ending in `.hbs` and is au
 
 ## Build steps:
 * export your `NPM_TOKEN`
-* Copy and rename the seed_package.json to package.json (only when bootstraping new projects)
-* Run `npm install -g yarn@1.5.1` (higher versions will also work) 
-* Run `npm run setup` to install and build all required dependencies
+* Run `npm install -g "yarn@^1.5.1"` 
+* Run `yarn setup` to install and build all required dependencies
 
 ## Dev lifecycle commands:
-* Run `yarn --pure-lockfile` to install dependencies of project's package.json if it's updated from upstream or if you update it  
-* Run `npm run update` to install dependencies from build-tools to current dir  
-* Run `yarn upgrade --pure-lockfile @egis/build-tools && npm run update` to upgrade build-tools version in client project to the latest one.  
-* Run `yarn add --dev my-package && npm run update` to add/override a dependency in client project.  
-* Run `yarn add --dev my-package` to add a dependency to build-tools.  
-* Run `yarn upgrade --pure-lockfile my-package && npm run update` to upgrade a dependency in client project.  
-* Run `yarn upgrade my-package` to upgrade a dependency in build-tools. Then upgrade build-tools version in client project to use it (see above).
-* Run `npm run dev` to  build files suitable for wathcing and startup a watch server
-* Run `npm run build` to build a package suitable for production
-* Run `npm run test` to run karma test suites
+* Run `yarn setup` to install dependencies of client project if its package.json is updated upstream
+* Run `yarn add my-package` to add a dependency to build-tools  
+* Run `yarn add --dev my-package` to add a build-time dependency to client project if needed  
+* Run `yarn add my-package` to add a web dependency to client project if needed. Note that EgisUI's dependencies are 
+included everywhere.
+* Run `yarn upgrade my-package` to upgrade a dependency in build-tools or client project.  
+* Run `yarn dev` to  build files suitable for wathcing and startup a watch server
+* Run `yarn build` to build a package suitable for production
+* Run `yarn test` to run karma test suites
 
 
-## Customizing builds using bower.json and package.json
+## Customizing builds using dependencies.json and package.json
 
-### bower.json
-All bower dependencies with main files are concatenanted together, this can be overriden in bower.json as follows:
+### dependencies.json
+All web dependencies with main files are concatenanted together, this can be overriden in dependencies.json as follows:
 
 ```json 
 "overrides": {
@@ -95,32 +93,32 @@ For frontend development env our browsersync integration may be helpful. It:
 
 In each *build-tools* project:  
 ```bash
-npm run dev
+yarn dev
 ```
-And then after 1 or more `npm run dev` servers are running:  
+And then after 1 or more `yarn dev` servers are running:  
 ```
-npm run browsersync
+yarn browsersync
 ```
 
 If your files are being served from anything other then **localhost** e.g. **192.168.99.100**: 
 
 ```bash
 cd /path/to/EgisUI
-npm run dev
+yarn dev
 
 # in another terminal window/tab
 cd /path/to/build-tools
-npm run browsersync -- --proxied-host=192.168.99.100
+yarn browsersync -- --proxied-host=192.168.99.100
 ```
 
 This also allows to run a library (EgisUI, eSign, etc) or Portal plugin locally in dev mode in context of remote host, e.g. UAT:
 ```bash
 cd /path/to/MyPlugin
-npm run dev
+yarn dev
 
 # in another terminal window/tab
 cd /path/to/build-tools
-npm run browsersync -- --proxied-host=sandbox.some.com --proxied-port=80 --plugin=MyPlugin
+yarn browsersync -- --proxied-host=sandbox.some.com --proxied-port=80 --plugin=MyPlugin
 ```
 
 Note the `--plugin` parameter above - you need to specify it by its directory name to make browsersync handle it. This 
@@ -128,7 +126,7 @@ is because we only want one plugin to work at any given time.
 
 For SSL mode, just specify https protocol:
 ```
-npm run browsersync -- --proxied-host=https://testbox.papertrail.co.za
+yarn browsersync -- --proxied-host=https://testbox.papertrail.co.za
 ```
 
 #### Caveats
@@ -168,5 +166,5 @@ docker cp ../EgisUI/EgisUI.war my-pt:/opt/Papertrail/webapps # if you want to te
 Run the tests:
 ```
 # Put your docker's host and port here, spec file(s) mask and the spec name(s) substring.
-npm run test:e2e -- --baseUrl="http://192.168.99.100:8080" --specFiles="./e2e/**/Guide*Spec.js" --mochaOpts.grep="too early" --maxBrowserInstances=1 --mochaOpts.retries=1 
+yarn test:e2e -- --baseUrl="http://192.168.99.100:8080" --specFiles="./e2e/**/Guide*Spec.js" --mochaOpts.grep="too early" --maxBrowserInstances=1 --mochaOpts.retries=1 
 ```
