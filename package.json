@@ -134,7 +134,7 @@
     "unzip": "^0.1.11",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.7.0",
+    "watchify": "^3.11.1",
     "wd": "^1.11.1",
     "wdio-mocha-framework": "^0.5.4",
     "wdio-spec-reporter": "^0.1.4",
