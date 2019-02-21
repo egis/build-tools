@@ -90,7 +90,7 @@ var bundleKinds = ['main', 'tests'];
 if (pkg.examples) bundleKinds.push('examples');
 
 pkg = _.assign({build: {}}, pkg);
-pkg.build = _.assign({autoImportAll: true}, pkg.build); //so pkg.build.autoImportAll will be true by default
+pkg.build = _.assign({autoImportAll: true, web: true}, pkg.build); //set some defaults
 
 var mainSrc = options.srcDir || 'src';
 
@@ -131,11 +131,10 @@ var config = {
     },
     egisUiPkgName: '@egis/egis-ui',
     egisUiModuleName: 'EgisUI',
-};
-
-config.dependsOnEgisUi = function() {
-    return pkg.devDependencies && pkg.devDependencies[config.egisUiPkgName] ||
-        pkg.dependencies && pkg.dependencies[config.egisUiPkgName];
+    dependsOnEgisUi: function() {
+        return pkg.devDependencies && pkg.devDependencies[config.egisUiPkgName] ||
+            pkg.dependencies && pkg.dependencies[config.egisUiPkgName];
+    }
 };
 
 module.exports = config;
