@@ -5,19 +5,13 @@
   },
   "port": 3001,
   "description": "## for MacOS users: ```shell # install 'native' (not Apple-supplied) Python to be able to install 'glue' tool: brew install python",
-  "dependencies": {
-    "loglevel": "^1.5.1"
-  },
   "bin": {
-    "update-build-tools-deps": "./scripts/update-build-tools-deps.sh",
-    "merge-build-tools-deps": "./scripts/merge-build-tools-deps.js",
-    "build-tools-ci-collect-deps-versions": "./scripts/ci/collect-deps-versions.sh",
-    "build-tools-ci-install-gradle": "./scripts/ci/install-gradle.sh",
-    "build-tools-ci-install-pt-cli": "./scripts/ci/install-pt-cli.sh",
-    "build-tools-ci-upgrade-node": "./scripts/ci/upgrade-node.sh",
-    "build-tools-ci-upgrade-yarn": "./scripts/ci/upgrade-yarn.sh"
+    "build-tools-semantic-release-pre": "./scripts/semantic-release-pre.sh",
+    "build-tools-semantic-release": "./scripts/semantic-release.sh"
   },
-  "devDependencies": {
+  "dependencies": {
+    "@bretkikehara/gulp-wrap": "^0.14.2",
+    "@egis/ci-tools": "^1.0.0",
     "@egis/semantic-dependents-updates-github": "1.0.6",
     "babel": "^6.3.26",
     "babel-core": "^6.11.4",
@@ -48,7 +42,6 @@
     "babel-register": "^6.11.4",
     "babelify": "^7.2.0",
     "bl": "^1.0.0",
-    "bower": "^1.8.0",
     "browser-sync": "^2.17.0",
     "browserify": "^13.0.0",
     "bulkify": "^1.1.1",
@@ -76,13 +69,12 @@
     "gulp-foreach": "^0.1.0",
     "gulp-glue": "",
     "gulp-gzip": "^1.2.0",
-    "gulp-handlebars": "^4.0.0",
+    "gulp-handlebars": "^5.0.2",
     "gulp-if": "^2.0.0",
     "gulp-ignore": "^2.0.1",
     "gulp-insert": "^0.5.0",
     "gulp-json-transform": "^0.3.0",
     "gulp-less": "^3.0.5",
-    "gulp-main-bower-files": "^1.3.0",
     "gulp-plumber": "^1.0.1",
     "gulp-print": "^2.0.1",
     "gulp-pseudoconcat-js": "github:egis/gulp-pseudoconcat-js#eec2d5e8be375aee027be9f6c2c6a0802b206f92",
@@ -90,16 +82,16 @@
     "gulp-replace": "^0.5.4",
     "gulp-sass": "^2.1.1",
     "gulp-sourcemaps": "^1.6.0",
+    "gulp-transform": "^3.0.5",
     "gulp-uglify": "^1.5.1",
     "gulp-util": "^3.0.7",
     "gulp-webserver": "",
-    "@bretkikehara/gulp-wrap": "^0.14.2",
     "gulp-zip": "^3.0.2",
     "is": "^3.1.0",
     "is_js": "^0.9.0",
     "jasmine-ajax": "^3.2.0",
     "jasmine-core": "^2.4.1",
-    "karma": "^1.7.1",
+    "karma": "^2.0.0",
     "karma-browserify": "^5.0.0",
     "karma-chrome-launcher": "^0.2.2",
     "karma-coffee-preprocessor": "^0.3.0",
@@ -111,12 +103,14 @@
     "karma-json-fixtures-preprocessor": "0.0.5",
     "karma-junit-reporter": "^1.2.0",
     "karma-sourcemap-loader": "^0.3.6",
-    "karma-systemjs": "github:rolaveric/karma-systemjs#28b94c979516cd6eb4514b128d40f3517bb3903b",
+    "karma-systemjs": "0.15.0",
     "karma-testingbot-launcher": "^1.0.1",
     "karma-verbose-reporter": "^0.0.3",
     "karma-webdriver-launcher": "^1.0.4",
     "lazypipe": "^1.0.1",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.11",
+    "loglevel": "^1.5.1",
+    "main-bower-files": "^2.13.1",
     "merge-stream": "^1.0.0",
     "minimatch": "^3.0.0",
     "minimist": "^1.2.0",
@@ -135,11 +129,13 @@
     "socket.io": "^1.4.4",
     "source-map": "^0.5.3",
     "systemjs": "^0.19.13",
+    "through2": "^3.0.0",
     "underscore": "^1.8.3",
     "unzip": "^0.1.11",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.7.0",
+    "watchify": "^3.11.1",
+    "wd": "^1.11.1",
     "wdio-mocha-framework": "^0.5.4",
     "wdio-spec-reporter": "^0.1.4",
     "webdriverajax": "^2.2.0",
@@ -155,6 +151,7 @@
     "url": "https://github.com/egis/build-tools.git"
   },
   "scripts": {
+    "install-ci-tools": "npm install -g @egis/ci-tools",
     "test": "gulp test",
     "setup": "yarn",
     "browsersync": "gulp --gulpfile gulp/browsersync.js --cwd ./ browsersync"
@@ -177,3 +174,4 @@
     "node": ">= 4.2.6"
   }
 }
+

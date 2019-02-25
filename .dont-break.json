@@ -1,19 +1,16 @@
 {
   "pretest": false,
   "install": "$CURRENT_MODULE_DIR/scripts/install-if-not-there.sh",
-  "postinstall": "$CURRENT_MODULE_DIR/scripts/update-build-tools-deps.sh",
+  "postinstall": "yarn --ignore-engines",
   "test": "./node_modules/@egis/build-tools/scripts/dont-break-tests.sh",
   "currentModuleInstall": "yarn-link",
   "projects": [
+    "@egis/egis-ui@^5.0.0-pre.3",
+    "@egis/esign@^3.0.0-pre.1",
+    "@egis/portal-app@^2.0.0-pre.1",
+    "@egis/bulk-capture@^2.0.0-pre.1",
     {
-      "name": "https://${GH_TOKEN}@github.com/egis/EgisUI",
-      "install": "npm run setup"
-    },
-    "@egis/esign",
-    "@egis/portal-app",
-    "@egis/bulk-capture",
-    {
-      "name": "@egis/egis-ui-test-utils",
+      "name": "@egis/egis-ui-test-utils@^3.0.0-pre.1",
       "test": "npm run build"
     }
   ]

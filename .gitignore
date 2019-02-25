@@ -3,6 +3,6 @@
 .bin
 node_modules
 npm-debug.log
-yarn.lock
 package-lock.json
 .ruby-version
+yarn-error.log
