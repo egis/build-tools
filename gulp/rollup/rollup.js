@@ -1,8 +1,7 @@
-var gulp = require('gulp');
-
-var rollup = require('gulp-better-rollup');
+var betterRollup = require('gulp-better-rollup');
 var babel = require('rollup-plugin-babel');
 var common = require('../common');
+var rollup = require('rollup');
 
 module.exports = function (moduleName) {
     var globals = {};
@@ -10,7 +9,8 @@ module.exports = function (moduleName) {
     if (common.module.main) {
         globals[common.module.main] = common.module.main; //allows importing own module for tests
     }
-    return rollup({
+    return betterRollup({
+        rollup,
         plugins: [babel({
             'plugins': [
                 [require("babel-plugin-transform-es2015-template-literals"), {loose: true}],
@@ -40,7 +40,7 @@ module.exports = function (moduleName) {
         // any option supported by rollup can be set here, including sourceMap
         format: common.pkg.bundleFormat || 'iife',
         // useStrict: false,
-        moduleName: moduleName,
+        name: moduleName,
         globals: globals
     })
 };
