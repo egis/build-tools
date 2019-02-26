@@ -31,7 +31,7 @@ test_steps: &test_steps
     - run:
         name: install-deps
         command: |
-          yarn --frozen-lockfile
+          yarn --frozen-lockfile --ignore-engines
           if [ "${NPM_TOKEN}" != "" ]; then
             ./scripts/install-dont-break.sh
             cp -f .circleci/.npmrc ~
