@@ -49,6 +49,9 @@ module.exports = {
     {
         return pathExists(path);
     },
+    filterExistingFiles(pathes) {
+        return pathes.filter((path) => this.exists(path));
+    },
     dateFormat: function(date, fstr, utc) {
         utc = utc ? 'getUTC' : 'get';
         return fstr.replace (/%[YmdHMS]/g, function (m) {
