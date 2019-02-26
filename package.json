@@ -100,8 +100,8 @@
     "karma-coverage": "^1.1.1",
     "karma-fixture": "^0.2.6",
     "karma-htmlfile-reporter": "^0.2.2",
-    "karma-jasmine-jquery": "artemv/karma-jasmine-jquery#f5d4e14c819ab8bd89cf6920ca52e9f82fb6cda5",
     "karma-jasmine": "^0.3.6",
+    "karma-jasmine-jquery": "artemv/karma-jasmine-jquery#f5d4e14c819ab8bd89cf6920ca52e9f82fb6cda5",
     "karma-json-fixtures-preprocessor": "^0.0.6",
     "karma-junit-reporter": "^1.2.0",
     "karma-sourcemap-loader": "^0.3.6",
@@ -126,7 +126,6 @@
     "semantic-release": "^7.0.2",
     "semver": "^5.1.0",
     "shelljs": "^0.7.5",
-    "socket.io": "^1.4.4",
     "source-map": "^0.5.3",
     "systemjs": "^0.19.13",
     "through2": "^3.0.0",
@@ -170,7 +169,7 @@
     },
     "branchNameBase": "autoupdate-build-tools"
   },
-  "version": "6.0.0-pre.2",
+  "version": "0.0.0-semantic-release",
   "engines": {
     "node": ">= 4.2.6"
   }
