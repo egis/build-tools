@@ -5,10 +5,11 @@ var concat = require('gulp-concat');
 var _ = require('lodash');
 var is = require('is');
 var replace = require('gulp-replace');
-var common = require('../common');
 var plumber = require('gulp-plumber');
 var sourcemaps = require('gulp-sourcemaps');
 var debug = require('gulp-debug');
+var common = require('../common');
+var utils = require('../../utils');
 
 module.exports = function(kind) {
     var srcDir = common.srcDirs[kind];
@@ -17,6 +18,9 @@ module.exports = function(kind) {
     var workDir = destDir + '/.work';
 
     gulp.task('prepare-lib-exports-rollup-' + kind, function () {
+        if (!utils.exists(srcDir + '/.lib-exports.js')) {
+            return;
+        }
         return gulp.src([srcDir + '/.lib-exports.js'])
             .pipe(sourcemaps.init())
             .pipe(replace('./', up + srcDir + '/'))
@@ -25,9 +29,16 @@ module.exports = function(kind) {
     });
 
     gulp.task('copy-rollup-index-' + kind, ['prepare-lib-exports-rollup-' + kind], function () {
-        var sources = [destDir + '/.lib-exports.js'];
+        var sources = [];
+        let s1 = destDir + '/.lib-exports.js';
+        if (utils.exists(s1)) {
+            sources.push(s1);
+        }
         if (common.build.autoImportAll[kind]) {
             sources.unshift(__dirname + '/propagate/.rollup-index-proto.js');
+        }
+        if (sources.length === 0) {
+            return;
         }
         return gulp.src(sources, { base: 'src' })
             .pipe(sourcemaps.init({loadMaps: true}))
