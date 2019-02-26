@@ -10,7 +10,6 @@
     "build-tools-semantic-release": "./scripts/semantic-release.sh"
   },
   "dependencies": {
-    "@artemv/karma-jasmine-jquery": "^0.1.1",
     "@artemv/karma-testingbot-launcher": "^1.0.4",
     "@bretkikehara/gulp-wrap": "^0.14.2",
     "@egis/ci-tools": "^1.0.0",
@@ -99,10 +98,11 @@
     "karma-chrome-launcher": "^0.2.2",
     "karma-coffee-preprocessor": "^0.3.0",
     "karma-coverage": "^1.1.1",
-    "karma-fixture": "^0.2.5",
+    "karma-fixture": "^0.2.6",
     "karma-htmlfile-reporter": "^0.2.2",
+    "karma-jasmine-jquery": "artemv/karma-jasmine-jquery#f5d4e14c819ab8bd89cf6920ca52e9f82fb6cda5",
     "karma-jasmine": "^0.3.6",
-    "karma-json-fixtures-preprocessor": "0.0.5",
+    "karma-json-fixtures-preprocessor": "^0.0.6",
     "karma-junit-reporter": "^1.2.0",
     "karma-sourcemap-loader": "^0.3.6",
     "karma-systemjs": "0.15.0",
@@ -170,7 +170,7 @@
     },
     "branchNameBase": "autoupdate-build-tools"
   },
-  "version": "0.0.0-semantic-release",
+  "version": "6.0.0-pre.2",
   "engines": {
     "node": ">= 4.2.6"
   }

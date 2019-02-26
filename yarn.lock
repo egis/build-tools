@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-"@artemv/karma-jasmine-jquery@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@artemv/karma-jasmine-jquery/-/karma-jasmine-jquery-0.1.1.tgz#417f9ef4f247509290e390be0958e791d09c4fc8"
-  integrity sha512-4MAm5RSxbt5pxKtQnV4QyCHDiz2Jmkh5O/NH2gcVbGOS+KJG97zJYcsFHhC5DILN2zrFoGgAoOY0uGrJWvm//Q==
-
 "@artemv/karma-testingbot-launcher@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@artemv/karma-testingbot-launcher/-/karma-testingbot-launcher-1.0.4.tgz#f4665e33e644f4f5ab7adc664565a1f85742bc1b"
@@ -5153,9 +5148,10 @@ karma-coverage@^1.1.1:
     minimatch "^3.0.0"
     source-map "^0.5.1"
 
-karma-fixture@^0.2.5:
+karma-fixture@^0.2.6:
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/karma-fixture/-/karma-fixture-0.2.6.tgz#971cea8c216d73f07043964cb73f10e0830018ef"
+  integrity sha1-lxzqjCFtc/BwQ5ZMtz8Q4IMAGO8=
 
 karma-htmlfile-reporter@^0.2.2:
   version "0.2.3"
@@ -5163,13 +5159,18 @@ karma-htmlfile-reporter@^0.2.2:
   dependencies:
     xmlbuilder "3.1.0"
 
+karma-jasmine-jquery@artemv/karma-jasmine-jquery#f5d4e14c819ab8bd89cf6920ca52e9f82fb6cda5:
+  version "0.1.1"
+  resolved "https://codeload.github.com/artemv/karma-jasmine-jquery/tar.gz/f5d4e14c819ab8bd89cf6920ca52e9f82fb6cda5"
+
 karma-jasmine@^0.3.6:
   version "0.3.8"
   resolved "https://registry.yarnpkg.com/karma-jasmine/-/karma-jasmine-0.3.8.tgz#5b6457791ad9b89aa173f079e3ebe1b8c805236c"
 
-karma-json-fixtures-preprocessor@0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/karma-json-fixtures-preprocessor/-/karma-json-fixtures-preprocessor-0.0.5.tgz#4056ed95d8c6b5f496e39641088246df87a8de42"
+karma-json-fixtures-preprocessor@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/karma-json-fixtures-preprocessor/-/karma-json-fixtures-preprocessor-0.0.6.tgz#4f78a2ebcd34387f8e55ababff634655164c4c76"
+  integrity sha1-T3ii6800OH+OVaur/2NGVRZMTHY=
 
 karma-junit-reporter@^1.2.0:
   version "1.2.0"
