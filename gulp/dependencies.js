@@ -17,11 +17,12 @@ var flatten = require('gulp-flatten');
 var merge = require('merge-stream');
 var _ = require('underscore');
 var rename = require('gulp-rename');
+var jsonTransform = require('gulp-json-transform');
 
 var mainDepsFiles = require('./gulp-main-bower-files');
 var dependenciesJson = require('./common').dependenciesJson;
 var prod = require('./common').prod;
-var jsonTransform = require('gulp-json-transform');
+var utils = require('../utils');
 const NM = "node_modules";
 
 console.log('prod mode=' + prod);
@@ -71,7 +72,11 @@ module.exports = function(done) {
 };
 
 function depsConcat(expr, name, _uglify) {
-    var js = depsFiles()
+    let deps = depsFiles();
+    if (!deps) {
+        return;
+    }
+    var js = deps
         .pipe(expr)
         .pipe(filter('**/*.js'))
         .pipe(debug())
@@ -85,7 +90,7 @@ function depsConcat(expr, name, _uglify) {
         .pipe(gzip())
         .pipe(gulp.dest('build'));
 
-    var css = depsFiles()
+    var css = deps
         .pipe(expr)
         .pipe(filter('**/*.css'))
         .pipe(concat(name + '.css'))
@@ -93,7 +98,7 @@ function depsConcat(expr, name, _uglify) {
         .pipe(gzip())
         .pipe(gulp.dest('build'));
 
-    var other = depsFiles()
+    var other = deps
         .pipe(expr)
         .pipe(filter(['**/*', '!**/*.css', '!**/*.js', '!**/*.less']))
         .pipe(flatten())
@@ -106,7 +111,11 @@ function depsFiles() {
     var depIds = _.keys(dependenciesJson.dependencies).map(function(name) {
         return path.join(NM, name);
     });
-    var src = gulp.src('./dependencies.json')
+    let sources = utils.filterExistingFiles(['./dependencies.json']);
+    if (sources.length === 0) {
+        return;
+    }
+    var src = gulp.src(sources)
         .pipe(jsonTransform(function() {
             var res = JSON.stringify(dependenciesJson);
             // console.log('res', res);
