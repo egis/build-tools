@@ -96,10 +96,10 @@ _.each(common.bundleKinds, function(kind) {
     gulp.task('dev-bundle-' + kind, devBundleTaskDeps, function() {
 
         var destDir = common.dist[kind];
-        let sources = utils.filterExistingFiles([common.dist[kind] + '/templates/*.js',
-            common.dist[kind] + '/dev-loader.js']);
+        let sources = utils.filterExistingFiles([common.dist[kind] + '/dev-loader.js']);
+        sources.unshift(common.dist[kind] + '/templates/*.js');
         if (kind === 'main') {
-            sources.push(common.dist['main'] + '/system.js');
+            sources.unshift(common.dist['main'] + '/system.js');
             destDir = 'build';
         }
         if (sources.length === 0) {
