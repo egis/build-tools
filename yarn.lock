@@ -2,16 +2,6 @@
 # yarn lockfile v1
 
 
-"@artemv/karma-testingbot-launcher@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@artemv/karma-testingbot-launcher/-/karma-testingbot-launcher-1.0.4.tgz#f4665e33e644f4f5ab7adc664565a1f85742bc1b"
-  integrity sha512-8IN+MxDt7Ban3ojI1/zKSJqbgdPKDF96nMwpDRlnYqtqEK6/YA2VF9UDvOCunvyg26sUm2nrOPrbF/cywejJhA==
-  dependencies:
-    q "^1.5.0"
-    testingbot-api "^1.0.6"
-    testingbot-tunnel-launcher "1.1.1"
-    wd "^1.11.1"
-
 "@bahmutov/parse-github-repo-url@^0.1.1":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@bahmutov/parse-github-repo-url/-/parse-github-repo-url-0.1.2.tgz#6311dfbe7fe00ac464b9069d0e2684a739aeb69b"
@@ -536,14 +526,14 @@ async@2.0.1:
   dependencies:
     lodash "^4.8.0"
 
-async@^2.0.0:
+async@^2.0.0, async@^2.1.4:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/async/-/async-2.6.2.tgz#18330ea7e6e313887f5d2f2a904bac6fe4dd5381"
   integrity sha512-H1qVYh1MYhEEFLsP97cVKqCGo7KfCyTt6uEWqsTBr9SO84oK9Uwbyd/yCW+6rKJLHksBNUVWZDAjfS+Ccx0Bbg==
   dependencies:
     lodash "^4.17.11"
 
-async@^2.1.4, async@^2.5.0:
+async@^2.5.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/async/-/async-2.6.1.tgz#b245a23ca71930044ec53fa46aa00a3e87c6a610"
   integrity sha512-fNEiL2+AZt6AlAw/29Cr0UDe4sRAHCpEHh54WMz+Bb7QfNcFw4h3loofyJpLeQs4Yx7yuqu/2dLgM5hKOs6HlQ==
@@ -5080,9 +5070,9 @@ karma-htmlfile-reporter@^0.2.2:
   dependencies:
     xmlbuilder "3.1.0"
 
-karma-jasmine-jquery@artemv/karma-jasmine-jquery#f5d4e14c819ab8bd89cf6920ca52e9f82fb6cda5:
-  version "0.1.1"
-  resolved "https://codeload.github.com/artemv/karma-jasmine-jquery/tar.gz/f5d4e14c819ab8bd89cf6920ca52e9f82fb6cda5"
+karma-jasmine-jquery@artemv/karma-jasmine-jquery#^0.1.2-pre.1:
+  version "0.1.2-pre.1"
+  resolved "https://codeload.github.com/artemv/karma-jasmine-jquery/tar.gz/56e99c6eb438bf65e664fa3835d9a21049b5aec0"
 
 karma-jasmine@^0.3.6:
   version "0.3.8"
@@ -5113,6 +5103,15 @@ karma-systemjs@0.15.0:
   dependencies:
     lodash "^4.16.2"
     minimatch "^3.0.0"
+
+karma-testingbot-launcher@artemv/karma-testingbot-launcher#^1.0.5-pre.1:
+  version "1.0.5-pre.1"
+  resolved "https://codeload.github.com/artemv/karma-testingbot-launcher/tar.gz/d4e9b05dbb5a29a5388393928f25139de7e8e107"
+  dependencies:
+    q "^1.5.0"
+    testingbot-api "^1.0.6"
+    testingbot-tunnel-launcher "1.1.1"
+    wd "^1.11.1"
 
 karma-verbose-reporter@^0.0.3:
   version "0.0.3"

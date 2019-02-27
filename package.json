@@ -10,7 +10,6 @@
     "build-tools-semantic-release": "./scripts/semantic-release.sh"
   },
   "dependencies": {
-    "@artemv/karma-testingbot-launcher": "^1.0.4",
     "@bretkikehara/gulp-wrap": "^0.14.2",
     "@egis/ci-tools": "^1.0.0",
     "@egis/semantic-dependents-updates-github": "1.0.6",
@@ -101,11 +100,12 @@
     "karma-fixture": "^0.2.6",
     "karma-htmlfile-reporter": "^0.2.2",
     "karma-jasmine": "^0.3.6",
-    "karma-jasmine-jquery": "artemv/karma-jasmine-jquery#f5d4e14c819ab8bd89cf6920ca52e9f82fb6cda5",
+    "karma-jasmine-jquery": "artemv/karma-jasmine-jquery#^0.1.2-pre.1",
     "karma-json-fixtures-preprocessor": "^0.0.6",
     "karma-junit-reporter": "^1.2.0",
     "karma-sourcemap-loader": "^0.3.6",
     "karma-systemjs": "0.15.0",
+    "karma-testingbot-launcher": "artemv/karma-testingbot-launcher#^1.0.5-pre.1",
     "karma-verbose-reporter": "^0.0.3",
     "lazypipe": "^1.0.1",
     "lodash": "^4.17.11",
