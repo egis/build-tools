@@ -102,9 +102,6 @@ _.each(common.bundleKinds, function(kind) {
             sources.unshift(common.dist['main'] + '/system.js');
             destDir = 'build';
         }
-        if (sources.length === 0) {
-            return;
-        }
         return gulp.src(sources)
             .pipe(sourcemaps.init({loadMaps: true}))
             .pipe(pseudoconcat(common.bundles[kind], {
