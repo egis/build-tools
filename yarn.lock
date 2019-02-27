@@ -3991,7 +3991,7 @@ gulp-print@^2.0.1:
     gulp-util "^3.0.6"
     map-stream "~0.0.6"
 
-"gulp-pseudoconcat-js@github:egis/gulp-pseudoconcat-js#eec2d5e8be375aee027be9f6c2c6a0802b206f92":
+gulp-pseudoconcat-js@egis/gulp-pseudoconcat-js#eec2d5e:
   version "1.2.0"
   resolved "https://codeload.github.com/egis/gulp-pseudoconcat-js/tar.gz/eec2d5e8be375aee027be9f6c2c6a0802b206f92"
   dependencies:
@@ -4150,9 +4150,9 @@ gulp-zip@^3.0.2:
     through2 "^2.0.1"
     yazl "^2.1.0"
 
-gulp@artemv/gulp#92c1c89f8b15f9fa676f15404805c37652200b59:
-  version "3.9.1"
-  resolved "https://codeload.github.com/artemv/gulp/tar.gz/92c1c89f8b15f9fa676f15404805c37652200b59"
+gulp@artemv/gulp#5.0.0-pre.1:
+  version "5.0.0-pre.1"
+  resolved "https://codeload.github.com/artemv/gulp/tar.gz/dc34fa65fbe5cc7aaee88aa9607159d42e8dbde4"
   dependencies:
     archy "^1.0.0"
     chalk "^1.0.0"
