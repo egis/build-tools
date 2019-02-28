@@ -90,7 +90,6 @@ var bundleKinds = ['main', 'tests'];
 if (pkg.examples) bundleKinds.push('examples');
 
 pkg = _.assign({build: {}}, pkg);
-pkg.build = _.assign({autoImportAll: true}, pkg.build); //so pkg.build.autoImportAll will be true by default
 
 var mainSrc = options.srcDir || 'src';
 
