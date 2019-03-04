@@ -111,7 +111,7 @@
     "lodash": "^4.17.11",
     "loglevel": "^1.5.1",
     "main-bower-files": "^2.13.1",
-    "merge-stream": "^1.0.0",
+    "merge-stream": "^1.0.1",
     "minimatch": "^3.0.2",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",

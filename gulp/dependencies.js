@@ -72,11 +72,11 @@ module.exports = function(done) {
 };
 
 function depsConcat(expr, name, _uglify) {
-    let deps = depsFiles();
-    if (!deps) {
+    let deps = depsFiles;
+    if (!deps()) {
         return;
     }
-    var js = deps
+    var js = deps()
         .pipe(expr)
         .pipe(filter('**/*.js'))
         .pipe(debug())
@@ -90,7 +90,7 @@ function depsConcat(expr, name, _uglify) {
         .pipe(gzip())
         .pipe(gulp.dest('build'));
 
-    var css = deps
+    var css = deps()
         .pipe(expr)
         .pipe(filter('**/*.css'))
         .pipe(concat(name + '.css'))
@@ -98,7 +98,7 @@ function depsConcat(expr, name, _uglify) {
         .pipe(gzip())
         .pipe(gulp.dest('build'));
 
-    var other = deps
+    var other = deps()
         .pipe(expr)
         .pipe(filter(['**/*', '!**/*.css', '!**/*.js', '!**/*.less']))
         .pipe(flatten())
