@@ -164,7 +164,7 @@
     },
     "branchNameBase": "autoupdate-build-tools"
   },
-  "version": "6.0.0-pre.11",
+  "version": "0.0.0-semantic-release",
   "engines": {
     "node": ">= 4.2.6"
   }
