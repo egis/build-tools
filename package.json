@@ -13,6 +13,7 @@
     "@bretkikehara/gulp-wrap": "^0.14.2",
     "@egis/ci-tools": "^1.0.0",
     "@egis/semantic-dependents-updates-github": "1.0.6",
+    "@semantic-release/commit-analyzer": "^6.1.0",
     "babel": "^6.3.26",
     "babel-core": "^6.11.4",
     "babel-plugin-__coverage__": "^11.0.0",
@@ -44,13 +45,10 @@
     "bl": "^1.0.0",
     "browser-sync": "^2.26.0",
     "browserify": "^13.3.0",
-    "bulkify": "^1.1.1",
     "chai": "^3.5.0",
     "chalk": "^2.1.0",
     "codacy-coverage": "^2.0.1",
-    "condition-circle": "1.6.0",
     "del": "^2.2.0",
-    "freeform-semantic-commit-analyzer": "^1.1.0",
     "glob": "^6.0.3",
     "graceful-fs": "^4.1.2",
     "gulp": "artemv/gulp#5.0.0-pre.1",
@@ -98,7 +96,7 @@
     "karma-coffee-preprocessor": "^0.3.0",
     "karma-coverage": "^1.1.1",
     "karma-fixture": "^0.2.6",
-    "karma-htmlfile-reporter": "^0.2.2",
+    "karma-htmlfile-reporter": "^0.3.8",
     "karma-jasmine": "^0.3.6",
     "karma-jasmine-jquery": "artemv/karma-jasmine-jquery#^0.1.2-pre.1",
     "karma-json-fixtures-preprocessor": "^0.0.6",
@@ -123,7 +121,7 @@
     "rollup": "0.68.2",
     "rollup-plugin-babel": "^2.7.1",
     "sanitize-filename": "^1.6.1",
-    "semantic-release": "^7.0.2",
+    "semantic-release": "^15.13.3",
     "semver": "^5.1.0",
     "shelljs": "^0.7.5",
     "source-map": "^0.5.3",
@@ -152,8 +150,30 @@
     "browsersync": "gulp --gulpfile gulp/browsersync.js --cwd ./ browsersync"
   },
   "release": {
-    "analyzeCommits": "freeform-semantic-commit-analyzer",
-    "verifyConditions": "condition-circle"
+    "analyzeCommits": "simple-commit-message",
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "angular",
+          "releaseRules": [
+            {
+              "type": "docs",
+              "release": "patch"
+            },
+            {
+              "type": "chore",
+              "release": "patch"
+            },
+            {
+              "type": "refactor",
+              "release": "patch"
+            }
+          ]
+        }
+      ],
+      "@semantic-release/release-notes-generator"
+    ]
   },
   "semantic-dependents-updates": {
     "dependents": {
