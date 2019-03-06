@@ -13,7 +13,6 @@
     "@bretkikehara/gulp-wrap": "^0.14.2",
     "@egis/ci-tools": "^1.0.0",
     "@egis/semantic-dependents-updates-github": "1.0.6",
-    "@semantic-release/commit-analyzer": "^6.1.0",
     "babel": "^6.3.26",
     "babel-core": "^6.11.4",
     "babel-plugin-__coverage__": "^11.0.0",
@@ -157,7 +156,9 @@
           "preset": "angular"
         }
       ],
-      "@semantic-release/release-notes-generator"
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/github"
     ]
   },
   "semantic-dependents-updates": {

@@ -108,6 +108,7 @@ jobs:
           command: |
             npm run install-ci-tools
             ci-tools-upgrade-node
+            ci-tools-upgrade-yarn
       - run:
           name: publish
           command: |
