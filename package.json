@@ -141,7 +141,7 @@
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/egis/build-tools.git"
+    "url": "git@github.com:egis/build-tools.git"
   },
   "scripts": {
     "install-ci-tools": "npm install -g @egis/ci-tools",
@@ -150,26 +150,11 @@
     "browsersync": "gulp --gulpfile gulp/browsersync.js --cwd ./ browsersync"
   },
   "release": {
-    "analyzeCommits": "simple-commit-message",
     "plugins": [
       [
         "@semantic-release/commit-analyzer",
         {
-          "preset": "angular",
-          "releaseRules": [
-            {
-              "type": "docs",
-              "release": "patch"
-            },
-            {
-              "type": "chore",
-              "release": "patch"
-            },
-            {
-              "type": "refactor",
-              "release": "patch"
-            }
-          ]
+          "preset": "angular"
         }
       ],
       "@semantic-release/release-notes-generator"

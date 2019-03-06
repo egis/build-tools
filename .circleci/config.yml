@@ -58,7 +58,7 @@ test_steps: &test_steps
           yarn test
           if [ "${NPM_TOKEN}" != "" ]; then
             cp -f .circleci/.npmrc ~
-            dont-break --timeout 600
+            # dont-break --timeout 600
           fi
     - save_cache:
         key: yarn-cache-v2-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
