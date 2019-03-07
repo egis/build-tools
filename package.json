@@ -119,9 +119,9 @@
     "rollup": "0.68.2",
     "rollup-plugin-babel": "^2.7.1",
     "sanitize-filename": "^1.6.1",
-    "semantic-release": "^15.13.3",
     "semver": "^5.1.0",
     "shelljs": "^0.7.5",
+    "simple-semantic-config": "artemv/simple-semantic-config",
     "source-map": "^0.5.3",
     "systemjs": "^0.19.13",
     "through2": "^3.0.0",
@@ -148,31 +148,7 @@
     "browsersync": "gulp --gulpfile gulp/browsersync.js --cwd ./ browsersync"
   },
   "release": {
-    "plugins": [
-      [
-        "@semantic-release/commit-analyzer",
-        {
-          "preset": "angular",
-          "releaseRules": [
-            {
-              "type": "docs",
-              "release": "patch"
-            },
-            {
-              "type": "chore",
-              "release": "patch"
-            },
-            {
-              "type": "refactor",
-              "release": "patch"
-            }
-          ]
-        }
-      ],
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/npm",
-      "@semantic-release/github"
-    ]
+    "extends": "simple-semantic-config"
   },
   "semantic-dependents-updates": {
     "dependents": {
