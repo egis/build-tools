@@ -9284,9 +9284,9 @@ simple-concat@^1.0.0:
   resolved "https://registry.yarnpkg.com/simple-concat/-/simple-concat-1.0.0.tgz#7344cbb8b6e26fb27d66b2fc86f9f6d5997521c6"
   integrity sha1-c0TLuLbib7J9ZrL8hvn21Zl1IcY=
 
-simple-semantic-config@artemv/simple-semantic-config:
+simple-semantic-config@artemv/simple-semantic-config#^6.0.2:
   version "6.0.1"
-  resolved "https://codeload.github.com/artemv/simple-semantic-config/tar.gz/9db24e06600269c6e3b738f1d267ae0b078833cf"
+  resolved "https://codeload.github.com/artemv/simple-semantic-config/tar.gz/fab672318027738aad754fb03549af9e5e1c8e7b"
   dependencies:
     semantic-release "^15.13.3"
 
