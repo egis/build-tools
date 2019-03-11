@@ -52,7 +52,7 @@ _.each(common.bundleKinds, function(kind) {
     });
 
     gulp.task('generate-systemjs-' + kind + '-index', ['gen-stage2-wildcard-exports-' + kind, 'dev-recompile-' + kind],
-        function () {
+        function() {
             var destDir = common.dist[kind];
             let sources = utils.filterExistingFiles([destDir + '/.work/.rollup-wildcard-exports.js',
                 destDir + '/.lib-exports.js']);
