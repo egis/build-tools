@@ -14,7 +14,7 @@ var common = require('./common');
 var utils = require('../utils');
 
 _.each(common.bundleKinds, function(kind) {
-    gulp.task('dev-recompile-' + kind, function () {
+    gulp.task('dev-recompile-' + kind, function() {
         var srcDir = common.srcDirs[kind];
         var destDir = common.dist[kind];
         var t0 = {};
@@ -51,18 +51,20 @@ _.each(common.bundleKinds, function(kind) {
             }));
     });
 
-    gulp.task('generate-systemjs-' + kind + '-index', ['gen-stage2-wildcard-exports-' + kind, 'dev-recompile-' + kind], function() {
-        var destDir  = common.dist[kind];
-        let sources = utils.filterExistingFiles([destDir + '/.work/.rollup-wildcard-exports.js', destDir + '/.lib-exports.js']);
-        if (sources.length === 0) {
-            return;
-        }
-        return gulp.src(sources)
-            .pipe(debug())
-            .pipe(replace(/export \* from '(.+)'/g, "require('$1')"))
-            .pipe(concat('dev-index.js'))   //not with dot 'cause Gulp webserver doesn't serve .dotfiles
-            .pipe(gulp.dest(destDir + '/'))
-    });
+    gulp.task('generate-systemjs-' + kind + '-index', ['gen-stage2-wildcard-exports-' + kind, 'dev-recompile-' + kind],
+        function () {
+            var destDir = common.dist[kind];
+            let sources = utils.filterExistingFiles([destDir + '/.work/.rollup-wildcard-exports.js',
+                destDir + '/.lib-exports.js']);
+            if (sources.length === 0) {
+                return;
+            }
+            return gulp.src(sources)
+                .pipe(debug())
+                .pipe(replace(/export \* from '(.+)'/g, "require('$1')"))
+                .pipe(concat('dev-index.js'))   //not with dot 'cause Gulp webserver doesn't serve .dotfiles
+                .pipe(gulp.dest(destDir + '/'))
+        });
 
     gulp.task('dist-' + kind + '-systemjs', function() {
         var systemjsDir = 'node_modules/systemjs';
