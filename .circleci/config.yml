@@ -56,7 +56,6 @@ test_steps: &test_steps
         name: test
         command: |
           yarn test
-          yarn simple-semantic-release-pre
           if [ "${NPM_TOKEN}" != "" ]; then
             cp -f .circleci/.npmrc ~
             dont-break --timeout 600
@@ -91,6 +90,30 @@ jobs:
     environment:
       NODE_VERSION: 11.4.0
     <<: *test_steps
+
+  semantic-version:
+    <<: *common
+    environment:
+      NODE_VERSION: 8.10.0
+    steps:
+      - checkout
+      - run:
+          name: set node keys
+          command: echo ${NODE_VERSION} > .node-version
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
+      - restore_cache:
+          key: yarn-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
+      - run:
+          name: set node version
+          command: |
+            npm run install-ci-tools
+            ci-tools-upgrade-node
+            ci-tools-upgrade-yarn
+      - run:
+          name: semantic-version
+          command: yarn simple-semantic-release-pre
+
   publish:
     <<: *common
     environment:
@@ -130,5 +153,9 @@ workflows:
               only: master
           requires:
             - test6
+            - test8
+          context: org-global
+      - semantic-version:
+          requires:
             - test8
           context: org-global
