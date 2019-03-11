@@ -112,8 +112,8 @@ jobs:
       - run:
           name: publish
           command: |
-            SEMANTIC_DEPENDENTS_UPDATES=true ./scripts/semantic-release.sh
-
+            OWNER=egis yarn simple-semantic-release
+            yarn semantic-dependents-updates-github || true
 
 workflows:
   version: 2

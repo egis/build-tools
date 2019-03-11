@@ -5,10 +5,6 @@
   },
   "port": 3001,
   "description": "## for MacOS users: ```shell # install 'native' (not Apple-supplied) Python to be able to install 'glue' tool: brew install python",
-  "bin": {
-    "build-tools-semantic-release-pre": "./scripts/semantic-release-pre.sh",
-    "build-tools-semantic-release": "./scripts/semantic-release.sh"
-  },
   "dependencies": {
     "@bretkikehara/gulp-wrap": "^0.14.2",
     "@egis/ci-tools": "^1.0.0",
@@ -121,7 +117,7 @@
     "sanitize-filename": "^1.6.1",
     "semver": "^5.1.0",
     "shelljs": "^0.7.5",
-    "simple-semantic-config": "egis/simple-semantic-config#^6.0.2",
+    "simple-semantic-config": "egis/simple-semantic-config#a45f891",
     "source-map": "^0.5.3",
     "systemjs": "^0.19.13",
     "through2": "^3.0.0",
