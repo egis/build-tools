@@ -4,10 +4,12 @@ var gulpif = require('gulp-if');
 var replace = require('gulp-replace');
 var zip = require('gulp-zip');
 var concat = require('gulp-concat');
-var common = require('./common');
 var _ = require('lodash');
 var path = require('path');
 var shelljs = require('shelljs');
+var watch = require('gulp-watch');
+
+var common = require('./common');
 
 gulp.task('plugin_concat', ['compile-main', 'templates'], function() {
      return gulp.src([common.dist.main + "/**/*.js", common.dist.main + "/templates/*.js"])
@@ -46,10 +48,21 @@ gulp.task('plugin-dev-package', ['dev-bundle-main', 'styles', 'resources'], func
 
 gulp.task('plugin_watch', ['plugin-dev-package', 'dev-bundle-tests', 'webserver'], function() {
     _.each(common.bundleKinds, function(kind) {
-        gulp.watch([common.srcDirs[kind] + '/**/*.js'], ['dev-recompile-' + kind]);
-        gulp.watch([common.srcDirs[kind] + '/.lib-exports.js'], ['dev-recompile-' + kind, 'generate-systemjs-' + kind + '-index']);
+        watch([common.srcDirs[kind] + '/**/*.js'], function() {
+            gulp.start('dev-recompile-' + kind);
+        });
+        watch([common.srcDirs[kind] + '/.lib-exports.js'], function() {
+            gulp.start('dev-recompile-' + kind);
+            gulp.start('generate-systemjs-' + kind + '-index');
+        });
     });
-    gulp.watch('src/.dev-loader.js', ['plugin-dev-package']);
-    gulp.watch('src/**/*.hbs', ['templates']);
-    gulp.watch('style/**/*.*', ['styles']);
+    watch('src/.dev-loader.js', function() {
+        gulp.start('plugin-dev-package');
+    });
+    watch('src/**/*.hbs', function() {
+        gulp.start('templates');
+    });
+    watch('style/**/*.*', function() {
+        gulp.start('styles');
+    });
 });

@@ -60,11 +60,12 @@ dependenciesJson.standalone = dependenciesJson.standalone || [];
 dependenciesJson.directories = dependenciesJson.directories || {};
 dependenciesJson.overrides = dependenciesJson.overrides || {};
 var gitHash = (utils.exists('.git/') ? utils.sh('git rev-parse --short HEAD') : 'current');
+var pkgVersion = (utils.exists('build/.version') ? utils.sh('cat build/.version') : '[unknown]');
 var timestamp = utils.dateFormat(new Date(), '%Y-%m-%d %H:%M:%S')
 var replaceAll = lazypipe()
     .pipe(function ()
     {
-        return replace('@@version', pkg.version + " " + gitHash)
+        return replace('@@version', pkgVersion + " " + gitHash)
     })
     .pipe(function ()
     {
@@ -90,7 +91,7 @@ var bundleKinds = ['main', 'tests'];
 if (pkg.examples) bundleKinds.push('examples');
 
 pkg = _.assign({build: {}}, pkg);
-pkg.build = _.assign({autoImportAll: true, web: true}, pkg.build); //set some defaults
+pkg.build = _.assign({web: true}, pkg.build); //set some defaults
 
 var mainSrc = options.srcDir || 'src';
 
