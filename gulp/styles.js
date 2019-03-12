@@ -33,7 +33,11 @@ gulp.task('sass', function ()
 
 gulp.task('less', function ()
 {
-    return gulp.src('style/theme.less')
+    let sources = utils.filterExistingFiles(['style/theme.less']);
+    if (sources.length === 0) {
+        return;
+    }
+    return gulp.src(sources)
         .pipe(plumber())
         .pipe(debug())
         .pipe(sourcemaps.init())
