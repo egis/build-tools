@@ -15,7 +15,10 @@ var maxInstances = argv.maxBrowserInstances || process.env.E2E_BROWSER_INSTANCES
 var chromeConfig = {
     maxInstances: maxInstances,
     //
-    browserName: 'chrome'
+    browserName: 'chrome',
+    chromeOptions: {
+        "args": ["no-sandbox", "disable-dev-shm-usage"]
+    }
 };
 
 if (argv.chromePath) {
