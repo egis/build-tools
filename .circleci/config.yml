@@ -91,7 +91,7 @@ jobs:
       NODE_VERSION: 11.4.0
     <<: *test_steps
 
-  semantic-version:
+  semantic-version-test:
     <<: *common
     environment:
       NODE_VERSION: 8.10.0
@@ -155,7 +155,10 @@ workflows:
             - test6
             - test8
           context: org-global
-      - semantic-version:
+      - semantic-version-test:
+          filters:
+            branches:
+              except: master
           requires:
             - test8
           context: org-global
