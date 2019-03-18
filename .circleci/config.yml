@@ -1,5 +1,6 @@
 common: &common
-  machine: true
+  docker:
+      - image: egis/papertrail-ci
   working_directory: ~/build-tools
 
 test_steps: &test_steps
@@ -35,8 +36,6 @@ test_steps: &test_steps
           if [ "${NPM_TOKEN}" != "" ]; then
             ./scripts/install-dont-break.sh
             cp -f .circleci/.npmrc ~
-            yarn global add --ignore-engines "@egis/egis-ui-test-utils@^3.0.0-pre.1"
-            test-utils-update-chrome
           fi
     - save_cache:
         key: dependency-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
