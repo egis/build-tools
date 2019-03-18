@@ -150,7 +150,7 @@ workflows:
       - publish-test:
           filters:
             branches:
-              except: master
+              ignore: master
           requires:
             - test8
           context: org-global
