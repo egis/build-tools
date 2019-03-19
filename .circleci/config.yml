@@ -97,8 +97,6 @@ jobs:
 
   publish-test:
     <<: *common
-    environment:
-      NODE_VERSION: 8.10.0
     steps:
       - attach_workspace:
           at: /home/tester
@@ -108,8 +106,6 @@ jobs:
 
   publish:
     <<: *common
-    environment:
-      NODE_VERSION: 8.10.0
     steps:
       - attach_workspace:
           at: /home/tester
