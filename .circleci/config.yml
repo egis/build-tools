@@ -7,13 +7,13 @@ test_steps: &test_steps
   <<: *common
   steps:
     - checkout
-      - run:
-          name: build-cache-key
-          command: |
-            mkdir ci-artifacts
-            cat package.json | jq '.dependencies, .devDependencies' > cache-key.txt
-            echo "node ${NODE_VERSION}" >> cache-key.txt
-            cp cache-key.txt ci-artifacts/
+    - run:
+        name: build-cache-key
+        command: |
+          mkdir ci-artifacts
+          cat package.json | jq '.dependencies, .devDependencies' > cache-key.txt
+          echo "node ${NODE_VERSION}" >> cache-key.txt
+          cp cache-key.txt ci-artifacts/
     - restore_cache:
         key: dependency-cache-{{ checksum "cache-key.txt" }}
     - restore_cache:
