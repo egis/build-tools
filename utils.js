@@ -72,7 +72,7 @@ module.exports = {
     {
         var outputDir = argv.outDir || 'test-output';
 
-        var hostname = argv.host || process.env['IP'] || this.ip() || '';
+        var hostname = argv.host || process.env['IP'] || this.ip() || 'localhost';
 
         var launchersBase = 'TestingBot';
         var seleniumVersion = '3.11.0';
