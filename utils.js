@@ -77,10 +77,6 @@ module.exports = {
         var launchersBase = 'TestingBot';
         var seleniumVersion = '3.11.0';
         var customLaunchers = {
-            ChromeNoSandbox: {
-                base: 'Chrome',
-                flags: ['--no-sandbox', '--disable-dev-shm-usage']
-            },
             'REMOTE-IE10': {
                 base: launchersBase,
                 browserName: 'internet explorer',
