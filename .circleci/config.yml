@@ -27,11 +27,6 @@ test_steps: &test_steps
           ci-tools-upgrade-node
           ci-tools-upgrade-yarn
     - run:
-        name: pre-deps
-        command: |
-          sudo chmod -R a+w /usr/local
-          yarn config set cache-folder ~/.cache/yarn
-    - run:
         name: install-deps
         command: |
           yarn --frozen-lockfile --ignore-engines
@@ -107,12 +102,6 @@ jobs:
       - restore_cache:
           key: yarn-cache-{{ checksum "cache-key.txt" }}
       - run:
-          name: set node version
-          command: |
-            npm run install-ci-tools
-            ci-tools-upgrade-node
-            ci-tools-upgrade-yarn
-      - run:
           name: semantic-version
           command: yarn simple-semantic-release-pre
 
@@ -129,12 +118,6 @@ jobs:
           key: dependency-cache-{{ checksum "cache-key.txt" }}
       - restore_cache:
           key: yarn-cache-{{ checksum "cache-key.txt" }}
-      - run:
-          name: set node version
-          command: |
-            npm run install-ci-tools
-            ci-tools-upgrade-node
-            ci-tools-upgrade-yarn
       - run:
           name: publish
           command: |
