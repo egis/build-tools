@@ -42,7 +42,6 @@ test_steps: &test_steps
     - run:
         name: post-deps
         command: |
-          mkdir ci-artifacts
           OUT_DIR=ci-artifacts yarn ci-tools-collect-deps-versions
           cp yarn.lock ci-artifacts/
         when: always
