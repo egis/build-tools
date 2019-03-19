@@ -5,8 +5,8 @@
   "test": "./node_modules/@egis/build-tools/scripts/dont-break-tests.sh",
   "currentModuleInstall": "yarn-link",
   "projects": [
-    "@egis/egis-ui@5.0.1",
-    "@egis/esign@3.0.1",
+    "@egis/egis-ui@5.0.3-pre.2",
+    "@egis/esign@3.0.2",
     "@egis/portal-app@2.0.1",
     "@egis/bulk-capture@2.0.1",
     {
