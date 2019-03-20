@@ -23,7 +23,6 @@ test_steps: &test_steps
     - run:
         name: initial-steps
         command: |
-          npm run install-ci-tools
           ci-tools-upgrade-node
           ci-tools-upgrade-yarn
     - run:

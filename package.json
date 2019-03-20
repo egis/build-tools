@@ -138,7 +138,6 @@
     "url": "git@github.com:egis/build-tools.git"
   },
   "scripts": {
-    "install-ci-tools": "npm install -g @egis/ci-tools",
     "test": "gulp test",
     "setup": "yarn",
     "browsersync": "gulp --gulpfile gulp/browsersync.js --cwd ./ browsersync"
