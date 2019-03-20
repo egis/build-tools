@@ -42,7 +42,6 @@ test_steps: &test_steps
         key: dependency-cache-{{ checksum "cache-key.txt" }}
         paths:
           - node_modules
-          - yarn.lock
     - run:
         name: post-deps
         command: |
