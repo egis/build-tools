@@ -91,7 +91,7 @@ var bundleKinds = ['main', 'tests'];
 if (pkg.examples) bundleKinds.push('examples');
 
 pkg = _.assign({build: {}}, pkg);
-pkg.build = _.assign({web: true}, pkg.build); //set some defaults
+pkg.build = _.assign({web: true}, pkg.build); // set some defaults
 
 var mainSrc = options.srcDir || 'src';
 
