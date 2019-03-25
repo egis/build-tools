@@ -9284,9 +9284,9 @@ simple-concat@^1.0.0:
   resolved "https://registry.yarnpkg.com/simple-concat/-/simple-concat-1.0.0.tgz#7344cbb8b6e26fb27d66b2fc86f9f6d5997521c6"
   integrity sha1-c0TLuLbib7J9ZrL8hvn21Zl1IcY=
 
-simple-semantic-config@egis/simple-semantic-config#4e5b7aa:
-  version "6.0.4"
-  resolved "https://codeload.github.com/egis/simple-semantic-config/tar.gz/4e5b7aac6371ee44e71fc96e5b4283f5de276462"
+simple-semantic-config@egis/simple-semantic-config#86a1cde:
+  version "6.0.5"
+  resolved "https://codeload.github.com/egis/simple-semantic-config/tar.gz/86a1cde048201c6d8a96ca3d4d2413e3253c74c6"
   dependencies:
     semantic-release "^15.13.3"
 

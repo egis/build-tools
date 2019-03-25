@@ -91,6 +91,7 @@ var bundleKinds = ['main', 'tests'];
 if (pkg.examples) bundleKinds.push('examples');
 
 pkg = _.assign({build: {}}, pkg);
+pkg.build = _.assign({web: true}, pkg.build); // set some defaults
 
 var mainSrc = options.srcDir || 'src';
 
@@ -131,11 +132,10 @@ var config = {
     },
     egisUiPkgName: '@egis/egis-ui',
     egisUiModuleName: 'EgisUI',
-};
-
-config.dependsOnEgisUi = function() {
-    return pkg.devDependencies && pkg.devDependencies[config.egisUiPkgName] ||
-        pkg.dependencies && pkg.dependencies[config.egisUiPkgName];
+    dependsOnEgisUi: function() {
+        return pkg.devDependencies && pkg.devDependencies[config.egisUiPkgName] ||
+            pkg.dependencies && pkg.dependencies[config.egisUiPkgName];
+    }
 };
 
 module.exports = config;
