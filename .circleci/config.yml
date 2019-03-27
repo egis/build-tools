@@ -45,14 +45,9 @@ test_steps: &test_steps
         name: post-deps
         command: |
           OUT_DIR=ci-artifacts yarn ci-tools-collect-deps-versions
-          cp yarn.lock ci-artifacts/
         when: always
     - store_artifacts:
         path: ci-artifacts/
-    - persist_to_workspace:
-        root: /home/tester
-        paths:
-          - build-tools
     - run:
         name: test
         command: |
@@ -95,18 +90,34 @@ jobs:
 
   publish-test:
     <<: *common
+    environment:
+      NODE_VERSION: 8.10.0
     steps:
-      - attach_workspace:
-          at: /home/tester
+      - checkout
+      - run:
+          name: build-cache-key
+          command: |
+            cat package.json | jq '.dependencies, .devDependencies' > cache-key.txt
+            echo "node ${NODE_VERSION}" >> cache-key.txt
+      - restore_cache:
+          key: dependency-cache-{{ checksum "cache-key.txt" }}
       - run:
           name: semantic-version
           command: yarn simple-semantic-release-pre
 
   publish:
     <<: *common
+    environment:
+      NODE_VERSION: 8.10.0
     steps:
-      - attach_workspace:
-          at: /home/tester
+      - checkout
+      - run:
+          name: build-cache-key
+          command: |
+            cat package.json | jq '.dependencies, .devDependencies' > cache-key.txt
+            echo "node ${NODE_VERSION}" >> cache-key.txt
+      - restore_cache:
+          key: dependency-cache-{{ checksum "cache-key.txt" }}
       - run:
           name: publish
           command: |
