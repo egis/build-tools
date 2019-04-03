@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@bahmutov/parse-github-repo-url@^0.1.1":
+"@bahmutov/parse-github-repo-url@^0.1.2":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@bahmutov/parse-github-repo-url/-/parse-github-repo-url-0.1.2.tgz#6311dfbe7fe00ac464b9069d0e2684a739aeb69b"
   integrity sha1-YxHfvn/gCsRkuQadDiaEpzmutps=
@@ -28,14 +28,14 @@
   resolved "https://registry.yarnpkg.com/@egis/ci-tools/-/ci-tools-1.0.2.tgz#d91c10ce3c2eb4921320917608d3794f18f77aed"
   integrity sha512-2KFP6T43/bN1gvsdO8Bt3HrGKpaBd2z5d33ajnHzD7L3mo+JtC1ywXj4v+YsInEzKD/X1++1g89sERmjSciB0g==
 
-"@egis/semantic-dependents-updates-github@1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@egis/semantic-dependents-updates-github/-/semantic-dependents-updates-github-1.0.6.tgz#af1cbae9d0d6470ddd7d3e2bd2fdcbc7f4a0bd00"
-  integrity sha1-rxy66dDWRw3dfT4r0v3Lx/SgvQA=
+"@egis/semantic-dependents-updates-github@1.0.10-pre.1":
+  version "1.0.10-pre.1"
+  resolved "https://registry.yarnpkg.com/@egis/semantic-dependents-updates-github/-/semantic-dependents-updates-github-1.0.10-pre.1.tgz#c44e6192e098a0897945662b9b89349eea1aed35"
+  integrity sha512-DPec1hua0hCoT4/tylBIsFwwFfUW1ruF9gp1vbnDejOMmDh5cnXeb6GlNxpDxfmK122lp9HrIbBgjO7xClz/rA==
   dependencies:
-    "@bahmutov/parse-github-repo-url" "^0.1.1"
+    "@bahmutov/parse-github-repo-url" "^0.1.2"
+    "@octokit/rest" "^16.23.2"
     babel-polyfill "^6.3.14"
-    github "^0.2.4"
 
 "@gulp-sourcemaps/map-sources@1.X":
   version "1.0.0"
@@ -68,12 +68,34 @@
     universal-user-agent "^2.0.1"
     url-template "^2.0.8"
 
+"@octokit/endpoint@^3.2.0":
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/@octokit/endpoint/-/endpoint-3.2.3.tgz#bd9aea60cd94ce336656b57a5c9cb7f10be8f4f3"
+  integrity sha512-yUPCt4vMIOclox13CUxzuKiPJIFo46b/6GhUnUTw5QySczN1L0DtSxgmIZrZV4SAb9EyAqrceoyrWoYVnfF2AA==
+  dependencies:
+    deepmerge "3.2.0"
+    is-plain-object "^2.0.4"
+    universal-user-agent "^2.0.1"
+    url-template "^2.0.8"
+
 "@octokit/request@2.4.1":
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/@octokit/request/-/request-2.4.1.tgz#98c4d6870e4abe3ccdd2b9799034b4ae3f441c30"
   integrity sha512-nN8W24ZXEpJQJoVgMsGZeK9FOzxkc39Xn9ykseUpPpPMNEDFSvqfkCeqqKrjUiXRm72ubGLWG1SOz0aJPcgGww==
   dependencies:
     "@octokit/endpoint" "^3.1.1"
+    deprecation "^1.0.1"
+    is-plain-object "^2.0.4"
+    node-fetch "^2.3.0"
+    once "^1.4.0"
+    universal-user-agent "^2.0.1"
+
+"@octokit/request@2.4.2":
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@octokit/request/-/request-2.4.2.tgz#87c36e820dd1e43b1629f4f35c95b00cd456320b"
+  integrity sha512-lxVlYYvwGbKSHXfbPk5vxEA8w4zHOH1wobado4a9EfsyD3Cbhuhus1w0Ye9Ro0eMubGO8kNy5d+xNFisM3Tvaw==
+  dependencies:
+    "@octokit/endpoint" "^3.2.0"
     deprecation "^1.0.1"
     is-plain-object "^2.0.4"
     node-fetch "^2.3.0"
@@ -92,6 +114,24 @@
     lodash.set "^4.3.2"
     lodash.uniq "^4.5.0"
     octokit-pagination-methods "^1.1.0"
+    universal-user-agent "^2.0.0"
+    url-template "^2.0.8"
+
+"@octokit/rest@^16.23.2":
+  version "16.23.2"
+  resolved "https://registry.yarnpkg.com/@octokit/rest/-/rest-16.23.2.tgz#975e84610427c4ab6c41bec77c24aed9b7563db4"
+  integrity sha512-ZxiZMaCuqBG/IsbgNRVfGwYsvBb5DjHuMGjJgOrinT+/b+1j1U7PiGyRkHDJdjTGA6N/PsMC2lP2ZybX9579iA==
+  dependencies:
+    "@octokit/request" "2.4.2"
+    atob-lite "^2.0.0"
+    before-after-hook "^1.4.0"
+    btoa-lite "^1.0.0"
+    deprecation "^1.0.1"
+    lodash.get "^4.4.2"
+    lodash.set "^4.3.2"
+    lodash.uniq "^4.5.0"
+    octokit-pagination-methods "^1.1.0"
+    once "^1.4.0"
     universal-user-agent "^2.0.0"
     url-template "^2.0.8"
 
@@ -741,6 +781,11 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
   integrity sha1-x57Zf380y48robyXkLzDZkdLS3k=
+
+atob-lite@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/atob-lite/-/atob-lite-2.0.0.tgz#0fef5ad46f1bd7a8502c65727f0367d5ee43d696"
+  integrity sha1-D+9a1G8b16hQLGVyfwNn1e5D1pY=
 
 atob@^2.1.1:
   version "2.1.2"
@@ -4000,13 +4045,6 @@ git-log-parser@^1.2.0:
     through2 "~2.0.0"
     traverse "~0.6.6"
 
-github@^0.2.4:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/github/-/github-0.2.4.tgz#24fa7f0e13fa11b946af91134c51982a91ce538b"
-  integrity sha1-JPp/DhP6EblGr5ETTFGYKpHOU4s=
-  dependencies:
-    mime "^1.2.11"
-
 glob-base@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/glob-base/-/glob-base-0.3.0.tgz#dbb164f6221b1c0b1ccf82aea328b497df0ea3c4"
@@ -6777,7 +6815,7 @@ mime@1.4.1:
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.4.1.tgz#121f9ebc49e3766f311a76e1fa1c8003c4b03aa6"
   integrity sha512-KI1+qOZu5DcW6wayYHSzR/tXKCDC5Om4s1z2QJjDULzLcmf3DvzS7oluY4HCTrc+9FiKmWUgeNLg7W3uIQvxtQ==
 
-mime@^1.2.11, mime@^1.4.1:
+mime@^1.4.1:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
   integrity sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==

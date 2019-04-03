@@ -121,8 +121,9 @@ jobs:
       - run:
           name: publish
           command: |
-            OWNER=egis yarn simple-semantic-release
-            yarn semantic-dependents-updates-github || true
+            if [[ "${CIRCLE_PROJECT_USERNAME}"="egis" ]]; then
+              yarn semantic-release && yarn semantic-dependents-updates-github
+            fi
 
 workflows:
   version: 2
