@@ -117,7 +117,7 @@
     "sanitize-filename": "^1.6.1",
     "semver": "^5.1.0",
     "shelljs": "^0.7.5",
-    "simple-semantic-config": "^6.0.9",
+    "simple-semantic-config": "^6.0.13",
     "source-map": "^0.5.3",
     "systemjs": "^0.19.13",
     "through2": "^3.0.0",
@@ -155,7 +155,7 @@
     "branchNameBase": "test-new-build-tools",
     "pullRequests": false
   },
-  "version": "0.0.0-semantic-release",
+  "version": "6.1.2-pre.4",
   "engines": {
     "node": ">= 4.2.6"
   }
