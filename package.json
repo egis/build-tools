@@ -155,7 +155,7 @@
     "branchNameBase": "test-new-build-tools",
     "pullRequests": false
   },
-  "version": "6.1.2-pre.4",
+  "version": "0.0.0-semantic-release",
   "engines": {
     "node": ">= 4.2.6"
   }
