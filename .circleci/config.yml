@@ -103,7 +103,7 @@ jobs:
           key: dependency-cache-{{ checksum "cache-key.txt" }}
       - run:
           name: semantic-version
-          command: ALLOW_FAILING=false yarn simple-semantic-release-pre
+          command: ALLOW_FAILING=false npx simple-semantic-release-pre
 
   publish:
     <<: *common
