@@ -152,7 +152,8 @@
       "@egis/portal-app": "git@github.com:egis/Portal.git",
       "@egis/bulk-capture": "git@github.com:egis/BulkCapture.git"
     },
-    "branchNameBase": "autoupdate-build-tools"
+    "branchNameBase": "test-new-build-tools",
+    "pullRequests": false
   },
   "version": "0.0.0-semantic-release",
   "engines": {
