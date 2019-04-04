@@ -121,7 +121,7 @@ jobs:
       - run:
           name: publish
           command: |
-            if [[ "${CIRCLE_PROJECT_USERNAME}"="egis" ]]; then
+            if [[ "${CIRCLE_PROJECT_USERNAME}" == "egis" ]]; then
               yarn semantic-release && yarn semantic-dependents-updates-github
             fi
 
