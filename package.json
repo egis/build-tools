@@ -147,10 +147,10 @@
   },
   "semantic-dependents-updates": {
     "dependents": {
-      "@egis/egis-ui": "git@github.com:artemv/EgisUI.git",
-      "@egis/esign": "git@github.com:artemv/eSign.git",
-      "@egis/portal-app": "git@github.com:artemv/Portal.git",
-      "@egis/bulk-capture": "git@github.com:artemv/BulkCapture.git"
+      "@egis/egis-ui": "git@github.com:egis/EgisUI.git",
+      "@egis/esign": "git@github.com:egis/eSign.git",
+      "@egis/portal-app": "git@github.com:egis/Portal.git",
+      "@egis/bulk-capture": "git@github.com:egis/BulkCapture.git"
     },
     "branchNameBase": "test-new-build-tools",
     "pullRequests": false
