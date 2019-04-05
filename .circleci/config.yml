@@ -103,7 +103,7 @@ jobs:
           key: dependency-cache-{{ checksum "cache-key.txt" }}
       - run:
           name: semantic-version
-          command: yarn simple-semantic-release-pre
+          command: ALLOW_FAILING=false yarn simple-semantic-release-pre
 
   publish:
     <<: *common
@@ -121,8 +121,9 @@ jobs:
       - run:
           name: publish
           command: |
-            OWNER=egis yarn simple-semantic-release
-            yarn semantic-dependents-updates-github || true
+            if [[ "${CIRCLE_PROJECT_USERNAME}" == "egis" ]]; then
+              yarn semantic-release && yarn semantic-dependents-updates-github
+            fi
 
 workflows:
   version: 2

@@ -8,7 +8,7 @@
   "dependencies": {
     "@bretkikehara/gulp-wrap": "^0.14.2",
     "@egis/ci-tools": "^1.0.0",
-    "@egis/semantic-dependents-updates-github": "1.0.6",
+    "@egis/semantic-dependents-updates-github": "1.0.10-pre.1",
     "babel": "^6.3.26",
     "babel-core": "^6.11.4",
     "babel-plugin-__coverage__": "^11.0.0",
@@ -117,7 +117,7 @@
     "sanitize-filename": "^1.6.1",
     "semver": "^5.1.0",
     "shelljs": "^0.7.5",
-    "simple-semantic-config": "egis/simple-semantic-config#86a1cde",
+    "simple-semantic-config": "^6.0.13",
     "source-map": "^0.5.3",
     "systemjs": "^0.19.13",
     "through2": "^3.0.0",
@@ -152,7 +152,8 @@
       "@egis/portal-app": "git@github.com:egis/Portal.git",
       "@egis/bulk-capture": "git@github.com:egis/BulkCapture.git"
     },
-    "branchNameBase": "autoupdate-build-tools"
+    "branchNameBase": "test-new-build-tools",
+    "pullRequests": false
   },
   "version": "0.0.0-semantic-release",
   "engines": {
