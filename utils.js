@@ -95,7 +95,8 @@ module.exports = {
             },
             'REMOTE-Safari': {
                 base: launchersBase,
-                browserName: 'safari'
+                browserName: 'safari',
+                version: '12'
             },
             'REMOTE-SafariLegacy': {
                 base: launchersBase,
