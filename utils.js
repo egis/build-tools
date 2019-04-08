@@ -77,12 +77,6 @@ module.exports = {
         var launchersBase = 'TestingBot';
         var seleniumVersion = '3.11.0';
         var customLaunchers = {
-            'REMOTE-IE10': {
-                base: launchersBase,
-                browserName: 'internet explorer',
-                platform: 'WIN8',
-                version: '10'
-            },
             'REMOTE-IE11': {
                 base: launchersBase,
                 browserName: 'internet explorer',
@@ -101,13 +95,12 @@ module.exports = {
             },
             'REMOTE-Safari': {
                 base: launchersBase,
-                browserName: 'safari',
-                version: '11'
+                browserName: 'safari'
             },
-            'REMOTE-Safari9': {
+            'REMOTE-SafariLegacy': {
                 base: launchersBase,
                 browserName: 'safari',
-                version: '9'
+                version: '11'
             },
             'REMOTE-Chrome': {
                 base: launchersBase,
