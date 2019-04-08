@@ -168,3 +168,10 @@ Run the tests:
 # Put your docker's host and port here, spec file(s) mask and the spec name(s) substring.
 yarn test:e2e -- --baseUrl="http://192.168.99.100:8080" --specFiles="./e2e/**/Guide*Spec.js" --mochaOpts.grep="too early" --maxBrowserInstances=1 --mochaOpts.retries=1 
 ```
+
+#### Semantic-release
+To see locally which version is going to be published when your PR is merged, run this:
+```
+BRANCH=testingbot yarn simple-semantic-release-pre
+``` 
+Put your actual branch name into BRANCH=... part.
