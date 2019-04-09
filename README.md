@@ -168,3 +168,29 @@ Run the tests:
 # Put your docker's host and port here, spec file(s) mask and the spec name(s) substring.
 yarn test:e2e -- --baseUrl="http://192.168.99.100:8080" --specFiles="./e2e/**/Guide*Spec.js" --mochaOpts.grep="too early" --maxBrowserInstances=1 --mochaOpts.retries=1 
 ```
+
+#### Semantic-release
+You can see locally which version is going to be published when your PR is merged with these steps:
+```
+# push egis/master to you-fork/master:
+git checkout master
+git fetch egis
+git reset --hard egis/master
+git push orgin +master
+
+# switch back to your PR branch. Put your actual branch name here.
+git checkout my-branch
+
+# if not yet, create Github access token having push access to master, see https://github.com/semantic-release/github/blob/master/README.md#github-authentication
+export GH_TOKEN=...
+
+# Replace `repository.url` key in package.json to point to your fork temporarily: "git@github.com:my-gitusername/build-tools.git"
+
+# Run semantic-release to find out the version number: 
+BRANCH=my-branch yarn simple-semantic-release-pre
+
+# Revert the `repository.url` change:
+git checkout -- package.json
+``` 
+This applies both to build-tools and to any semantic-release enabled project of EgisUI family (EgisUI, Portal, 
+eSign, etc). 

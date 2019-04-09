@@ -12,6 +12,7 @@ MAX_ERRORS=int(sys.argv[3])
 failures = 0
 errors = 0
 tests = 0
+print "MIN_TESTS=%s MAX_FAIL=%s MAX_ERRORS=%s" % (MIN_TESTS, MAX_FAIL, MAX_ERRORS)
 for file in glob.glob('%s/*.xml' % REPORTS):
 	try:
 		e = xml.etree.ElementTree.parse(file).getroot()
