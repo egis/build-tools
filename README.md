@@ -6,7 +6,7 @@ See [CODESTYLE](CODESTYLE.md)
 build/ 		# compiled and concatenanted classes
 dist/ 		# compiled JS classes
 src/ 		#  ES6 and Handlebars templates
-style/ 		# LESS, SASS or, CSS
+style/ 		# SASS or CSS
 resource/	# Copied as is to build directory
 lib-export.js	# the entrypoint ala index.js
 ```
