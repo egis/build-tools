@@ -51,7 +51,24 @@ module.exports = function(filter, opts, callback) {
             opts.paths.bowerJson = file.path;
             opts.paths.bowerDirectory = file.base = path.join(file.base, bowerFolder);
 
-            var fileNames = mainBowerFiles(opts, callback);
+            var fileNames = mainBowerFiles(opts, callback).sort(function (a, b) {
+                function extractPackageName(jsPath) {
+                    var parts = jsPath.split('node_modules/');
+                    var parts2 = parts[1].split('/');
+                    return parts2[0];
+                }
+                var nameA = extractPackageName(a).toUpperCase(); // ignore upper and lowercase
+                var nameB = extractPackageName(b).toUpperCase(); // ignore upper and lowercase
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+
+                // names must be equal
+                return 0;
+            });
 
             fileNames.forEach(function(fileName) {
                 var newFile = file.clone();
