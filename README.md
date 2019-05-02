@@ -6,7 +6,7 @@ See [CODESTYLE](CODESTYLE.md)
 build/ 		# compiled and concatenanted classes
 dist/ 		# compiled JS classes
 src/ 		#  ES6 and Handlebars templates
-style/ 		# SASS or CSS
+style/main.scss 		# which imports other SASS and/or CSS files
 resource/	# Copied as is to build directory
 lib-export.js	# the entrypoint ala index.js
 ```
@@ -44,18 +44,19 @@ included everywhere.
 ## Customizing builds using dependencies.json and package.json
 
 ### dependencies.json
-All web dependencies with main files are concatenanted together, this can be overriden in dependencies.json as follows:
+All package.json dependencies are considered web dependencies. Their main files are concatenanted together in package 
+name order. The deps' files that get concatenated can be overriden in dependencies.json as follows:
 
 ```json 
-"overrides": {
-           "bootstrap": {
-               "main": [
-                    "dist/js/bootstrap.js",
-                    "dist/css/bootstrap.css", 
-                    "dist/css/bootstrap.css.map"
-               ]
-           },
- }   
+    "overrides": {
+        "perfect-scrollbar": {
+          "main": [
+            "dist/css/perfect-scrollbar.css",
+            "dist/js/perfect-scrollbar.js",
+            "dist/js/perfect-scrollbar.jquery.js"
+          ]
+        }
+    }
 ```
 
 To exclude certain large libraries from concatenantion list in exclude, the main files will be concated together and placed in build/<libray name>
