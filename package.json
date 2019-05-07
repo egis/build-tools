@@ -153,7 +153,7 @@
     "branchNameBase": "test-new-build-tools",
     "pullRequests": false
   },
-  "version": "7.0.1-pre.1",
+  "version": "0.0.0-semantic-release",
   "engines": {
     "node": ">= 4.2.6"
   }
