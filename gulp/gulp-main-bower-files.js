@@ -8,6 +8,7 @@ var PluginError = gutil.PluginError;
 var mainBowerFiles = require('main-bower-files');
 var fs = require('fs');
 var path = require('path');
+var is = require('is_js');
 
 function getBowerFolder() {
     return 'node_modules/';
@@ -27,7 +28,9 @@ module.exports = function(filter, opts, callback) {
         if (file.isBuffer()) {
             var bowerFolder = getBowerFolder();
 
-            if (typeof filter === 'function') {
+            if (filter.filter) {
+                opts = filter;
+            } else if (typeof filter === 'function') {
                 callback = filter;
                 opts = null;
                 filter = null;
@@ -57,12 +60,22 @@ module.exports = function(filter, opts, callback) {
                     var parts2 = parts[1].split('/');
                     return parts2[0];
                 }
-                var nameA = extractPackageName(a).toUpperCase(); // ignore upper and lowercase
-                var nameB = extractPackageName(b).toUpperCase(); // ignore upper and lowercase
-                if (nameA < nameB) {
+                var nameA = extractPackageName(a);
+                var nameB = extractPackageName(b);
+                var order = opts.order || [];
+                var inameA = order.indexOf(nameA);
+                var inameB = order.indexOf(nameB);
+                const INFINITY = 10000;
+                if (inameA < 0) {
+                    inameA = INFINITY;
+                }
+                if (inameB < 0) {
+                    inameB = INFINITY;
+                }
+                if (inameA < inameB) {
                     return -1;
                 }
-                if (nameA > nameB) {
+                if (inameA > inameB) {
                     return 1;
                 }
 
