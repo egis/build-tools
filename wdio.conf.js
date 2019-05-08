@@ -1,7 +1,7 @@
 "use strict";
 var argv = require('optimist').argv;
 
-var specDirs = argv.specDirs || 'e2e*';
+var specDirs = argv.specDirs || 'wdio*';
 var specFiles = argv.specFiles || ['.', specDirs, '**/*Spec.js'].join('/');
 
 // Level of Webdriver logging verbosity: silent | verbose | command | data | result | error
