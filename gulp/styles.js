@@ -11,6 +11,7 @@ var gzip = require('gulp-gzip');
 var sass = require('gulp-sass');
 var common = require('./common');
 var rename = require('gulp-rename');
+var utils = require('../utils');
 
 var main = common.main;
 
@@ -18,7 +19,11 @@ gulp.task('styles', ['sass']);
 
 gulp.task('sass', function ()
 {
-    return gulp.src(['style/main.scss'])
+    const MAIN = 'style/main.scss';
+    if (!utils.exists(MAIN)) {
+        return;
+    }
+    return gulp.src([MAIN])
         .pipe(plumber())
         .pipe(debug())
         .pipe(sourcemaps.init())
