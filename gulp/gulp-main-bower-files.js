@@ -57,7 +57,7 @@ module.exports = function(filter, opts, callback) {
             var fileNames = mainBowerFiles(opts, callback).sort(function (a, b) {
                 function extractPackageName(jsPath) {
                     var parts = jsPath.split('node_modules/');
-                    var parts2 = parts[1].split('/');
+                    var parts2 = parts[parts.length - 1].split('/');
                     return parts2[0];
                 }
                 var nameA = extractPackageName(a);
@@ -72,15 +72,17 @@ module.exports = function(filter, opts, callback) {
                 if (inameB < 0) {
                     inameB = INFINITY;
                 }
+                var res;
                 if (inameA < inameB) {
-                    return -1;
-                }
-                if (inameA > inameB) {
-                    return 1;
+                    res = -1;
+                } else if (inameA > inameB) {
+                    res = 1;
+                } else {
+                    // names are equal
+                    res = 0;
                 }
 
-                // names must be equal
-                return 0;
+                return res;
             });
 
             fileNames.forEach(function(fileName) {
