@@ -109,7 +109,7 @@ yarn dev
 
 # in another terminal window/tab
 cd /path/to/build-tools
-yarn browsersync -- --proxied-host=192.168.99.100
+yarn browsersync --proxied-host=192.168.99.100
 ```
 
 This also allows to run a library (EgisUI, eSign, etc) or Portal plugin locally in dev mode in context of remote host, e.g. UAT:
@@ -119,7 +119,7 @@ yarn dev
 
 # in another terminal window/tab
 cd /path/to/build-tools
-yarn browsersync -- --proxied-host=sandbox.some.com --proxied-port=80 --plugin=MyPlugin
+yarn browsersync --proxied-host=sandbox.some.com --proxied-port=80 --plugin=MyPlugin
 ```
 
 Note the `--plugin` parameter above - you need to specify it by its directory name to make browsersync handle it. This 
@@ -167,7 +167,7 @@ docker cp ../EgisUI/EgisUI.war my-pt:/opt/Papertrail/webapps # if you want to te
 Run the tests:
 ```
 # Put your docker's host and port here, spec file(s) mask and the spec name(s) substring.
-yarn test:e2e -- --baseUrl="http://192.168.99.100:8080" --specFiles="./e2e/**/Guide*Spec.js" --mochaOpts.grep="too early" --maxBrowserInstances=1 --mochaOpts.retries=1 
+yarn test:e2e --baseUrl="http://192.168.99.100:8080" --specFiles="./wdio/**/Guide*Spec.js" --mochaOpts.grep="too early" --maxBrowserInstances=1 --mochaOpts.retries=1 
 ```
 
 #### Semantic-release
