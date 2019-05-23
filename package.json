@@ -4,7 +4,7 @@
     "url": "https://github.com/egis/build-tools/issues"
   },
   "port": 3001,
-  "description": "## for MacOS users: ```shell # install 'native' (not Apple-supplied) Python to be able to install 'glue' tool: brew install python",
+  "description": "",
   "dependencies": {
     "@bretkikehara/gulp-wrap": "^0.14.2",
     "@egis/ci-tools": "^1.0.0",
