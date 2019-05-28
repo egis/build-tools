@@ -30,7 +30,7 @@ gulp.task('templates', ['partials'], templates);
 gulp.task('partials', partials);
 gulp.task('default', ['package', 'webserver', 'watch']);
 
-gulp.task('webserver', webserver(common.port));
+gulp.task('webserver', webserver(common.host, common.port));
 
 var devPackageTaskDeps = ['dev-bundle-main', 'styles', 'resources'];
 if (common.pkg.examples) devPackageTaskDeps.push('dev-bundle-examples');

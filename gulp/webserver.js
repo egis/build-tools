@@ -1,6 +1,6 @@
 var connect = require('gulp-connect');
 
-module.exports = function (port)
+module.exports = function (host, port)
 {
     return function()
     {
@@ -14,6 +14,7 @@ module.exports = function (port)
             livereload: false,
             root: process.cwd(),
             port: port,
+            host: host,
             middleware: function () {
                 return [cors];
             }
