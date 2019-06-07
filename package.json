@@ -117,7 +117,7 @@
     "sanitize-filename": "^1.6.1",
     "semver": "^5.1.0",
     "shelljs": "^0.7.5",
-    "simple-semantic-config": "^6.0.13",
+    "simple-semantic-config": "^6.0.14",
     "source-map": "^0.5.3",
     "systemjs": "^0.19.13",
     "through2": "^3.0.0",
