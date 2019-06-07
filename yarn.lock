@@ -9295,10 +9295,10 @@ simple-concat@^1.0.0:
   resolved "https://registry.yarnpkg.com/simple-concat/-/simple-concat-1.0.0.tgz#7344cbb8b6e26fb27d66b2fc86f9f6d5997521c6"
   integrity sha1-c0TLuLbib7J9ZrL8hvn21Zl1IcY=
 
-simple-semantic-config@^6.0.13:
-  version "6.0.13"
-  resolved "https://registry.yarnpkg.com/simple-semantic-config/-/simple-semantic-config-6.0.13.tgz#890a0321e01358ec71c7350e369bf7083345d91b"
-  integrity sha512-fv1n+8v6cEhLag9VEhVOdoVmNIYY4JhRym6yUGKBqs/sFc3bksxgHKq3FrogZZ78IoelCzrMLm/XXuLoqJPXUQ==
+simple-semantic-config@^6.0.14:
+  version "6.0.14"
+  resolved "https://registry.yarnpkg.com/simple-semantic-config/-/simple-semantic-config-6.0.14.tgz#8e56952230501e75ef4632d4c86ccbb22d61a7f0"
+  integrity sha512-fb8sHFc6bwl7DTinuwnkut/GGJOf0PH/CLFCMAFunZgGfyXxgNX88/rcdZ9C2aKHkrbv/6EB2q8XdjYSwmcEkg==
   dependencies:
     semantic-release "^15.13.3"
 
