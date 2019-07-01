@@ -133,5 +133,6 @@ function depsFiles() {
     if (dependenciesJson.overrides) {
         options.overrides = dependenciesJson.overrides;
     }
+    options.order = dependenciesJson.order;
     return src.pipe(mainDepsFiles(options));
 }

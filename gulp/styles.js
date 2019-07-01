@@ -3,88 +3,34 @@
  */
 
 
-var glue = require("gulp-glue");
 var gulp = require('gulp');
 var plumber = require('gulp-plumber');
 var debug = require('gulp-debug');
 var sourcemaps = require('gulp-sourcemaps');
 var gzip = require('gulp-gzip');
 var sass = require('gulp-sass');
-var less = require('gulp-less');
-var concat = require('gulp-concat');
-var replace = require('gulp-replace');
-var addsrc = require('gulp-add-src');
-var os = require('os');
-var utils = require('../utils');
-var del = require('del');
 var common = require('./common');
+var rename = require('gulp-rename');
+var utils = require('../utils');
 
 var main = common.main;
 
-gulp.task('styles', ['less', 'sass', 'css']);
+gulp.task('styles', ['sass']);
 
 gulp.task('sass', function ()
 {
-    return gulp.src(['style/*.sass', 'style/*.scss'])
-        .pipe(plumber())
-        .pipe(sass.sync())
-        .pipe(gulp.dest(common.dist.main))
-});
-
-gulp.task('less', function ()
-{
-    let sources = utils.filterExistingFiles(['style/theme.less']);
-    if (sources.length === 0) {
+    const MAIN = 'style/main.scss';
+    if (!utils.exists(MAIN)) {
         return;
     }
-    return gulp.src(sources)
+    return gulp.src([MAIN])
         .pipe(plumber())
         .pipe(debug())
         .pipe(sourcemaps.init())
-        .pipe(less())
-        .pipe(replace('/*# sourceMappingURL=../build/', '/*# sourceMappingURL='))
+        .pipe(sass.sync())
+        .pipe(rename(main + '.css'))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('build'))
         .pipe(gzip())
-        .pipe(gulp.dest('build'));
-});
-
-gulp.task('css', ['less', 'sass'], function ()
-{
-    return gulp.src([common.dist.main + '/*.css', 'sprites/build/*.css', 'style/*.css'])
-        .pipe(debug())
-        .pipe(concat(main + ".css"))
-        .pipe(debug())
-        .pipe(addsrc('sprites/build/*.*'))
         .pipe(gulp.dest('build'))
-        .pipe(gzip())
-        .pipe(gulp.dest('build'))
-});
-
-gulp.task('sprites', function (cb) {
-
-    //TODO sprites task hangs on windows
-    //need to find workaround
-    if (os.platform().indexOf('win') === 0)
-    {
-        cb();
-    }
-
-    if (!utils.exists('sprites/')) {
-        cb();
-        return;
-    }
-    del.sync("sprites/build/*");
-
-    return gulp.src(['sprites/**/*'])
-        .pipe(glue({
-            url: './',
-            recursive: true,
-            source: './sprites/',
-            quiet: true,
-            output: './sprites/build/',
-            css: 'sprites/build/'
-        }, function () {
-            cb();
-        }))
 });

@@ -86,6 +86,7 @@ module.exports = {
             'REMOTE-MSEdge': {
                 base: launchersBase,
                 browserName: 'microsoftedge',
+                version: '17',
                 platform: 'WIN10'
             },
             'REMOTE-FF': {

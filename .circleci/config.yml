@@ -35,7 +35,6 @@ test_steps: &test_steps
           yarn --frozen-lockfile --ignore-engines
           if [ "${NPM_TOKEN}" != "" ]; then
             ./scripts/install-dont-break.sh
-            cp -f .circleci/.npmrc ~
           fi
     - save_cache:
         key: dependency-cache-{{ checksum "cache-key.txt" }}
