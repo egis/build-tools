@@ -102,7 +102,10 @@ jobs:
           key: dependency-cache-{{ checksum "cache-key.txt" }}
       - run:
           name: semantic-version
-          command: ALLOW_FAILING=false yarn simple-semantic-release-pre
+          command: |
+            if [ "${GH_TOKEN}" != "" ]; then
+              ALLOW_FAILING=false yarn simple-semantic-release-pre
+            fi
 
   publish:
     <<: *common
@@ -120,7 +123,7 @@ jobs:
       - run:
           name: publish
           command: |
-            if [[ "${CIRCLE_PROJECT_USERNAME}" == "egis" ]]; then
+            if [ "${CIRCLE_PROJECT_USERNAME}" == "egis" ]; then
               yarn semantic-release && yarn semantic-dependents-updates-github
             fi
 
