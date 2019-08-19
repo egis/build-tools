@@ -11,7 +11,7 @@ var path = require('path');
 var is = require('is_js');
 
 function getBowerFolder() {
-    return 'node_modules/';
+    return 'node_modules' + path.sep;
 }
 
 module.exports = function(filter, opts, callback) {
@@ -56,8 +56,8 @@ module.exports = function(filter, opts, callback) {
 
             var fileNames = mainBowerFiles(opts, callback).sort(function (a, b) {
                 function extractPackageName(jsPath) {
-                    var parts = jsPath.split('node_modules/');
-                    var parts2 = parts[parts.length - 1].split('/');
+                    var parts = jsPath.split('node_modules' + path.sep);
+                    var parts2 = parts[parts.length - 1].split(path.sep);
                     return parts2[0];
                 }
                 var nameA = extractPackageName(a);
