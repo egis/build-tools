@@ -130,6 +130,27 @@ For SSL mode, just specify https protocol:
 yarn browsersync -- --proxied-host=https://testbox.papertrail.co.za
 ```
 
+In case you also want dev mode of EgisUI and a plugin while proxying an https UAT and access it from another machine you can do it following way:
+```
+# open terminal tab
+cd [egis-ui-path]
+yarn dev --serve=false --scheme=https --host=[your-ip]
+
+# open another terminal tab
+yarn browser-sync start --server --https --files "dist/**/*" --port 8101 --cors
+
+# open another terminal tab
+cd [plugin-path]
+yarn dev --serve=false --scheme=https --host=[your-ip]
+
+# open another terminal tab
+yarn browser-sync start --server --https --files "dist/**/*" --port 8120 --cors
+
+# open another terminal tab
+cd [build-tools-path]
+yarn browsersync --proxied-host=https://bidshows-dev.papertrail.co.za --plugin=[your-plugin-name]
+```
+
 #### Caveats
  * URLs with default pages other than index.html, e.g. `http://papertrail.lvh.me:3001/web/eSign/?3760` don't work, so 
  you'll get "page not found" if you try to use Sign action. Specify `http://papertrail.lvh.me:3001/web/eSign/sign.html?3760` 

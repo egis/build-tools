@@ -46,7 +46,7 @@ gulp.task('plugin-dev-package', ['dev-bundle-main', 'styles', 'resources'], func
     return packagePlugin();
 });
 
-gulp.task('plugin_watch', ['plugin-dev-package', 'dev-bundle-tests', 'webserver'], function() {
+gulp.task('plugin_watch', common.addWebserver(['plugin-dev-package', 'dev-bundle-tests']), function() {
     _.each(common.bundleKinds, function(kind) {
         watch([common.srcDirs[kind] + '/**/*.js'], function() {
             gulp.start('dev-recompile-' + kind);
