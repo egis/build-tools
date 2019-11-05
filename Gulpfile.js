@@ -39,7 +39,7 @@ gulp.task('test', function() {});
 
 gulp.task('dev-package', devPackageTaskDeps, pack);
 
-gulp.task('watch', ['dev-package', 'dev-bundle-tests', 'webserver'], function() {
+gulp.task('watch', common.addWebserver(['dev-package', 'dev-bundle-tests']), function() {
     _.each(common.bundleKinds, function(kind) {
         watch(path.join(common.srcDirs[kind], '**', '*.js'), function() {
             gulp.start('dev-recompile-' + kind);

@@ -107,6 +107,7 @@ var config = {
     },
     dependenciesJson: dependenciesJson,
     watch: options.watch,
+    scheme: argv.scheme || 'http',
     host: argv.host || pkg.host || 'localhost',
     port: argv.port || pkg.port || '8101',
     prod: !process.env.DEV && options.env === 'production',
@@ -135,6 +136,12 @@ var config = {
     dependsOnEgisUi: function() {
         return pkg.devDependencies && pkg.devDependencies[config.egisUiPkgName] ||
             pkg.dependencies && pkg.dependencies[config.egisUiPkgName];
+    },
+    addWebserver: function(deps) {
+        if (argv.serve !== 'false') {
+            deps.push('webserver')
+        }
+        return deps
     }
 };
 
