@@ -28,15 +28,14 @@ if (argv.chromePath) {
 }
 
 var capabilities = [];
-if (argv.chrome !== 'false') {
+var browserName = argv.browserName || 'chrome';
+if (browserName === 'chrome') {
     capabilities.push(chromeConfig)
-}
-
-if (argv.ff === 'true') {
+} else {
     capabilities.push({
         maxInstances: maxInstances,
         //
-        browserName: 'firefox'
+        browserName: argv.browserName
     })
 }
 
