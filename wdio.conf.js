@@ -12,32 +12,24 @@ var logLevel = argv.logLevel || 'error';
 // 5 instances get started at a time.
 var maxInstances = argv.maxBrowserInstances || process.env.E2E_BROWSER_INSTANCES || 5;
 
-var chromeConfig = {
-    maxInstances: maxInstances,
-    //
-    browserName: 'chrome',
-    chromeOptions: {
-        "args": ["no-sandbox", "disable-dev-shm-usage"]
-    }
-};
-
-if (argv.chromePath) {
-    chromeConfig.chromeOptions = {
-        binary: argv.chromePath
-    }
-}
-
 var capabilities = [];
 var browserName = argv.browserName || 'chrome';
+var capability = {
+    maxInstances: maxInstances,
+    //
+    browserName: argv.browserName
+};
+
 if (browserName === 'chrome') {
-    capabilities.push(chromeConfig)
-} else {
-    capabilities.push({
-        maxInstances: maxInstances,
-        //
-        browserName: argv.browserName
-    })
+    capability.chromeOptions = {
+        "args": ["no-sandbox", "disable-dev-shm-usage"]
+    };
+
+    if (argv.browserPath) {
+        capability.chromeOptions.binary = argv.browserPath;
+    }
 }
+capabilities.push(capability);
 
 module.exports = {
 
