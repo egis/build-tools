@@ -19,7 +19,7 @@ test_steps: &test_steps
     - restore_cache:
         key: yarn-cache-{{ checksum "cache-key.txt" }}
     - restore_cache:
-        key: dont-break-cache-{{ checksum "cache-key.txt" }}-{{ checksum ".dont-break.json" }}
+        key: dont-break-cache-v1-{{ checksum "cache-key.txt" }}-{{ checksum ".dont-break.json" }}
     - run:
         name: initial-steps
         command: |
@@ -60,13 +60,9 @@ test_steps: &test_steps
         paths:
           - ~/.cache/yarn
     - save_cache:
-        key: dont-break-cache-{{ checksum "cache-key.txt" }}-{{ checksum ".dont-break.json" }}
+        key: dont-break-cache-v1-{{ checksum "cache-key.txt" }}-{{ checksum ".dont-break.json" }}
         paths:
-          - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-egis-ui-5-0-3-pre-2
-          - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-esign-3-0-2
-          - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-portal-app-2-0-1
-          - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-bulk-capture-2-0-1
-          - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-egis-ui-test-utils-3-0-0
+          - /tmp
 
 version: 2
 jobs:
