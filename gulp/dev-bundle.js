@@ -84,6 +84,7 @@ _.each(common.bundleKinds, function(kind) {
         }
         return gulp.src(s1)
             .pipe(sourcemaps.init())
+            .pipe(replace('http:', common.scheme + ':'))
             .pipe(replace('HOST', common.host))
             .pipe(replace('PORT', common.port))
             .pipe(concat('dev-loader.js'))   //not with dot 'cause Gulp webserver doesn't serve .dotfiles
@@ -107,7 +108,7 @@ _.each(common.bundleKinds, function(kind) {
         return gulp.src(sources)
             .pipe(sourcemaps.init({loadMaps: true}))
             .pipe(pseudoconcat(common.bundles[kind], {
-                host: 'http://' + common.host + ':' + common.port + '/'
+                host: common.scheme + '://' + common.host + ':' + common.port + '/'
             }))
             .pipe(sourcemaps.write('.', {includeContent: true}))
             .pipe(gulp.dest(destDir))
