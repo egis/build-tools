@@ -21,14 +21,21 @@ var capability = {
 };
 
 if (browserName === 'chrome') {
-    capability.chromeOptions = {
-        "args": ["no-sandbox", "disable-dev-shm-usage"]
+    capability['goog:chromeOptions'] = {
+        args: ["no-sandbox", "disable-dev-shm-usage"]
     };
 
     if (argv.browserPath) {
-        capability.chromeOptions.binary = argv.browserPath;
+        capability['goog:chromeOptions'].binary = argv.browserPath;
     }
 }
+
+if (browserName === 'internet explorer') {
+    capability["se:ieOptions"] = {
+        ignoreProtectedModeSettings: true
+    }
+}
+
 capabilities.push(capability);
 
 module.exports = {
