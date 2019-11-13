@@ -17,7 +17,7 @@ var browserName = argv.browserName || 'chrome';
 var capability = {
     maxInstances: maxInstances,
     //
-    browserName: argv.browserName
+    browserName
 };
 
 if (browserName === 'chrome') {
