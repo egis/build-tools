@@ -174,6 +174,9 @@ module.exports = {
     // variables, such as `browser`. It is the perfect place to define custom commands.
     // before: function (capabilities, specs) {
     // },
+    before: function (capabilities, specs) {
+        console.info('before', specs);
+    },
     //
     // Hook that gets executed before the suite starts
     // beforeSuite: function (suite) {
@@ -219,6 +222,7 @@ module.exports = {
     // onComplete: function(exitCode) {
     // }
     onError: function(err) {
+        console.warn('onError', err);
         browser.err = err; // to be able to query its err.shotTaken later in afterEach hook
     }
 };
