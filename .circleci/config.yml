@@ -17,7 +17,7 @@ test_steps: &test_steps
     - restore_cache:
         key: dependency-cache-{{ checksum "cache-key.txt" }}
     - restore_cache:
-        key: yarn-cache-{{ checksum "cache-key.txt" }}
+        key: yarn-cache-v2-{{ checksum "cache-key.txt" }}
     - restore_cache:
         key: dont-break-cache-v1-{{ checksum "cache-key.txt" }}-{{ checksum ".dont-break.json" }}
     - run:
