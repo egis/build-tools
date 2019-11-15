@@ -2,7 +2,12 @@
 var argv = require('optimist').argv;
 
 var specDirs = argv.specDirs || 'wdio*';
-var specFiles = argv.specFiles || ['.', specDirs, '**/*Spec.js'].join('/');
+var specFiles;
+if (argv.specFiles) {
+    specFiles = argv.specFiles.split(',').map((p) => p.trim());
+} else {
+    specFiles = [['.', specDirs, '**/*Spec.js'].join('/')];
+}
 
 // Level of Webdriver logging verbosity: silent | verbose | command | data | result | error
 var logLevel = argv.logLevel || 'error';
@@ -49,7 +54,7 @@ module.exports = {
     // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
-    specs: [specFiles],
+    specs: specFiles,
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
