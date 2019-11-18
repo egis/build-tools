@@ -227,7 +227,7 @@ module.exports = {
     // onComplete: function(exitCode) {
     // }
     onError: function(err) {
-        console.warn('onError', err);
+        console.warn('onError', err, this.currentTest.fullTitle());
         browser.err = err; // to be able to query its err.shotTaken later in afterEach hook
     }
 };
