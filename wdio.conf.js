@@ -179,8 +179,10 @@ module.exports = {
     // variables, such as `browser`. It is the perfect place to define custom commands.
     // before: function (capabilities, specs) {
     // },
-    // before: function (capabilities, specs) {
-    // },
+    before: function (capabilities, specs) {
+        browser.testInfo = {specs: specs};
+        console.info('before', browser.testInfo);
+    },
     //
     // Hook that gets executed before the suite starts
     // beforeSuite: function (suite) {
@@ -198,11 +200,9 @@ module.exports = {
     //
     // Function to be executed before a test (in Mocha/Jasmine) or a step (in Cucumber) starts.
     beforeTest: function (test) {
-        console.info('beforeTest', test.fullTitle);
-        browser.testInfo = {
-            file: test.file,
-            title: test.fullTitle
-        }
+        browser.testInfo.file = test.file;
+        browser.testInfo.title = test.fullTitle;
+        console.info('beforeTest', browser.testInfo);
     },
     //
     // Runs before a WebdriverIO command gets executed.
