@@ -2,7 +2,12 @@
 var argv = require('optimist').argv;
 
 var specDirs = argv.specDirs || 'wdio*';
-var specFiles = argv.specFiles || ['.', specDirs, '**/*Spec.js'].join('/');
+var specFiles;
+if (argv.specFiles) {
+    specFiles = argv.specFiles.split(',').map((p) => p.trim());
+} else {
+    specFiles = [['.', specDirs, '**/*Spec.js'].join('/')];
+}
 
 // Level of Webdriver logging verbosity: silent | verbose | command | data | result | error
 var logLevel = argv.logLevel || 'error';
@@ -12,33 +17,31 @@ var logLevel = argv.logLevel || 'error';
 // 5 instances get started at a time.
 var maxInstances = argv.maxBrowserInstances || process.env.E2E_BROWSER_INSTANCES || 5;
 
-var chromeConfig = {
+var capabilities = [];
+var browserName = argv.browserName || 'chrome';
+var capability = {
     maxInstances: maxInstances,
     //
-    browserName: 'chrome',
-    chromeOptions: {
-        "args": ["no-sandbox", "disable-dev-shm-usage"]
-    }
+    browserName
 };
 
-if (argv.chromePath) {
-    chromeConfig.chromeOptions = {
-        binary: argv.chromePath
+if (browserName === 'chrome') {
+    capability['goog:chromeOptions'] = {
+        args: ["no-sandbox", "disable-dev-shm-usage"]
+    };
+
+    if (argv.browserPath) {
+        capability['goog:chromeOptions'].binary = argv.browserPath;
     }
 }
 
-var capabilities = [];
-if (argv.chrome !== 'false') {
-    capabilities.push(chromeConfig)
+if (browserName === 'internet explorer') {
+    capability["se:ieOptions"] = {
+        ignoreProtectedModeSettings: true
+    }
 }
 
-if (argv.ff === 'true') {
-    capabilities.push({
-        maxInstances: maxInstances,
-        //
-        browserName: 'firefox'
-    })
-}
+capabilities.push(capability);
 
 module.exports = {
 
@@ -51,7 +54,7 @@ module.exports = {
     // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
-    specs: [specFiles],
+    specs: specFiles,
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
@@ -176,6 +179,10 @@ module.exports = {
     // variables, such as `browser`. It is the perfect place to define custom commands.
     // before: function (capabilities, specs) {
     // },
+    before: function (capabilities, specs) {
+        browser.testInfo = {specs: specs};
+        console.info('before', browser.testInfo);
+    },
     //
     // Hook that gets executed before the suite starts
     // beforeSuite: function (suite) {
@@ -192,8 +199,11 @@ module.exports = {
     // },
     //
     // Function to be executed before a test (in Mocha/Jasmine) or a step (in Cucumber) starts.
-    // beforeTest: function (test) {
-    // },
+    beforeTest: function (test) {
+        browser.testInfo.file = test.file;
+        browser.testInfo.title = test.fullTitle;
+        console.info('beforeTest', browser.testInfo);
+    },
     //
     // Runs before a WebdriverIO command gets executed.
     // beforeCommand: function (commandName, args) {
@@ -221,6 +231,7 @@ module.exports = {
     // onComplete: function(exitCode) {
     // }
     onError: function(err) {
+        console.warn('onError', err, browser.testInfo);
         browser.err = err; // to be able to query its err.shotTaken later in afterEach hook
     }
 };
