@@ -133,7 +133,7 @@ module.exports = {
     //     browserevent: {}
     // },
     plugins: {
-        webdriverajax: {}
+        intercept: {}
     },
     // Test runner services
     // Services take over a specific job you don't want to take care of. They enhance
