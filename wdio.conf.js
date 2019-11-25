@@ -37,7 +37,8 @@ if (browserName === 'chrome') {
 
 if (browserName === 'internet explorer') {
     capability["se:ieOptions"] = {
-        ignoreProtectedModeSettings: true
+        ignoreProtectedModeSettings: true,
+        ensureCleanSession: true
     }
 }
 
