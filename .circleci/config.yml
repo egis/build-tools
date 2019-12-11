@@ -25,6 +25,7 @@ test_steps: &test_steps
         command: |
           ci-tools-upgrade-node
           ci-tools-upgrade-yarn
+          yarn global add yarn-retry
     - run:
         name: xvfb
         command: Xvfb :99 -screen 0 1280x1024x24
@@ -32,7 +33,7 @@ test_steps: &test_steps
     - run:
         name: install-deps
         command: |
-          yarn --frozen-lockfile --ignore-engines
+          yarn-retry -- --frozen-lockfile --ignore-engines
           if [ "${NPM_TOKEN}" != "" ]; then
             ./scripts/install-dont-break.sh
           fi

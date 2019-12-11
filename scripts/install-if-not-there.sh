@@ -2,5 +2,5 @@
 
 package=$1
 if [ ! -d node_modules/$package ]; then
-  yarn add --ignore-engines $package
+  yarn-retry -- add --ignore-engines $package
 fi
