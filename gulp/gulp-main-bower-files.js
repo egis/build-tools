@@ -3,12 +3,10 @@
 // gulp-main-bower-files package code inlined and modified
 
 var through = require('through2');
-var gutil = require('gulp-util');
-var PluginError = gutil.PluginError;
+var PluginError = require('plugin-error');
 var mainBowerFiles = require('main-bower-files');
 var fs = require('fs');
 var path = require('path');
-var is = require('is_js');
 
 function getBowerFolder() {
     return 'node_modules' + path.sep;
