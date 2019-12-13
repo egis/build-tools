@@ -6,7 +6,7 @@ var gulp = require('gulp');
 var plumber = require('gulp-plumber');
 var concat = require('gulp-concat');
 var handlebars = require('gulp-handlebars');
-var wrap = require('@bretkikehara/gulp-wrap');
+var wrap = require('gulp-wrap');
 var path = require('path');
 var common = require('./common');
 
