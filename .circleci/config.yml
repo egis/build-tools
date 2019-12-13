@@ -71,10 +71,6 @@ jobs:
     environment:
       NODE_VERSION: 8.10.0
     <<: *test_steps
-  test6:
-    environment:
-      NODE_VERSION: 6.0.0
-    <<: *test_steps
   test10:
     environment:
       NODE_VERSION: 10.14.2
@@ -87,7 +83,7 @@ jobs:
   publish-test:
     <<: *common
     environment:
-      NODE_VERSION: 8.10.0
+      NODE_VERSION: 8.16.0
     steps:
       - checkout
       - run:
