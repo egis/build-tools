@@ -19,7 +19,7 @@ module.exports = function()
         .pipe(sourcemaps.init())
         .pipe(plumber())
         .pipe(handlebars({
-            handlebars: require('handlebars')
+            handlebars: handlebars0
         }))
         .pipe(wrap('Handlebars.template(<%= contents %>)'))
         .pipe(declare({
