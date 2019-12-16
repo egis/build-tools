@@ -124,8 +124,6 @@ workflows:
   version: 2
   main:
     jobs:
-      - test6:
-          context: org-global
       - test8:
           context: org-global
       - publish-test:
@@ -140,6 +138,5 @@ workflows:
             branches:
               only: master
           requires:
-            - test6
             - test8
           context: org-global
