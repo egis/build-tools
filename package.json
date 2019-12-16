@@ -72,7 +72,7 @@
     "gulp-replace": "^0.5.4",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-transform": "^3.0.5",
+    "gulp-transform": "artemv/gulp-transform#v3.0.6-pre.1",
     "gulp-uglify": "^3.0.2",
     "gulp-watch": "^5.0.1",
     "gulp-wrap": "^0.15.0",
