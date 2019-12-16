@@ -10,13 +10,17 @@ var declare = require('gulp-declare');
 var flatten = require('gulp-flatten');
 var common = require('./common');
 var sourcemaps = require('gulp-sourcemaps');
+var handlebars0 = require('handlebars');
 
 module.exports = function()
 {
+    console.log('compiling templates with handlebars', handlebars0.VERSION);
     return gulp.src("src/**/*.hbs")
         .pipe(sourcemaps.init())
         .pipe(plumber())
-        .pipe(handlebars())
+        .pipe(handlebars({
+            handlebars: require('handlebars')
+        }))
         .pipe(wrap('Handlebars.template(<%= contents %>)'))
         .pipe(declare({
             namespace: 'TEMPLATES',
