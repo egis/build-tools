@@ -56,28 +56,41 @@ module.exports = function(filter, opts, callback) {
                 function extractPackageName(jsPath) {
                     var parts = jsPath.split('node_modules' + path.sep);
                     var parts2 = parts[parts.length - 1].split(path.sep);
-                    return parts2[0];
+                    var moduleName = parts2.shift();
+                    return {moduleName: moduleName, rest: parts2};
                 }
-                var nameA = extractPackageName(a);
-                var nameB = extractPackageName(b);
-                var order = opts.order || [];
-                var inameA = order.indexOf(nameA);
-                var inameB = order.indexOf(nameB);
-                const INFINITY = 10000;
-                if (inameA < 0) {
-                    inameA = INFINITY;
+                function compareByOrder(name1, name2, order) {
+                    order = order || [];
+                    var inameA = order.indexOf(name1);
+                    var inameB = order.indexOf(name2);
+                    const INFINITY = 10000;
+                    if (inameA < 0) {
+                        inameA = INFINITY;
+                    }
+                    if (inameB < 0) {
+                        inameB = INFINITY;
+                    }
+                    var res;
+                    if (inameA < inameB) {
+                        res = -1;
+                    } else if (inameA > inameB) {
+                        res = 1;
+                    } else {
+                        // names are equal
+                        res = 0;
+                    }
+                    return res;
                 }
-                if (inameB < 0) {
-                    inameB = INFINITY;
-                }
+                var da = extractPackageName(a);
+                var db = extractPackageName(b);
+                var moduleNameA = da.moduleName;
+                var moduleNameB = db.moduleName;
                 var res;
-                if (inameA < inameB) {
-                    res = -1;
-                } else if (inameA > inameB) {
-                    res = 1;
+                if (moduleNameA === moduleNameB) {
+                    var order = (opts.overrides[moduleNameA] || {}).main
+                    res = compareByOrder(da.rest.join('/'), db.rest.join('/'), order);
                 } else {
-                    // names are equal
-                    res = 0;
+                    res = compareByOrder(moduleNameA, moduleNameB, opts.order);
                 }
 
                 return res;
