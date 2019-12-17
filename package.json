@@ -37,7 +37,6 @@
     "babel-register": "^6.11.4",
     "babelify": "^7.2.0",
     "bl": "^1.0.0",
-    "browser-sync": "^2.26.0",
     "browserify": "^13.3.0",
     "chai": "^3.5.0",
     "chalk": "^2.1.0",
@@ -128,6 +127,9 @@
     "vinyl-fs": "^3.0.3",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.11.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.7"
   },
   "homepage": "https://github.com/egis/build-tools#readme",
   "license": "Commercial",
