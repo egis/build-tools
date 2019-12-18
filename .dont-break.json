@@ -5,12 +5,12 @@
   "test": "./node_modules/@egis/build-tools/scripts/dont-break-tests.sh",
   "currentModuleInstall": "yarn-link",
   "projects": [
-    "@egis/egis-ui@6.0.0-pre.1",
-    "@egis/portal-app@3.0.0-pre.2",
-    "@egis/esign@3.0.2",
-    "@egis/bulk-capture@2.0.1",
+    "@egis/egis-ui@7.9.10-pre.2",
+    "@egis/portal-app@3.0.5-pre.1",
+    "@egis/esign@4.4.6-pre.1",
+    "@egis/bulk-capture@3.0.3-pre.1",
     {
-      "name": "@egis/egis-ui-test-utils@3.0.0",
+      "name": "@egis/egis-ui-test-utils@6.0.0",
       "test": "npm run build"
     }
   ]
