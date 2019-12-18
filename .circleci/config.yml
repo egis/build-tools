@@ -71,6 +71,10 @@ jobs:
     environment:
       NODE_VERSION: 8.10.0
     <<: *test_steps
+  test9:
+    environment:
+      NODE_VERSION: 9.11.2
+    <<: *test_steps
   test10:
     environment:
       NODE_VERSION: 10.14.2
@@ -126,12 +130,15 @@ workflows:
     jobs:
       - test8:
           context: org-global
+      - test9:
+          context: org-global
       - publish-test:
           filters:
             branches:
               ignore: master
           requires:
             - test8
+            - test9
           context: org-global
       - publish:
           filters:
@@ -139,4 +146,5 @@ workflows:
               only: master
           requires:
             - test8
+            - test9
           context: org-global
