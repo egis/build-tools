@@ -159,6 +159,6 @@
   },
   "version": "0.0.0-semantic-release",
   "engines": {
-    "node": ">= 8.10.0"
+    "node": ">= 8.16.0"
   }
 }
