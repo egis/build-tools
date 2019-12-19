@@ -69,7 +69,7 @@ version: 2
 jobs:
   test8:
     environment:
-      NODE_VERSION: 8.10.0
+      NODE_VERSION: 8.16.0
     <<: *test_steps
   test9:
     environment:
