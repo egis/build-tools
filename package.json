@@ -81,7 +81,6 @@
     "jasmine-ajax": "^3.2.0",
     "jasmine-core": "^2.99.1",
     "karma": "^4.2.0",
-    "karma-appveyor-reporter": "^0.4.1",
     "karma-browserify": "^5.0.0",
     "karma-chrome-launcher": "^0.2.2",
     "karma-coffee-preprocessor": "^0.3.0",
