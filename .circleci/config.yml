@@ -33,7 +33,7 @@ test_steps: &test_steps
     - run:
         name: install-deps
         command: |
-          yarn-retry -- --frozen-lockfile --ignore-engines
+          yarn-retry -- --frozen-lockfile
           if [ "${NPM_TOKEN}" != "" ]; then
             ./scripts/install-dont-break.sh
           fi
@@ -69,15 +69,15 @@ version: 2
 jobs:
   test8:
     environment:
-      NODE_VERSION: 8.10.0
+      NODE_VERSION: 8.16.0
     <<: *test_steps
-  test6:
+  test9:
     environment:
-      NODE_VERSION: 6.0.0
+      NODE_VERSION: 9.11.2
     <<: *test_steps
   test10:
     environment:
-      NODE_VERSION: 10.14.2
+      NODE_VERSION: 10.17.0
     <<: *test_steps
   test11:
     environment:
@@ -87,7 +87,7 @@ jobs:
   publish-test:
     <<: *common
     environment:
-      NODE_VERSION: 8.10.0
+      NODE_VERSION: 8.16.0
     steps:
       - checkout
       - run:
@@ -128,9 +128,11 @@ workflows:
   version: 2
   main:
     jobs:
-      - test6:
-          context: org-global
       - test8:
+          context: org-global
+      - test10:
+          context: org-global
+      - test11:
           context: org-global
       - publish-test:
           filters:
@@ -138,12 +140,15 @@ workflows:
               ignore: master
           requires:
             - test8
+            - test10
+            - test11
           context: org-global
       - publish:
           filters:
             branches:
               only: master
           requires:
-            - test6
             - test8
+            - test10
+            - test11
           context: org-global

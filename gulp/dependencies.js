@@ -4,7 +4,7 @@
 
 var path = require('path');
 var gulp = require('gulp');
-var gutil = require('gulp-util');
+var noop = require("gulp-noop");
 var filter = require('gulp-filter');
 var uglify = require('gulp-uglify');
 var gulpif = require('gulp-if');
@@ -67,7 +67,7 @@ module.exports = function(done) {
     if (dependenciesJson.excludes.length > 0 || dependenciesJson.standalone.length > 0) {
         depsConcat(ignore.exclude(_.union(depsExcludes, depsStandalone)), 'dependencies', prod, done);
     } else {
-        depsConcat(gutil.noop(), 'dependencies', prod, done)
+        depsConcat(noop(), 'dependencies', prod, done)
     }
 };
 
