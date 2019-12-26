@@ -107,7 +107,7 @@ jobs:
   publish:
     <<: *common
     environment:
-      NODE_VERSION: 8.10.0
+      NODE_VERSION: 8.16.0
     steps:
       - checkout
       - run:
