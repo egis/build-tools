@@ -83,6 +83,10 @@ jobs:
     environment:
       NODE_VERSION: 11.4.0
     <<: *test_steps
+  test13:
+    environment:
+      NODE_VERSION: 13.5.0
+    <<: *test_steps
 
   publish-test:
     <<: *common
@@ -134,6 +138,8 @@ workflows:
           context: org-global
       - test11:
           context: org-global
+      - test13:
+          context: org-global
       - publish-test:
           filters:
             branches:
@@ -142,6 +148,7 @@ workflows:
             - test8
             - test10
             - test11
+            - test13
           context: org-global
       - publish:
           filters:
