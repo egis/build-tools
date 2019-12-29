@@ -10,7 +10,7 @@
     "@egis/esign@4.4.6-pre.1",
     "@egis/bulk-capture@3.0.3-pre.1",
     {
-      "name": "@egis/egis-ui-test-utils@6.0.0",
+      "name": "@egis/egis-ui-test-utils@6.1.1",
       "test": "npm run build"
     }
   ]
