@@ -1,6 +1,7 @@
 "use strict";
 var argv = require('optimist').argv;
 
+const debug = process.env.DEBUG;
 var specDirs = argv.specDirs || 'wdio*';
 var specFiles;
 if (argv.specFiles) {
@@ -15,7 +16,7 @@ var logLevel = argv.logLevel || 'error';
 // maxInstances can get overwritten per capability. So if you have an in-house Selenium
 // grid with only 5 firefox instances available you can make sure that not more than
 // 5 instances get started at a time.
-var maxInstances = argv.maxBrowserInstances || process.env.E2E_BROWSER_INSTANCES || 5;
+var maxInstances = debug ? 1 : (argv.maxBrowserInstances || process.env.E2E_BROWSER_INSTANCES || 5);
 
 var capabilities = [];
 var browserName = argv.browserName || 'chrome';
@@ -46,6 +47,7 @@ capabilities.push(capability);
 
 module.exports = {
 
+    execArgv: debug ? ['--inspect'] : [],
     //
     // ==================
     // Specify Test Files
@@ -159,8 +161,8 @@ module.exports = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: argv.mochaOpts.timeout || 5 * 60 * 1000,
-        retries: argv.mochaOpts.retries || 0
+        timeout: argv.mochaOpts.timeout || (debug ? 50 * 60 * 1000 : 5 * 60 * 1000),
+        retries: debug ? 0 : (argv.mochaOpts.retries || 0)
     },
     //
     // =====
