@@ -45,6 +45,7 @@ if (browserName === 'internet explorer') {
 
 capabilities.push(capability);
 
+let mochaOpts = argv.mochaOpts || {};
 module.exports = {
 
     execArgv: debug ? ['--inspect'] : [],
@@ -161,8 +162,8 @@ module.exports = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: argv.mochaOpts.timeout || (debug ? 50 * 60 * 1000 : 5 * 60 * 1000),
-        retries: debug ? 0 : (argv.mochaOpts.retries || 0)
+        timeout: mochaOpts.timeout || (debug ? 50 * 60 * 1000 : 5 * 60 * 1000),
+        retries: debug ? 0 : (mochaOpts.retries || 0)
     },
     //
     // =====
