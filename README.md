@@ -191,7 +191,19 @@ Run the tests:
 yarn test:e2e --baseUrl="http://192.168.99.100:8080" --specFiles="./wdio/**/Guide*Spec.js" --mochaOpts.grep="too early" --maxBrowserInstances=1 --mochaOpts.retries=1 
 ```
 
-#### Semantic-release
+#### Debug e2e tests
+
+1) Open "chrome://inspect/#devices" in Chrome.
+1) Click "Open dedicated DevTools for Node"
+1) Insert `debugger;` line in desired e2e test code
+
+Then in terminal window run:
+```
+DEBUG=true yarn test:e2e --egisLogLevel=debug --specFiles="./wdio/**/Guide*Spec.js" --mochaOpts.grep="too early"
+```
+The debugger will hook up automatically, then you have extended access to context vars etc. Step-by-step tracing doesn't work good however due to wdio' sync mode.
+
+### Semantic-release
 You can see locally which version is going to be published when your PR is merged with these steps:
 ```
 # push egis/master to you-fork/master:
