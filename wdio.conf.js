@@ -1,5 +1,6 @@
 "use strict";
 var argv = require('optimist').argv;
+const { join } = require('path');
 
 const debug = process.env.DEBUG;
 var specDirs = argv.specDirs || 'wdio*';
@@ -142,8 +143,20 @@ module.exports = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['intercept'],
-    //
+    services: [ 'intercept', ['image-comparison',
+        // The options
+        {
+            // Some options, see the docs for more
+            baselineFolder: join(process.cwd(), 'baseline'), formatImageName: '{tag}-{logName}-{width}x{height}',
+            screenshotPath: join(process.cwd(), 'test-output', 'image-comparison'),
+            savePerInstance: true,
+            autoSaveBaseline: true,
+            blockOutStatusBar: true,
+            blockOutToolBar: true,
+            // ... more options
+        }]
+    ],
+//
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: http://webdriver.io/guide/testrunner/frameworks.html
