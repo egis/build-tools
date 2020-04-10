@@ -105,6 +105,7 @@
     "minimatch": "^3.0.2",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
+    "node-sass": "*",
     "optimist": "^0.6.1",
     "path-type": "^1.1.0",
     "plugin-error": "^1.0.1",
