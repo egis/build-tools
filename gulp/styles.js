@@ -14,7 +14,7 @@ var rename = require('gulp-rename');
 var utils = require('../utils');
 
 var main = common.main;
-
+sass.compiler = require('sass');
 gulp.task('styles', ['sass']);
 
 gulp.task('sass', function ()
