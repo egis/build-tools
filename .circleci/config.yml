@@ -13,6 +13,7 @@ test_steps: &test_steps
           mkdir ci-artifacts
           cat package.json | jq '.dependencies, .devDependencies' > cache-key.txt
           echo "node ${NODE_VERSION}" >> cache-key.txt
+          echo "v1" >> cache-key.txt
           cp cache-key.txt ci-artifacts/
     - restore_cache:
         key: dependency-cache-{{ checksum "cache-key.txt" }}
