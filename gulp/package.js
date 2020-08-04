@@ -8,6 +8,7 @@ var zip = require('gulp-zip');
 var del = require('del');
 
 var common = require('./common');
+var utils = require('../utils');
 var pkg = common.pkg;
 var deploy = common.deploy;
 console.log('');
@@ -15,6 +16,11 @@ console.log('');
 module.exports = function()
 {
     if (!common.module.main) return;
+    if (utils.exists('build/.version')) {
+        utils.sh('cp build/.version build/version');
+    } else {
+        console.log('No build/.version - are we in dev mode?');
+    }
     var file = common.module.main + (pkg.plugin ? ".zip" : ".war");
     del.sync('build/' + file);
     console.log('Deploying to ' + (deploy ? deploy : '.') + "/" + file);
