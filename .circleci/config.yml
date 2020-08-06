@@ -11,16 +11,15 @@ test_steps: &test_steps
         name: build-cache-key
         command: |
           mkdir ci-artifacts
-          cat package.json | jq '.dependencies, .devDependencies' > cache-key.txt
-          echo "node ${NODE_VERSION}" >> cache-key.txt
-          echo "v1" >> cache-key.txt
-          cp cache-key.txt ci-artifacts/
+          cat package.json | jq '.dependencies, .devDependencies' >> .circleci/cache-key.txt
+          echo "node ${NODE_VERSION}" >> .circleci/cache-key.txt
+          cp .circleci/cache-key.txt ci-artifacts/
     - restore_cache:
-        key: dependency-cache-{{ checksum "cache-key.txt" }}
+        key: dependency-cache-{{ checksum ".circleci/cache-key.txt" }}
     - restore_cache:
-        key: yarn-cache-v2-{{ checksum "cache-key.txt" }}
+        key: yarn-cache-v2-{{ checksum ".circleci/cache-key.txt" }}
     - restore_cache:
-        key: dont-break-cache-v1-{{ checksum "cache-key.txt" }}-{{ checksum ".dont-break.json" }}
+        key: dont-break-cache-v1-{{ checksum ".circleci/cache-key.txt" }}-{{ checksum ".dont-break.json" }}
     - run:
         name: initial-steps
         command: |
@@ -39,7 +38,7 @@ test_steps: &test_steps
             ./scripts/install-dont-break.sh
           fi
     - save_cache:
-        key: dependency-cache-{{ checksum "cache-key.txt" }}
+        key: dependency-cache-{{ checksum ".circleci/cache-key.txt" }}
         paths:
           - node_modules
     - run:
@@ -58,11 +57,11 @@ test_steps: &test_steps
             dont-break --timeout 600
           fi
     - save_cache:
-        key: yarn-cache-v2-{{ checksum "cache-key.txt" }}
+        key: yarn-cache-v2-{{ checksum ".circleci/cache-key.txt" }}
         paths:
           - ~/.cache/yarn
     - save_cache:
-        key: dont-break-cache-v1-{{ checksum "cache-key.txt" }}-{{ checksum ".dont-break.json" }}
+        key: dont-break-cache-v1-{{ checksum ".circleci/cache-key.txt" }}-{{ checksum ".dont-break.json" }}
         paths:
           - /tmp
 
@@ -98,10 +97,10 @@ jobs:
       - run:
           name: build-cache-key
           command: |
-            cat package.json | jq '.dependencies, .devDependencies' > cache-key.txt
-            echo "node ${NODE_VERSION}" >> cache-key.txt
+            cat package.json | jq '.dependencies, .devDependencies' >> .circleci/cache-key.txt
+            echo "node ${NODE_VERSION}" >> .circleci/cache-key.txt
       - restore_cache:
-          key: dependency-cache-{{ checksum "cache-key.txt" }}
+          key: dependency-cache-{{ checksum ".circleci/cache-key.txt" }}
       - run:
           name: semantic-version
           command: |
@@ -118,10 +117,10 @@ jobs:
       - run:
           name: build-cache-key
           command: |
-            cat package.json | jq '.dependencies, .devDependencies' > cache-key.txt
-            echo "node ${NODE_VERSION}" >> cache-key.txt
+            cat package.json | jq '.dependencies, .devDependencies' >> .circleci/cache-key.txt
+            echo "node ${NODE_VERSION}" >> .circleci/cache-key.txt
       - restore_cache:
-          key: dependency-cache-{{ checksum "cache-key.txt" }}
+          key: dependency-cache-{{ checksum ".circleci/cache-key.txt" }}
       - run:
           name: publish
           command: |
