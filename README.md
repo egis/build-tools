@@ -146,6 +146,8 @@ yarn dev --serve=false --scheme=https --host=[your-ip]
 # open another terminal tab
 yarn browser-sync start --server --https --files "dist/**/*" --port 8120 --cors
 
+# Similarly you can run PortalApp and others in local SSL-compatible mode. Just be sure to use correct port numbers from their respective package.json files, as specified by "port" property.
+
 # open another terminal tab
 cd [build-tools-path]
 yarn browsersync --proxied-host=https://bidshows-dev.papertrail.co.za --plugin=[your-plugin-name]
