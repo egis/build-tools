@@ -36,7 +36,7 @@
     "babel-preset-es2015-rollup": "^3.0.0",
     "babel-register": "^6.11.4",
     "babelify": "^7.2.0",
-    "bl": "^1.0.0",
+    "bl": "^2.2.1",
     "browserify": "^13.3.0",
     "chai": "^3.5.0",
     "chalk": "^2.1.0",
