@@ -32,10 +32,6 @@ test_steps: &test_steps
         name: install-deps
         command: |
           yarn --frozen-lockfile
-          if [ "${NPM_TOKEN}" != "" ]; then
-            ./scripts/install-dont-break.sh
-            cp -f .circleci/.npmrc ~
-          fi
     - save_cache:
         key: dependency-cache-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
         paths:
@@ -62,14 +58,6 @@ test_steps: &test_steps
         key: yarn-cache-v2-{{ checksum "package.json" }}-{{ checksum ".node-version" }}
         paths:
           - ~/.cache/yarn
-    - save_cache:
-        key: dont-break-cache-{{ checksum ".node-version" }}-{{ checksum ".dont-break.json" }}
-        paths:
-          - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-egis-ui
-          - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-esign
-          - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-portal-app
-          - /tmp/egis-build-tools-v-0-0-0-semantic-release-against-egis-bulk-capture
-
 version: 2
 jobs:
   test8:
