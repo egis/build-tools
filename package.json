@@ -160,15 +160,6 @@
     "analyzeCommits": "freeform-semantic-commit-analyzer",
     "verifyConditions": "condition-circle"
   },
-  "semantic-dependents-updates": {
-    "dependents": {
-      "@egis/egis-ui": "git@github.com:egis/EgisUI.git",
-      "@egis/esign": "git@github.com:egis/eSign.git",
-      "@egis/portal-app": "git@github.com:egis/Portal.git",
-      "@egis/bulk-capture": "git@github.com:egis/BulkCapture.git"
-    },
-    "branchNameBase": "autoupdate-build-tools"
-  },
   "version": "0.0.0-semantic-release",
   "engines": {
     "node": ">= 4.2.6"
